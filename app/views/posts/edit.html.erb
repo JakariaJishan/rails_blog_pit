@@ -1,0 +1,7 @@
+<h1>Posts#edit</h1>
+
+<%= form_for  @post, method: :patch  do |form| %>
+  <%= form.text_field :title %>
+  <%= form.text_area :content, size: "60x10" %>
+  <%= form.submit 'Create' %>
+<% end %>

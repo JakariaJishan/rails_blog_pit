@@ -1,6 +1,7 @@
 <%= @post.title %>
 <br/>
-
+<%= link_to "Edit post",  edit_post_path(@post) %>
+<%= button_to "delete post", post_path(@post), method: :delete, data:{confirm:'are you sure?'} %>
 <% @comments.each do |comment| %>
   <%= comment.body %>
 
