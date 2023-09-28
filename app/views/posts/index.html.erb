@@ -1,11 +1,16 @@
-<h1>Posts#index</h1>
-
-<%= link_to "Create new post", new_post_path %>
+<h1 class="text-5xl font-bold text-[#D6CC99] uppercase ">Rails Blog</h1>
+<%= link_to "What's on your mind???", new_post_path, class:"my-5 block bg-[#445D48] text-white rounded-full hover:bg-[#5d8063] p-2 " %>
  <br/>
 
 <% @posts.each do |post| %>
+<div class="bg-[#D6CC99] mb-5 p-3 rounded-lg text-left capitalize hover:scale-105 transition ease-linear duration-100  ">
   <%= link_to post_path(post) do %>
-    <%= post.title %>
+  <h2 class="text-5xl text-[#001524]  font-semibold ">
+    <%= post.title%>
+    </h2>
+    <p class="text-sm text-[#445D48] mt-2">
     <%= post.content %>
+    </p>
   <% end %>
+</div>
 <% end %>
