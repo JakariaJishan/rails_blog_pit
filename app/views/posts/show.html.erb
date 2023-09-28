@@ -1,13 +1,20 @@
 <%= @post.title %>
 <br/>
+<% if can? :edit, @post %>
 <%= link_to "Edit post",  edit_post_path(@post) %>
-<%= button_to "delete post", post_path(@post), method: :delete, data:{confirm:'are you sure?'} %>
-<% @comments.each do |comment| %>
-  <%= comment.body %>
-  <%= link_to "Edit comments", edit_post_comment_path(@post, comment) %>
-  <%= button_to "Delete", post_comment_path(@post, comment), method: :delete, data:{confirm:"Are you sure?"} %>
 <% end %>
 
-
+<% if can? :destroy, @post %>
+<%= button_to "delete post", post_path(@post), method: :delete, data:{confirm:'are you sure?'} %>
+<% end %>
+<% @comments.each do |comment| %>
+  <%= comment.body %>
+  <% if can? :edit, comment %>
+  <%= link_to "Edit comments", edit_post_comment_path(@post, comment) %>
+  <% end %>
+  <% if can? :destroy, comment %>
+  <%= button_to "Delete", post_comment_path(@post, comment), method: :delete, data:{confirm:"Are you sure?"} %>
+  <% end %>
+<% end %>
 
 <%= link_to "Add comments", new_post_comment_path(@post) %>

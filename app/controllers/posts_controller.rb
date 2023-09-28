@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource
   def index
-    @posts = Post.all.order(created_at: :asc)
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def show
@@ -13,7 +15,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @user = User.find(1)
+    @user = current_user
     @post = Post.new(post_params)
     @post.user = @user
 

@@ -2,12 +2,10 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :read, Post, public: true
-
-    return unless user.present?  
-    can :read, Post, user: user
-
-    return unless user.admin?  
     can :read, Post
+    return unless user.present?
+
+    can :manage, Post, user: user
+    can :manage, Comment, user:user
   end
 end
