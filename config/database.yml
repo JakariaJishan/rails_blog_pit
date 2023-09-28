@@ -1,9 +1,9 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: 'localhost'
+  host: "localhost"
   user: postgres
-  password: root
+  password: 12345
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
@@ -13,7 +13,6 @@ development:
 test:
   <<: *default
   database: rails_blog_db
-
 
 production:
   <<: *default
