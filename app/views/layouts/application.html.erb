@@ -12,15 +12,18 @@
   </head>
 
   <body class="bg-[#001524] text-center text-white my-5">
+  <p class="notice text-gray-600"><%= notice %></p>
+  <p class="alert text-red-400"><%= alert %></p>
+  <div class="flex justify-between items-center container mx-auto">
+    <% if user_signed_in? %>
+      <div class="text-green-600">Signed in as... <%= current_user.username %></div>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, class:"bg-red-400 px-3 py-2" %>
+      <% else %>
+      <%= link_to 'Home', root_path  %>
+      <%= link_to 'Sign In', user_session_path, class:"bg-gray-400  px-3 py-2" %>
+  <% end %>
+  </div>
   <div class="w-2/5 mx-auto">
-  
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-
-       <% if user_signed_in? %>
-        <div>Signed in as... <%= current_user.username %></div>
-        <%= link_to 'logout', destroy_user_session_path, method: :delete %>
-        <% end %>
     <%= yield %>
     </div>
   </body>
