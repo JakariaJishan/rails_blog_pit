@@ -12,39 +12,45 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-[#001524] text-center text-white my-5">
+  <body class="bg-[#eee] text-center text-black my-5">
 
   <!--  navigation-->
-  <div class="flex justify-between items-center container mx-auto">
+  <div class=" flex justify-between items-center w-4/5 mx-auto mb-5 ">
     <div>
-      <%= link_to 'Home', root_path  %>
+      <%= link_to 'AWESOME BLOG', root_path, class: "text-black"  %>
+    </div>
+
+    <div  class="flex justify-center items-center gap-5 relative" >
+      <li class="list-none"><a href="/about">about</a></li>
+
+
+      <% if user_signed_in? %>
+        <img src="https://www.seekpng.com/png/small/143-1435868_headshot-silhouette-person-placeholder.png" height="10" width="30" class="rounded-full" id="open" alt="avatar"/>
+
+      <div id="popup" class="hidden absolute top-10 right-0 bg-[#fff] flex  flex-col justify-center items-center px-8 py-4 animate-fade-in" >
+        <img src="https://www.seekpng.com/png/small/143-1435868_headshot-silhouette-person-placeholder.png" height="10" width="80" class="rounded-full mb-2" id="open" alt="avatar"/>
+
+        <div class="text-black">
+          <p class="font-semibold"><%= current_user.username %></p>
+          <p class=""><%= current_user.email %></p>
+          <hr class="my-3"/>
+<!--          edit user-->
+          <hr class="my-3"/>
+
+        </div>
+
+        <%= link_to 'Logout', destroy_user_session_path, method: :delete, class:" px-3 py-2" %>
+      </div>
+      <% else %>
+        <%= link_to 'Sign In', user_session_path, class:" px-3 py-2" %>
+      <% end %>
     </div>
 
 
-    <div data-controller="modal"  class="relative">
-      <button data-action="modal#open" class="">Open modal</button>
-
-      <dialog data-modal-target="modal" id="modal" class="p-0 backdrop:bg-gray-400 backdrop:bg-opacity-50 open:animate-fade-in open:backdrop:animate-fade-in ">
-        <button type="button" data-action="modal#close" class="">X</button>
-
-
-        <hr class="mb-4">
-        <% if user_signed_in? %>
-          <div class="text-green-600">Signed in as... <%= current_user.username %></div>
-          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class:"bg-red-400 px-3 py-2" %>
-        <% else %>
-          <%= link_to 'Sign In', user_session_path, class:"bg-gray-400  px-3 py-2" %>
-        <% end %>
-
-      </dialog>
-    </div>
   </div>
-
-
 
   <p class="notice text-gray-600"><%= notice %></p>
   <p class="alert text-red-400"><%= alert %></p>
-
 
   <div class="w-2/5 mx-auto">
     <%= yield %>
