@@ -12,7 +12,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-[#eee] text-center text-black my-5">
+  <body class="bg-[#F8F6F4] text-center text-black my-5">
 
   <!--  navigation-->
   <div class=" flex justify-between items-center w-4/5 mx-auto mb-5 ">
@@ -21,20 +21,23 @@
     </div>
 
     <div  class="flex justify-center items-center gap-5 relative" >
-      <li class="list-none"><a href="/about">about</a></li>
+      <li class="list-none"><a href="#">Services</a></li>
+      <li class="list-none"><a href="#">About</a></li>
+      <li class="list-none"><a href="#">Contact Us</a></li>
 
 
       <% if user_signed_in? %>
-        <img src="https://www.seekpng.com/png/small/143-1435868_headshot-silhouette-person-placeholder.png" height="10" width="30" class="rounded-full" id="open" alt="avatar"/>
+        <img src="https://www.seekpng.com/png/small/143-1435868_headshot-silhouette-person-placeholder.png" height="10" width="30" class="rounded-full cursor-pointer" id="open" alt="avatar"/>
 
-      <div id="popup" class="hidden absolute top-10 right-0 bg-[#fff] flex  flex-col justify-center items-center px-8 py-4 animate-fade-in" >
-        <img src="https://www.seekpng.com/png/small/143-1435868_headshot-silhouette-person-placeholder.png" height="10" width="80" class="rounded-full mb-2" id="open" alt="avatar"/>
+      <div id="popup" class="hidden absolute top-10 right-0 bg-[#fff] flex  flex-col justify-center items-center px-8 py-4 animate-fade-in shadow-lg" >
+        <img src="https://www.seekpng.com/png/small/143-1435868_headshot-silhouette-person-placeholder.png" height="10" width="80" class="rounded-full mb-2" id="" alt="avatar"/>
 
         <div class="text-black">
           <p class="font-semibold"><%= current_user.username %></p>
           <p class=""><%= current_user.email %></p>
           <hr class="my-3"/>
 <!--          edit user-->
+          <%= link_to "Edit User", edit_user_registration_path %>
           <hr class="my-3"/>
 
         </div>
