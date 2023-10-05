@@ -13,9 +13,9 @@ class CommentsController < ApplicationController
   def create
     @user = current_user
     @post = Post.find(params[:post_id])
-      @comment = @post.comments.new(comment_params)
-
+    @comment = @post.comments.new(comment_params)
     @comment.user = @user
+
     if params[:comment][:parent_id].to_i == 0
       @comment.parent_id = nil
     else
@@ -32,7 +32,6 @@ class CommentsController < ApplicationController
   def edit
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
-
   end
 
   def update
