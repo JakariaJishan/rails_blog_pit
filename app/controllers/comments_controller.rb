@@ -6,17 +6,21 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = Comment.new
     @post = Post.find(params[:post_id])
+    @comment = @post.comments.new( parent_id:params[:parent_id])
   end
 
   def create
     @user = current_user
     @post = Post.find(params[:post_id])
-    @comment = Comment.new(comment_params)
+      @comment = @post.comments.new(comment_params)
 
     @comment.user = @user
-    @comment.post = @post
+    if params[:comment][:parent_id].to_i == 0
+      @comment.parent_id = nil
+    else
+      @comment.parent_id = params[:comment][:parent_id]
+    end
 
     if @comment.save
       redirect_to post_path(@post)

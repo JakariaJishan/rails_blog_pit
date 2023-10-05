@@ -7,7 +7,6 @@ const popup = document.getElementById('popup')
 
 open_btn.addEventListener('click', (e)=>{
     popup.classList.toggle('hidden')
-    console.log("clicked")
 
     e.stopPropagation()
     // location.reload()
@@ -18,5 +17,4 @@ window.addEventListener('click', e =>{
         popup.classList.add('hidden')
     }
 
-    console.log('click from window')
 })
