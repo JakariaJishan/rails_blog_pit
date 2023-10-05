@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_152840) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.bigint "post_id", null: false
-    t.integer "parent_id", null: false
+    t.integer "parent_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
