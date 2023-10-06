@@ -36,14 +36,25 @@
       <% end %>
     </div>
 
-    <div class="ml-8 mr-2 my-3">
-      <div class="mb-3">
+    <div class="m-8 my-3">
+      <div class="mb-3 border border-2 p-3">
         <% comment.replies.each do |reply| %>
+          <div class="flex justify-between items-center ">
+            <div>
+              <b><%= reply.user.username %>:</b>
+              <i>
+                <%= reply.body %> <br/>
+              </i>
+            </div>
+            <% if can? :edit, reply %>
+              <div class="space-x-3">
+                  <button><%= link_to "Edit", "/posts/#{@post.id}/comments/#{comment.id}/replies/#{reply.id}/edit" %></button>
+                <button><%= button_to "Delete", "/posts/#{@post.id}/comments/#{comment.id}/replies/#{reply.id}", method: :delete,data:{turbo_method:"delete",confirm:"Are you sure?"} %></button>
+              </div>
+            <% end %>
 
-          <b><%= reply.user.username %>:</b>
-          <i>
-            <%= reply.body %> <br/>
-          </i>
+          </div>
+
         <% end %>
       </div>
 

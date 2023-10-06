@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     resources :comments
     get "comments/:parent_id/new", to:'comments#new_reply'
     post "comments/:parent_id", to:'comments#create_reply'
-
+    get "comments/:parent_id/replies/:id/edit", to:'comments#edit_reply'
+    patch "comments/:parent_id/replies/:id", to:'comments#update_reply'
+    delete "comments/:parent_id/replies/:id", to:'comments#destroy_reply'
   end
 
 end

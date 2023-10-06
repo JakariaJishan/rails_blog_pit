@@ -48,7 +48,7 @@ class CommentsController < ApplicationController
   def new_reply
     @post = current_user.posts.find(params[:post_id])
     @comment = @post.comments.find(params[:parent_id]).replies.new
-    @reply = @comment.replies.new
+    # @reply = @comment.replies.new
   end
 
   def create_reply
@@ -62,6 +62,31 @@ class CommentsController < ApplicationController
       redirect_to post_path(@post)
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit_reply
+    @post = current_user.posts.find(params[:post_id])
+    @comment = @post.comments.find(params[:parent_id])
+    @reply = @comment.replies.find(params[:id])
+  end
+
+  def update_reply
+    @post = current_user.posts.find(params[:post_id])
+    @comment = @post.comments.find(params[:parent_id])
+    @reply = @comment.replies.find(params[:id])
+    if @reply.update(comment_params)
+      redirect_to post_path(@post)
+    end
+  end
+
+  def destroy_reply
+    @post = current_user.posts.find(params[:post_id])
+    @reply = Comment.find(params[:parent_id]).replies.find(params[:id])
+    if @reply.destroy
+      redirect_to post_path(@post)
+    else
+      redirect_to post_path(@post), status: :unprocessable_entity
     end
   end
 
