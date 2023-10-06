@@ -6,22 +6,14 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.new( parent_id:params[:parent_id])
+    @post = current_user.posts.find(params[:post_id])
+    @comment = @post.comments.new
   end
 
   def create
-    @user = current_user
     @post = Post.find(params[:post_id])
     @comment = @post.comments.new(comment_params)
-    @comment.user = @user
-
-    if params[:comment][:parent_id].to_i == 0
-      @comment.parent_id = nil
-    else
-      @comment.parent_id = params[:comment][:parent_id]
-    end
-
+    @comment.user_id = current_user.id
     if @comment.save
       redirect_to post_path(@post)
     else
@@ -50,7 +42,28 @@ class CommentsController < ApplicationController
       redirect_to post_path(@post)
     else
       redirect_to post_path(@post), status: :unprocessable_entity
-    end  end
+    end
+  end
+
+  def new_reply
+    @post = current_user.posts.find(params[:post_id])
+    @comment = @post.comments.find(params[:parent_id]).replies.new
+    @reply = @comment.replies.new
+  end
+
+  def create_reply
+    @post = current_user.posts.find(params[:post_id])
+    @comment = Comment.find(params[:parent_id])
+    @reply  = @comment.replies.new(comment_params)
+    @reply.user_id = current_user.id
+    @reply.post_id = @post.id
+
+    if @reply.save
+      redirect_to post_path(@post)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   private
 
