@@ -2,11 +2,11 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   load_and_authorize_resource
   def index
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.includes(:user).order(created_at: :desc)
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.includes(user: :comments).find(params[:id])
     @comments = @post.comments.where(parent_id:nil).order(created_at: :desc)
     
   end
