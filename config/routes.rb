@@ -8,12 +8,14 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "posts#index"
   resources :posts do
-    resources :comments
-    get "comments/:parent_id/new", to:'comments#new_reply'
-    post "comments/:parent_id", to:'comments#create_reply'
-    get "comments/:parent_id/replies/:id/edit", to:'comments#edit_reply'
-    patch "comments/:parent_id/replies/:id", to:'comments#update_reply'
-    delete "comments/:parent_id/replies/:id", to:'comments#destroy_reply'
+    resources :comments do 
+      resources :replies
+    end
+    # get "comments/:parent_id/new", to:'comments#new_reply'
+    # post "comments/:parent_id", to:'comments#create_reply'
+    # get "comments/:parent_id/replies/:id/edit", to:'comments#edit_reply'
+    # patch "comments/:parent_id/replies/:id", to:'comments#update_reply'
+    # delete "comments/:parent_id/replies/:id", to:'comments#destroy_reply'
   end
 
 end
