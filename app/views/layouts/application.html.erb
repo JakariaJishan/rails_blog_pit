@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
@@ -27,8 +29,9 @@
 
 
       <% if user_signed_in? %>
-
-        <%= image_tag current_user.avatar, id:"open", class:"w-10 h-10 rounded-full" %>
+      <div div id="open">
+        <%= image_tag current_user.avatar, id:"", class:"w-10 h-10 rounded-full" %>
+      </div>
 
       <div id="popup" class="hidden absolute top-10 right-0 bg-[#fff] flex  flex-col justify-center items-center w-[200px] p-3 text-center  animate-fade-in shadow-lg z-10" >
         <%= image_tag current_user.avatar, id:"", class:"w-20 h-20 rounded-full" %>

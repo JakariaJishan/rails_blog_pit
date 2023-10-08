@@ -9,9 +9,9 @@
       <%= f.label :username %><br />
       <%= f.text_field :username, autofocus: true, autocomplete: "name", class:"text-gray-600"%>
     </div>
-     <div class="field">
+     <div class="field" >
       <%= f.label :avatar, "upload your pic" %><br />
-      <%= f.file_field :avatar, autofocus: true, autocomplete: "name", class:"text-gray-600"%>
+      <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"avatar-input", class:"text-gray-600"%>
     </div>
 
     <div class="field">
@@ -31,8 +31,14 @@
       <%= f.label :password_confirmation %><br />
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"text-gray-600" %>
     </div>
+    
+    <div>
+      <img src='' id="avatar" class="max-w-full"/>
+    </div>
 
-    <div class="actions">
+    <div id="cropper"></div>
+
+    <div class="actions" >
       <%= f.submit "Sign up",class:"my-3 cursor-pointer" %>
     </div>
   <% end %>
@@ -40,3 +46,42 @@
   <%= render "devise/shared/links" %>
 
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var avatarInput = document.getElementById('avatar-input');
+    var avatarPreview = document.getElementById('avatar');
+
+    avatarInput.addEventListener('change', function (e) {
+      var file = e.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function () {
+        avatarPreview.src = reader.result;
+      }
+
+      reader.readAsDataURL(file);
+    });
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var cropper = new Cropper(avatarPreview, {
+          aspectRatio: 1,
+          viewMode: 1,
+      });
+      
+      console.log(cropper.getCroppedCanvas());
+    let canvas = cropper.getCroppedCanvas()
+    canvas.toBlob(function (blob) {
+        var formData = new FormData();
+        formData.append('user[avatar]', blob, 'avatar.jpg');
+        fetch('/users', {
+          method: 'POST',
+          body: formData,
+        }).then(response => {
+          // Handle response
+          console.log('requested');
+        });
+      });
+    });
+  });
+</script>
