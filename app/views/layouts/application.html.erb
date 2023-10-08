@@ -27,10 +27,11 @@
 
 
       <% if user_signed_in? %>
-        <img src="https://www.seekpng.com/png/small/143-1435868_headshot-silhouette-person-placeholder.png" height="10" width="30" class="rounded-full cursor-pointer" id="open" alt="avatar"/>
 
-      <div id="popup" class="hidden absolute top-10 right-0 bg-[#fff] flex  flex-col justify-center items-center px-8 py-4 animate-fade-in shadow-lg" >
-        <img src="https://www.seekpng.com/png/small/143-1435868_headshot-silhouette-person-placeholder.png" height="10" width="80" class="rounded-full mb-2" id="" alt="avatar"/>
+        <%= image_tag current_user.avatar, id:"open", class:"w-10 h-10 rounded-full" %>
+
+      <div id="popup" class="hidden absolute top-10 right-0 bg-[#fff] flex  flex-col justify-center items-center w-[200px] p-3 text-center  animate-fade-in shadow-lg z-10" >
+        <%= image_tag current_user.avatar, id:"", class:"w-20 h-20 rounded-full" %>
 
         <div class="text-black">
           <p class="font-semibold"><%= current_user.username %></p>

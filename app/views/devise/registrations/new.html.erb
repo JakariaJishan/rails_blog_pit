@@ -9,6 +9,11 @@
       <%= f.label :username %><br />
       <%= f.text_field :username, autofocus: true, autocomplete: "name", class:"text-gray-600"%>
     </div>
+     <div class="field">
+      <%= f.label :avatar, "upload your pic" %><br />
+      <%= f.file_field :avatar, autofocus: true, autocomplete: "name", class:"text-gray-600"%>
+    </div>
+
     <div class="field">
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"text-gray-600" %>
