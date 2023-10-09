@@ -11,7 +11,12 @@
     </div>
      <div class="field" >
       <%= f.label :avatar, "upload your pic" %><br />
-      <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"avatar-input", class:"text-gray-600"%>
+      <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"avatar", class:"text-gray-600"%>
+    </div>
+
+    <div class="field" >
+      <%= f.label :date, "Enter your birth date" %>
+      <%= f.date_select :date, min: 0.days.ago,id:"date"  %>
     </div>
 
     <div class="field">
@@ -32,11 +37,12 @@
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"text-gray-600" %>
     </div>
     
-    <div>
-      <img src='' id="avatar" class="max-w-full"/>
+    <div class="">
+      <img src='' id="avatar-preview" class="max-w-full"/>
+      <img src="" id="avatar-show"/>
     </div>
 
-    <div id="cropper"></div>
+    <button id="cropper">crop</button>
 
     <div class="actions" >
       <%= f.submit "Sign up",class:"my-3 cursor-pointer" %>
@@ -49,39 +55,65 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var avatarInput = document.getElementById('avatar-input');
-    var avatarPreview = document.getElementById('avatar');
+    var avatarPreview = document.getElementById('avatar-preview');
+      let croppedImg = document.getElementById('avatar')
+      let cropper;
 
-    avatarInput.addEventListener('change', function (e) {
+    croppedImg.addEventListener('change', function (e) {
       var file = e.target.files[0];
       var reader = new FileReader();
-
       reader.onload = function () {
         avatarPreview.src = reader.result;
+          cropper = new Cropper(avatarPreview, {
+              aspectRatio: 16 / 9
+          });
       }
 
       reader.readAsDataURL(file);
     });
 
-    document.querySelector('form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var cropper = new Cropper(avatarPreview, {
-          aspectRatio: 1,
-          viewMode: 1,
-      });
-      
-      console.log(cropper.getCroppedCanvas());
-    let canvas = cropper.getCroppedCanvas()
-    canvas.toBlob(function (blob) {
-        var formData = new FormData();
-        formData.append('user[avatar]', blob, 'avatar.jpg');
-        fetch('/users', {
-          method: 'POST',
-          body: formData,
-        }).then(response => {
-          // Handle response
-          console.log('requested');
-        });
-      });
-    });
+
+      // const crop = document.getElementById('cropper')
+      //
+      // crop.addEventListener('click', (e)=>{
+      //     let canvas = cropper.getCroppedCanvas()
+      //     e.preventDefault()
+      //     croppedImg.src = canvas.toDataURL()
+      //     console.log(canvas)
+      //
+      // })
+
+      document.querySelector('form').addEventListener('submit', (e) => {
+          e.preventDefault()
+          let canvas =  cropper.getCroppedCanvas()
+          let username = document.getElementById('user_username').value
+          let email = document.getElementById('user_email').value
+          let password = document.getElementById('user_password').value
+          let confirmation_password = document.getElementById('user_password_confirmation').value
+          // let date = document.getElementById('date').value
+          canvas.toBlob(blob => {
+              let formData = new FormData();
+              formData.append('avatar', blob);
+              formData.append('username', username)
+              formData.append('email', email)
+              formData.append('password', password)
+              formData.append('confirmation_password', confirmation_password)
+              // formData.append('date', date)
+              fetch('/users', {
+                      method: 'POST',
+                      headers:{
+                          "Accept": "application/json",
+                          "Content-Type": "multipart/form-data"
+                      },
+                      body: formData,
+                  }).then(response => {
+                      // Handle response
+                      console.log(response,'requested');
+                  });
+
+              })
+
+      })
+
   });
 </script>
