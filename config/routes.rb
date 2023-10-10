@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   devise_scope :user do  
     get '/users/sign_out' => 'devise/sessions#destroy'     
+    post '/registrations/save_data_url', to: 'registrations#save_data_url'
  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -2,7 +2,7 @@
 <div class="text-center">
   <h2>Sign up</h2>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html:{multipart:true}) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="field">
@@ -14,10 +14,7 @@
       <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"avatar", class:"text-gray-600"%>
     </div>
 
-    <div class="field" >
-      <%= f.label :date, "Enter your birth date" %>
-      <%= f.date_select :date, min: 0.days.ago,id:"date"  %>
-    </div>
+   
 
     <div class="field">
       <%= f.label :email %><br />
@@ -43,6 +40,7 @@
     </div>
 
     <button id="cropper">crop</button>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
     <div class="actions" >
       <%= f.submit "Sign up",class:"my-3 cursor-pointer" %>
@@ -54,12 +52,13 @@
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var avatarInput = document.getElementById('avatar-input');
-    var avatarPreview = document.getElementById('avatar-preview');
-      let croppedImg = document.getElementById('avatar')
+    // var avatarInput = document.getElementById('avatar-input');
+      var avatarPreview = document.getElementById('avatar-preview');
+      let avatarInput = document.getElementById('avatar')
+      let croppedImg = document.getElementById('avatar-show')
       let cropper;
 
-    croppedImg.addEventListener('change', function (e) {
+    avatarInput.addEventListener('change', function (e) {
       var file = e.target.files[0];
       var reader = new FileReader();
       reader.onload = function () {
@@ -73,45 +72,60 @@
     });
 
 
-      // const crop = document.getElementById('cropper')
-      //
-      // crop.addEventListener('click', (e)=>{
-      //     let canvas = cropper.getCroppedCanvas()
-      //     e.preventDefault()
-      //     croppedImg.src = canvas.toDataURL()
-      //     console.log(canvas)
-      //
-      // })
+      const crop = document.getElementById('cropper')
+      
+      crop.addEventListener('click', (e)=>{
+          let canvas = cropper.getCroppedCanvas()
+          e.preventDefault()
+          croppedImg.src = canvas.toDataURL()
+      
+      })
 
       document.querySelector('form').addEventListener('submit', (e) => {
           e.preventDefault()
-          let canvas =  cropper.getCroppedCanvas()
-          let username = document.getElementById('user_username').value
-          let email = document.getElementById('user_email').value
-          let password = document.getElementById('user_password').value
-          let confirmation_password = document.getElementById('user_password_confirmation').value
+          // let canvas =  cropper.getCroppedCanvas()
+          // let username = document.getElementById('user_username').value
+          // let email = document.getElementById('user_email').value
+          // let password = document.getElementById('user_password').value
+          // let confirmation_password = document.getElementById('user_password_confirmation').value
           // let date = document.getElementById('date').value
-          canvas.toBlob(blob => {
-              let formData = new FormData();
-              formData.append('avatar', blob);
-              formData.append('username', username)
-              formData.append('email', email)
-              formData.append('password', password)
-              formData.append('confirmation_password', confirmation_password)
-              // formData.append('date', date)
-              fetch('/users', {
-                      method: 'POST',
-                      headers:{
-                          "Accept": "application/json",
-                          "Content-Type": "multipart/form-data"
-                      },
-                      body: formData,
-                  }).then(response => {
-                      // Handle response
-                      console.log(response,'requested');
-                  });
 
-              })
+            let dataURL = cropper.getCroppedCanvas().toDataURL();
+            // console.log(dataURL);
+            // session[:data_url] = dataURL
+            // let formData = new FormData();
+            // formData.set('user[avatar]', dataURL);
+            // Add other form fields to formData if needed
+            fetch('/registrations/save_data_url', {
+              method: 'POST',
+              headers: {  'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content},
+              body: JSON.stringify({ data_url: dataURL })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(e => console.log(e));
+          // canvas.toBlob(blob => {
+          //     let formData = new FormData();
+          //     // formData.append('user[avatar]', blob, 'avatar.jpg');
+          //     formData.append('user[username]', username)
+          //     formData.append('user[email]', email)
+          //     formData.append('user[password]', password)
+          //     formData.append('user[password_confirmation]', confirmation_password)
+          //     // formData.append('date', date)
+          //     console.log({...formData})
+          //     fetch('/users', {
+          //             method: 'POST',
+          //             headers:{
+          //                 "Accept": "application/json",
+          //                 "Content-Type": "multipart/form-data"
+          //             },
+          //             body: [...formData],
+          //         }).then(response => {
+          //             // Handle response
+          //             console.log(response,'requested');
+          //         });
+
+          //     })
 
       })
 
