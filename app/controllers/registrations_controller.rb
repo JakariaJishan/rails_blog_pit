@@ -11,21 +11,17 @@ class RegistrationsController < ::Devise::RegistrationsController
     end
 
     respond_to do |format|
-      if @user.save 
-        format.html { redirect_to root_path }
-        format.json { render json: @user }
+      if @user.save
+        sign_in(@user)
+        format.html { redirect_to '/', notice: "successfully sign up" }
+        format.json { render json: "success" }
       else
-        # format.html { render :new } 
-        format.json { render json: params[:user][:username] }
+        puts @user.errors.full_message
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @user }
       end
     end
-    # if @user.save
-    #   redirect_to root_path
-    #   render json: @user
-    # else
-    #   render json: @user
-    # end
-    # raise @user.inspect
+
   end
 
   private

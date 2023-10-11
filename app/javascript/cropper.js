@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () =>{
 
     // var avatarInput = document.getElementById('avatar-input');
     var avatarPreview = document.getElementById('avatar-preview');
@@ -56,9 +57,11 @@
                 })
             })
             const data = await res.json()
+            window.location.href= '/'
             console.log(data)
         } catch (error) {
-            console.log(error)
+            window.location.href= '/'
+            console.log('error', error)
         }
            
             // console.log(data)
@@ -89,3 +92,4 @@
 
     })
 
+})
