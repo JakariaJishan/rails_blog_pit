@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     let avatarPreview = document.getElementById('avatar-preview');
     let avatarInput = document.getElementById('avatar')
     let registration_form = document.getElementById('registration_form')
+    let edit_registration_form = document.getElementById('edit_registration_form')
     let cropper;
 
     avatarInput?.addEventListener('change', function (e) {
@@ -48,5 +49,7 @@ document.addEventListener('DOMContentLoaded', () =>{
                .catch(e => console.log(e))
 
     })
+//    update user profile
+
 
 })
