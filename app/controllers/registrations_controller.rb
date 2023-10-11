@@ -20,19 +20,22 @@ class RegistrationsController < ::Devise::RegistrationsController
   end
 
   def update
+
     @user = User.find_by(email: params[:user][:email])
-    # raise @user.avatar.inspect
     data_url = params[:user][:cropped_img]
     if data_url.present?
       decoded_image = Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
       @user.avatar.attach(io: StringIO.new(decoded_image), filename: 'avatar.png')
     end
-    puts @user
     if @user.update(user_params)
-      render json:@user
+      # sign_in(@user)
+      puts "success"
+      render json: @user
     else
-      render json:@user
+      puts "failed"
+      render json: @user
     end
+    super
   end
 
   private
