@@ -10,16 +10,12 @@ class RegistrationsController < ::Devise::RegistrationsController
       @user.avatar.attach(io: StringIO.new(decoded_image), filename: 'avatar.png')
     end
 
-    respond_to do |format|
-      if @user.save
-        sign_in(@user)
-        format.html { redirect_to '/', notice: "successfully sign up" }
-        format.json { render json: "success" }
-      else
-        puts @user.errors.full_message
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user }
-      end
+    if @user.save
+      sign_in(@user)
+      render json: @user
+    else
+      puts @user.errors.full_message
+      render json: @user
     end
 
   end

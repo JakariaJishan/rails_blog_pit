@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', () =>{
 
-    // var avatarInput = document.getElementById('avatar-input');
-    var avatarPreview = document.getElementById('avatar-preview');
+    let avatarPreview = document.getElementById('avatar-preview');
     let avatarInput = document.getElementById('avatar')
-    let croppedImg = document.getElementById('avatar-show')
+    let registration_form = document.getElementById('registration_form')
     let cropper;
 
-    avatarInput.addEventListener('change', function (e) {
-        var file = e.target.files[0];
-        var reader = new FileReader();
+    avatarInput?.addEventListener('change', function (e) {
+        let file = e.target.files[0];
+        let reader = new FileReader();
         reader.onload = function () {
             avatarPreview.src = reader.result;
             cropper = new Cropper(avatarPreview, {
@@ -18,17 +17,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         reader.readAsDataURL(file);
     });
 
-
-    // const crop = document.getElementById('cropper')
-    //
-    // crop.addEventListener('click', (e)=>{
-    //     let canvas = cropper.getCroppedCanvas()
-    //     e.preventDefault()
-    //     croppedImg.src = canvas.toDataURL()
-    //
-    // })
-
-    document.querySelector('form').addEventListener('submit',  async (e) => {
+    registration_form?.addEventListener('submit',   (e) => {
         e.preventDefault()
 
         let canvas = cropper.getCroppedCanvas().toDataURL()
@@ -37,13 +26,10 @@ document.addEventListener('DOMContentLoaded', () =>{
         let password = document.getElementById('user_password').value
         let password_confirmation = document.getElementById('user_password_confirmation').value
 
-        try {
-            const res = await fetch('/users', {
+           fetch('/users', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
-                    // "Content-Type": "multipart/form-data",
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
                     'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
                 },
                 body: JSON.stringify({
@@ -56,39 +42,11 @@ document.addEventListener('DOMContentLoaded', () =>{
                     },
                 })
             })
-            const data = await res.json()
-            window.location.href= '/'
-            console.log(data)
-        } catch (error) {
-            window.location.href= '/'
-            console.log('error', error)
-        }
-           
-            // console.log(data)
-
-
-        // canvas.toBlob(blob => {
-        //     let formData = new FormData();
-        //     // formData.append('user[avatar]', blob, 'avatar.jpg');
-        //     formData.append('user[username]', username)
-        //     formData.append('user[email]', email)
-        //     formData.append('user[password]', password)
-        //     formData.append('user[password_confirmation]', confirmation_password)
-        //     // formData.append('date', date)
-        //     console.log({...formData})
-        //     fetch('/users', {
-        //             method: 'POST',
-        //             headers:{
-        //                 "Accept": "application/json",
-        //                 "Content-Type": "multipart/form-data"
-        //             },
-        //             body: [...formData],
-        //         }).then(response => {
-        //             // Handle response
-        //             console.log(response,'requested');
-        //         });
-
-        //     })
+               .then(res => res.json())
+               .then(data => {
+                   window.location.href = '/'
+               })
+               .catch(e => console.log(e))
 
     })
 
