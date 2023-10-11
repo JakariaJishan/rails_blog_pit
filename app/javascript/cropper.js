@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         reader.onload = function () {
             avatarPreview.src = reader.result;
             cropper = new Cropper(avatarPreview, {
-                aspectRatio: 16 / 9
             });
         }
         reader.readAsDataURL(file);
