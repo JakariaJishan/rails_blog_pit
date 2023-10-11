@@ -20,15 +20,15 @@ class RegistrationsController < ::Devise::RegistrationsController
   end
 
   def update
-    puts create_update.inspect
-    if @user.update(create_update)
-      # sign_in(@user)
-      puts "success"
-      render json: @user
-    else
-      puts "failed"
-      render json: @user
-    end
+    # puts create_update.inspect
+    # if @user.update(create_update)
+    #   # sign_in(@user)
+    #   puts "success"
+    #   render json: @user
+    # else
+    #   puts "failed"
+    #   render json: @user
+    # end
     super
   end
 
