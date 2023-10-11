@@ -31,7 +31,13 @@
         e.preventDefault()
 
         let canvas = cropper.getCroppedCanvas().toDataURL()
-           const res = await fetch('/users', {
+        let username = document.getElementById('user_username').value
+        let email = document.getElementById('user_email').value
+        let password = document.getElementById('user_password').value
+        let password_confirmation = document.getElementById('user_password_confirmation').value
+
+        try {
+            const res = await fetch('/users', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -41,11 +47,20 @@
                 },
                 body: JSON.stringify({
                     user:{
-                        cropped_img : canvas
-                    }
+                        cropped_img : canvas,
+                        username:username,
+                        password,
+                        email,
+                        password_confirmation
+                    },
                 })
             })
             const data = await res.json()
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+           
             // console.log(data)
 
 
