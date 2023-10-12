@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         let username = document.getElementById('user_username').value
         let email = document.getElementById('user_email').value
         let password = document.getElementById('user_current_password').value
+        let date = document.getElementById('user_date').value
         fetch('/users', {
             method: 'PATCH',
             headers: {
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () =>{
                     username:username,
                     password,
                     email,
+                    date
                 },
             })
         })

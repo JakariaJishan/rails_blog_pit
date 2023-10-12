@@ -40,6 +40,11 @@
               <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
               <%= f.password_field :current_password,  autocomplete: "current-password",placeholder:"Current password", class:"block border border-grey-light w-full p-3 rounded mb-4" %>
             </div>
+            <div>
+              <%= f.label :date, 'Birth Date' %>
+              <%= f.date_field :date, class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+            </div>
+
             <div class="field" >
               <%= f.label :avatar, "upload your pic" %><br />
               <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"edit_avatar", placeholder:"Upload your picture", class:"block border border-grey-light w-full p-3 rounded mb-4"%>

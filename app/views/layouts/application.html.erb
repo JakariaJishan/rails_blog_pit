@@ -39,7 +39,7 @@
         <div class="text-black mt-5">
           <p class="font-semibold"><%= current_user.username %></p>
           <p class=""><%= current_user.email %></p>
-<!--          <p class="">Birth Date: <%#= current_user.date %></p>-->
+          <p class="">Birth Date: <%= current_user.date %></p>
           <hr class="my-3"/>
 <!--          edit user-->
           <%= link_to "Edit User", edit_user_registration_path %>

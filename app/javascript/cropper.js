@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         let email = document.getElementById('user_email').value
         let password = document.getElementById('user_password').value
         let password_confirmation = document.getElementById('user_password_confirmation').value
-
+        let date = document.getElementById('user_date').value
            fetch('/users', {
                 method: 'POST',
                 headers: {
@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', () =>{
                         username:username,
                         password,
                         email,
-                        password_confirmation
+                        password_confirmation,
+                        date
                     },
                 })
             })

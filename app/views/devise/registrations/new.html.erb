@@ -22,8 +22,14 @@
             <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"Confirm password",class:"block border border-grey-light w-full p-3 rounded mb-4"
             %>
           </div>
+
+          <div>
+            <%= f.label :date, "Birth Date" %>
+            <%= f.date_field :date, class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+          </div>
+
           <div class="field" >
-            <%= f.label :avatar, "upload your pic" %><br />
+            <%= f.label :avatar, "Upload your pic" %><br />
             <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"avatar", placeholder:"Upload your picture", class:"block border border-grey-light w-full p-3 rounded mb-4"%>
           </div>
           <div class="">
