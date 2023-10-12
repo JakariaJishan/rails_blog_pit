@@ -15,8 +15,10 @@ class CommentsController < ApplicationController
     @comment = @post.comments.new(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
+      flash[:notice]="Comment Created successfully"
       redirect_to post_path(@post)
     else
+      flash[:alert] ="Failed to create comment"
       render :new, status: :unprocessable_entity
     end
   end
@@ -30,7 +32,11 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
     if @comment.update(comment_params)
+      flash[:notice]="Comment updated successfully"
       redirect_to post_path(@post)
+    else
+      flash[:alert]="Failed to update comment"
+      render :edit
     end
 
   end
@@ -39,7 +45,9 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
     if @comment.destroy
+      flash[:notice]="Comment deleted successfully"
       redirect_to post_path(@post)
+
     else
       redirect_to post_path(@post), status: :unprocessable_entity
     end

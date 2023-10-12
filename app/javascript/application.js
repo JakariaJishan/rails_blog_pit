@@ -4,4 +4,3 @@ import "controllers"
 import './cropper'
 import './popup'
 import './edit_cropper'
-

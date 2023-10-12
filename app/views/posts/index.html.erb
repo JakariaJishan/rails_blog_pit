@@ -1,16 +1,30 @@
 
 <% @posts.each do |post| %>
-<div class="bg-[#fff] mb-5 p-3 text-left capitalize hover:scale-105 transition ease-linear duration-100  ">
+<div class="bg-[#fff] mb-5 rounded-lg border">
   <%= link_to post_path(post) do %>
-    <%= image_tag post.post_image %>
-  <h2 class="text-5xl text-[#001524]  font-semibold ">
-    <%= post.title%>
-    </h2>
-    <p class="text-sm text-[#445D48] mt-2">
-    <%= post.content %>
-    </p>
-    <p class="text-gray-600">By:
-    <%= post.user.username %></p>
+
+  <%= image_tag post.post_image, class:'h-[400px] w-full object-cover rounded-t-lg' %>
+
+<div class="p-3">
+  <div class="flex items-center gap-3 my-3">
+    <%= image_tag post.user.avatar , class:"w-12 h-12 rounded-full object-cover" %>
+    <div>
+      <h3 class="capitalize"><%= post.user.username %></h3>
+      <p> <%= Date.parse(post.created_at.to_s) %></p>
+    </div>
+  </div>
+  <div>
+    <h2 class="text-5xl text-[#001524] font-bold capitalize my-2 hover:text-indigo-700"><%= post.title%></h2>
+    <p class="text-xl text-[#445D48] "><%= post.content %></p>
+  </div>
+    <div class="flex justify-between items-center ">
+      <div class="block flex items-center gap-2 my-3"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
+      </svg>
+      </span> <%= post.comments.count %> Comments</div>
+      <div class="" id="post-timer"><%=  post.created_at %> ago</div>
+    </div>
+</div>
   <% end %>
 </div>
 <% end %>

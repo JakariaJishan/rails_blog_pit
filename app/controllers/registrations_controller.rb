@@ -10,8 +10,10 @@ class RegistrationsController < ::Devise::RegistrationsController
 
     if @user.save
       sign_in(@user)
+      flash[:notice] = "User created successfully"
       render json: @user
     else
+      flash[:alert] = "Invalid Information"
       render json: @user.errors.full_messages
     end
 
@@ -26,8 +28,10 @@ class RegistrationsController < ::Devise::RegistrationsController
         @user.avatar.attach(io: StringIO.new(decoded_image), filename: 'avatar.png')
       end
       sign_in(@user, bypass: true)
+      flash[:notice]="User updated successfully"
       render json: @user
     else
+      flash[:alert] ="Invalid Information"
       render json: {error: @user.error.full_messages}
     end
 

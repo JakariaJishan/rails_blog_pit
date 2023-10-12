@@ -13,3 +13,11 @@ window.addEventListener('click', e =>{
         popup?.classList.add('hidden')
     }
 })
+
+window.addEventListener('load', () =>{
+    let toast = document.getElementById('toast')
+    setInterval(()=>{
+        toast.classList.add('opacity-0')
+    },2000)
+})
+

@@ -3,12 +3,12 @@ class PostsController < ApplicationController
   load_and_authorize_resource
   def index
     @posts = Post.includes(:user).order(created_at: :desc)
+
   end
 
   def show
     @post = Post.includes(user: :comments).find(params[:id])
     @comments = @post.comments.where(parent_id:nil).order(created_at: :desc)
-    
   end
 
   def new
@@ -21,8 +21,10 @@ class PostsController < ApplicationController
     @post.user = @user
 
     if @post.save
+      flash[:notice] ="Post created successfully"
       redirect_to posts_path
     else
+      flash[:alert] = "Failed to create post"
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,8 +36,10 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
+      flash[:notice] = "Post updated successfully"
       redirect_to post_path(@post)
     else
+      flash[:alert] = "Failed to update post"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -43,8 +47,10 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     if @post.destroy
+      flash[:notice] = "Post deteted"
       redirect_to posts_path
     else
+      flash[:alert] = "Failed to delete post"
       redirect_to post_path(@post), status: :unprocessable_entity
     end
   end
