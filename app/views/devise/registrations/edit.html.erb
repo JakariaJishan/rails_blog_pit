@@ -13,11 +13,11 @@
             <% end %>
 
             <div class="field">
-              <%= f.text_field :username,id:"edit_username", autofocus: true, autocomplete: "name", placeholder:"User Name",class:"block border border-grey-light w-full p-3 rounded mb-4"
+              <%= f.text_field :username,autofocus: true, autocomplete: "name", placeholder:"User Name",class:"block border border-grey-light w-full p-3 rounded mb-4"
               %>
             </div>
             <div class="field">
-              <%= f.email_field :email,id:"edit_email", autofocus: true, autocomplete: "email", placeholder:"Email",class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email",class:"block border border-grey-light w-full p-3 rounded mb-4" %>
             </div>
 
             <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -26,11 +26,11 @@
 
             <div class="field">
               <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-              <%= f.password_field :password,id:"edit_password", autocomplete: "new-password",placeholder:"Password (#{@minimum_password_length} characters minimum)",class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+              <%= f.password_field :password, autocomplete: "new-password",placeholder:"Password (#{@minimum_password_length} characters minimum)",class:"block border border-grey-light w-full p-3 rounded mb-4" %>
             </div>
 
             <div class="field">
-              <%= f.password_field :password_confirmation,id:"edit_password_confirmation", autocomplete: "new-password", placeholder:"Confirm password",class:"block border border-grey-light w-full p-3 rounded mb-4"
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"Confirm password",class:"block border border-grey-light w-full p-3 rounded mb-4"
               %>
             </div>
 
@@ -38,14 +38,14 @@
 
             <div class="field">
               <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-              <%= f.password_field :current_password, id:"edit_current_password", autocomplete: "current-password",placeholder:"Current password", class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+              <%= f.password_field :current_password,  autocomplete: "current-password",placeholder:"Current password", class:"block border border-grey-light w-full p-3 rounded mb-4" %>
             </div>
             <div class="field" >
               <%= f.label :avatar, "upload your pic" %><br />
               <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"edit_avatar", placeholder:"Upload your picture", class:"block border border-grey-light w-full p-3 rounded mb-4"%>
             </div>
             <div class="">
-              <img src='' id="edit_avatar_preview" class="max-w-full"/>
+              <img src='' id="edit-avatar-preview" class="max-w-full"/>
             </div>
 
             <div class="actions">
