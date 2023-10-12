@@ -10,6 +10,7 @@
 <% @posts.each do |post| %>
 <div class="bg-[#fff] mb-5 p-3 text-left capitalize hover:scale-105 transition ease-linear duration-100  ">
   <%= link_to post_path(post) do %>
+    <%= image_tag post.post_image %>
   <h2 class="text-5xl text-[#001524]  font-semibold ">
     <%= post.title%>
     </h2>
