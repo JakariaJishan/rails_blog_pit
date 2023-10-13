@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () =>{
         let email = document.getElementById('user_email').value
         let password = document.getElementById('user_current_password').value
         let date = document.getElementById('user_date').value
+        let phone_input = document.getElementById('phone-input')
+        let iti = intlTelInput(phone_input)
+        let phone_number = iti.getNumber(intlTelInputUtils.numberFormat.E164)
         fetch('/users', {
             method: 'PATCH',
             headers: {
@@ -33,16 +36,16 @@ document.addEventListener('DOMContentLoaded', () =>{
             body: JSON.stringify({
                 user:{
                     cropped_img : canvas,
-                    username:username,
+                    username,
                     password,
                     email,
-                    date
+                    date,
+                    phone_number
                 },
             })
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 window.location.href = '/'
             })
             .catch(e => console.log(e))

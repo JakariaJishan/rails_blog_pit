@@ -16,3 +16,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.iti{
+    /*width: 100%;*/
+}

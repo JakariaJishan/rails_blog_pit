@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () =>{
         let password = document.getElementById('user_password').value
         let password_confirmation = document.getElementById('user_password_confirmation').value
         let date = document.getElementById('user_date').value
+        let phone_input = document.getElementById('phone-input')
+        let iti = intlTelInput(phone_input)
+        let phone_number = iti.getNumber(intlTelInputUtils.numberFormat.E164)
            fetch('/users', {
                 method: 'POST',
                 headers: {
@@ -34,11 +37,12 @@ document.addEventListener('DOMContentLoaded', () =>{
                 body: JSON.stringify({
                     user:{
                         cropped_img : canvas,
-                        username:username,
+                        username,
                         password,
                         email,
                         password_confirmation,
-                        date
+                        date,
+                        phone_number
                     },
                 })
             })

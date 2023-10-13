@@ -8,6 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -43,9 +46,14 @@
         <%= image_tag current_user.avatar, class:"h-52 w-52 object-cover rounded-full" %>
 
         <div class="text-black mt-5">
-          <p class="font-semibold text-xl"><%= current_user.username %></p>
-          <p class="my-px"><%= current_user.email %></p>
-          <p class="">Birth Date: <%= current_user.date %></p>
+          <ul>
+            <li class="font-semibold text-xl"> <%= current_user.username %> </li>
+            <li class="my-px"><%= current_user.email %> </li>
+            <li>Birth Date: <%= current_user.date %></li>
+            <li>Phone Number:<%= current_user.phone_number %> </li>
+          </ul>
+          <p class=""></p>
+
           <hr class="my-3"/>
 <!--          edit user-->
           <%= link_to "Edit User", edit_user_registration_path, class:"hover:underline " %>

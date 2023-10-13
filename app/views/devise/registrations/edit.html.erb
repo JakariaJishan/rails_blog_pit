@@ -49,10 +49,13 @@
               <%= f.label :avatar, "upload your pic" %><br />
               <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"edit_avatar", placeholder:"Upload your picture", class:"block border border-grey-light w-full p-3 rounded mb-4"%>
             </div>
-            <div class="">
+            <div class="mb-3">
               <img src='' id="edit-avatar-preview" class="max-w-full"/>
             </div>
-
+                <div class="field">
+                  <%= f.label :phone_number %>
+                  <%= f.telephone_field :phone_number, class: '', id: 'phone-input' %>
+                </div>
             <div class="actions">
               <%= f.submit "Update",class:"w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-700 focus:outline-none my-3" %>
             </div>
