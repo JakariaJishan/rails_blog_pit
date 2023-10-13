@@ -9,7 +9,6 @@ import './edit_cropper'
 
 window.addEventListener('load', () =>{
     let toast = document.getElementById('toast')
-    console.log(toast)
     setInterval(()=>{
         toast.classList.remove('opacity-100')
         toast.classList.add('opacity-0')
