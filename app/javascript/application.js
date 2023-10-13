@@ -11,7 +11,3 @@ window.intlTelInput(phone_input, {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
     separateDialCode: true,
 });
-// let iti = intlTelInput(phone_input)
-// window.addEventListener('click', () =>{
-//     console.log(iti.getNumber())
-// })
