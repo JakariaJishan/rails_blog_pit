@@ -28,9 +28,9 @@ window.addEventListener('click', e =>{
         popup?.classList.add('hidden')
     }
     if(!post_popup?.contains(e.target)){
-        post_popup.classList.add('hidden')
+        post_popup?.classList.add('hidden')
     }
-    comment_popup.classList.add('hidden')
+    comment_popup?.classList.add('hidden')
 })
 
 

@@ -24,8 +24,9 @@ class PostsController < ApplicationController
       redirect_to posts_path
     else
       flash[:alert] = "Failed to create post"
-      render :new, status: :unprocessable_entity
+      render :create, status: :unprocessable_entity
     end
+
   end
 
   def edit

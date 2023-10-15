@@ -20,9 +20,11 @@
   <body class="bg-[#F8F6F4]  ">
 
   <!--  navigation-->
-  <div class=" flex justify-between items-center w-4/5 mx-auto mb-5 py-5 sticky top-0 bg-[#F8F6F4]">
+  <div class=" flex justify-between items-center w-4/5 mx-auto mb-5 py-3 sticky top-0 bg-[#F8F6F4]">
     <div>
-      <%= link_to 'AWESOME BLOG', root_path, class: "text-green-500 font-bold text-2xl"  %>
+      <%= link_to root_path do %>
+      <%= image_tag ('x.png') , class:'w-16 h-16' %>
+        <% end %>
     </div>
 
     <div  class="flex justify-center items-center gap-5 relative" >
@@ -42,7 +44,7 @@
           <%= image_tag current_user.avatar,class:"object-cover cursor-pointer rounded-full h-12 w-12" %>
       </div>
 
-      <div id="popup" class="hidden absolute top-16 right-0 bg-[#fff] flex  flex-col justify-center items-center w-[280px] p-3 text-center  animate-fade-in shadow-lg z-10 rounded-md" >
+      <div id="popup" class="hidden absolute top-16 right-0 bg-[#fff] flex  flex-col justify-center items-center w-[280px] p-3 text-center  animate-fade-in shadow-lg z-20 rounded-md" >
         <%= image_tag current_user.avatar, class:"h-52 w-52 object-cover rounded-full" %>
 
         <div class="text-black mt-5">

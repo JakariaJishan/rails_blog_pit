@@ -5,17 +5,10 @@ import './cropper'
 import './popup'
 import './edit_cropper'
 
-
-
 window.addEventListener('load', () =>{
     let toast = document.getElementById('toast')
     setInterval(()=>{
         toast.classList.remove('opacity-100')
         toast.classList.add('opacity-0')
-    },1000)
+    },3000)
 })
-let phone_input = document.getElementById('phone-input')
-intlTelInput(phone_input, {
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-    separateDialCode: true,
-});

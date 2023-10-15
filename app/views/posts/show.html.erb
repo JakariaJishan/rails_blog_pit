@@ -13,7 +13,7 @@
 
     <div class="relative">
       <% if can? :manage, @post %>
-    <button id="post-dot" class="p-4 block -z-10"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <button id="post-dot" class="p-4 "><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 -z-10">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
       </svg>
       </button>
@@ -65,7 +65,7 @@
       </div>
 
 
-      <div class="m-8 my-3">
+      <div class="mx-8 my-3">
         <div class="mb-3  p-3">
           <% comment.replies.each do |reply| %>
             <div class="flex justify-between items-center my-2">
@@ -82,9 +82,9 @@
               </div>
               <% if can? :edit, reply %>
                 <div class="space-x-2">
-                  <button><%= link_to "Edit", "/posts/#{@post.id}/comments/#{comment.id}/replies/#{reply.id}/edit", class:"text-slate-500" %>
+                  <button><%= link_to "Edit", "/posts/#{@post.id}/comments/#{comment.id}/replies/#{reply.id}/edit", class:"text-slate-500 hover:underline underline-slate-500" %>
                       </button>
-                  <button><%= button_to "Delete", "/posts/#{@post.id}/comments/#{comment.id}/replies/#{reply.id}", method: :delete,data:{turbo_method:"delete",confirm:"Are you sure?"}, class:" text-red-500" %>
+                  <button><%= button_to "Delete", "/posts/#{@post.id}/comments/#{comment.id}/replies/#{reply.id}", method: :delete,data:{turbo_method:"delete",confirm:"Are you sure?"}, class:" text-red-500 hover:underline underline-red-500" %>
                       </button>
                 </div>
               <% end %>
@@ -98,6 +98,8 @@
       </div>
     </div>
     <% end %>
+    <div class="text-center my-10">
+      <%= link_to "Comment",  "/posts/#{@post.id}/comments/new" , class: 'text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out hover:bg-green-700 bg-green-500 rounded text-white px-10 py-4 text-sm cursor-pointer font-bold'%>
+    </div>
 
-<%= link_to "Comment",  "/posts/#{@post.id}/comments/new" , class: 'text-center my-8  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out hover:bg-green-700 bg-green-500 rounded text-white px-8 py-2 text-sm cursor-pointer block'%>
 </div>
