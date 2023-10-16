@@ -1,44 +1,50 @@
 
 <div class="bg-grey-lighter flex flex-col">
-  <div class="container max-w-xl mx-auto  flex flex-col items-center justify-center px-2">
+  <div class="container max-w-[46rem] mx-auto  flex flex-col items-center justify-center px-2">
     <div class="bg-white px-6 py-8 my-8 rounded shadow-md text-black w-full">
       <h1 class="mb-8 text-3xl text-center">Sign Up</h1>
       <div class="text-center">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name),local:true , html:{multipart:true, id:"registration_form"}) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
           <div class="field">
-            <%= f.text_field :username, autofocus: true, autocomplete: "name", placeholder:"User Name",class:"block border border-grey-light w-full p-3 rounded mb-4"
+            <%= f.text_field :username, autofocus: true, autocomplete: "name", placeholder:"User Name",class:"block border border-gray-300 w-full p-3 rounded mb-4"
             %>
           </div>
           <div class="field">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email",class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email",class:"block border border-gray-300 w-full p-3 rounded mb-4" %>
           </div>
 
           <div class="field">
-            <%= f.password_field :password, autocomplete: "new-password",placeholder:"Password (#{@minimum_password_length} characters minimum)",class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+            <%= f.password_field :password, autocomplete: "new-password",placeholder:"Password (#{@minimum_password_length} characters minimum)",class:"block border border-gray-300 w-full p-3 rounded mb-4" %>
           </div>
 
           <div class="field">
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"Confirm password",class:"block border border-grey-light w-full p-3 rounded mb-4"
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"Confirm password",class:"block border border-gray-300 w-full p-3 rounded mb-4"
             %>
           </div>
 
-          <div>
-            <%= f.label :date, "Birth Date" %>
-            <%= f.date_field :date,value:"2020-02-02",placeholder:"23", class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+          <div class="flex justify-between items-center gap-2 my-4">
+            <div class="relative w-1/2">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg>
+              </div>
+              <input datepicker datepicker-autohide datepicker-format="yyyy/mm/dd" type="text" id="user_date" class="bg-gray-50 border border-gray-300 text-gray-900  rounded focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-3  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" >
+            </div>
+
+            <div class="field w-1/2">
+              <%= f.telephone_field :phone_number, class: "border border-gray-300 p-3 w-full rounded", id: 'phone-input' %>
+            </div>
           </div>
 
           <div class="field" >
-            <%= f.label :avatar, "Upload your pic" %><br />
-            <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"avatar", placeholder:"Upload your picture", class:"block border border-grey-light w-full p-3 rounded mb-4"%>
+            <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"avatar", placeholder:"Upload your picture", class:"block border border-gray-300 w-full my-4 rounded "%>
           </div>
+
           <div class="mb-3">
             <img src='' id="avatar-preview" class="max-w-full"/>
           </div>
-              <div class="field">
-                <%= f.label :phone_number %>
-                <%= f.telephone_field :phone_number, class: '', id: 'phone-input' %>
-              </div>
 
               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
