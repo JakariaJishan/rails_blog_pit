@@ -1,6 +1,6 @@
 
 <div class="bg-grey-lighter flex flex-col">
-  <div class="container max-w-xl mx-auto  flex flex-col items-center justify-center px-2">
+  <div class="container max-w-[46rem] mx-auto  flex flex-col items-center justify-center px-2">
     <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
       <h1 class="mb-8 text-3xl text-center">Edit Profile</h1>
       <div class="text-center">
@@ -13,11 +13,11 @@
             <% end %>
 
             <div class="field">
-              <%= f.text_field :username,autofocus: true, autocomplete: "name", placeholder:"User Name",class:"block border border-grey-light w-full p-3 rounded mb-4"
+              <%= f.text_field :username,autofocus: true, autocomplete: "name", placeholder:"User Name",class:"block border border-gray-300 w-full p-3 rounded mb-4 "
               %>
             </div>
             <div class="field">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email",class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email",class:"block border border-gray-300 w-full p-3 rounded mb-4" %>
             </div>
 
             <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -26,11 +26,11 @@
 
             <div class="field">
               <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-              <%= f.password_field :password, autocomplete: "new-password",placeholder:"Password (#{@minimum_password_length} characters minimum)",class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+              <%= f.password_field :password, autocomplete: "new-password",placeholder:"Password (#{@minimum_password_length} characters minimum)",class:"block border border-gray-300 w-full p-3 rounded mb-4" %>
             </div>
 
             <div class="field">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"Confirm password",class:"block border border-grey-light w-full p-3 rounded mb-4"
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"Confirm password",class:"block border border-gray-300 w-full p-3 rounded mb-4"
               %>
             </div>
 
@@ -38,32 +38,35 @@
 
             <div class="field">
               <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-              <%= f.password_field :current_password,  autocomplete: "current-password",placeholder:"Current password", class:"block border border-grey-light w-full p-3 rounded mb-4" %>
-            </div>
-            <div>
-              <%= f.label :date, 'Birth Date' %>
-              <%= f.date_field :date, class:"block border border-grey-light w-full p-3 rounded mb-4" %>
+              <%= f.password_field :current_password,  autocomplete: "current-password",placeholder:"Current password", class:"block border border-gray-300 w-full p-3 rounded mb-4 " %>
             </div>
 
+            <div class="flex justify-between items-center ">
+              <div class="relative ">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                  </svg>
+                </div>
+                <input datepicker datepicker-autohide datepicker-format="yyyy/mm/dd" type="text" id="user_date" class="bg-gray-50 border border-gray-300 text-gray-900  rounded focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-3  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date", value="<%= current_user.date %>" >
+              </div>
+
+              <div class="field">
+                <%= f.telephone_field :phone_number, class: "border border-gray-300 p-3 rounded", id: 'phone-input' %>
+              </div>
+            </div>
             <div class="field" >
-              <%= f.label :avatar, "upload your pic" %><br />
-              <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"edit_avatar", placeholder:"Upload your picture", class:"block border border-grey-light w-full p-3 rounded mb-4"%>
+              <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"edit_avatar", placeholder:"Upload your picture", class:"block border border-gray-300 w-full my-4 rounded "%>
             </div>
             <div class="mb-3">
-              <img src='' id="edit-avatar-preview" data-user-avatar="<%= rails_blob_url(current_user.avatar) %>" class="max-w-full"/>
+              <img src='' id="edit-avatar-preview" data-user-avatar="<%= rails_blob_url(current_user.avatar) %>" class="max-w-full "/>
             </div>
-                <div class="field">
-                  <%= f.label :phone_number %>
-                  <%= f.telephone_field :phone_number, class: '', id: 'phone-input' %>
-                </div>
-            <div class="actions">
-              <%= f.submit "Update",class:"w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-700 focus:outline-none my-3" %>
+
+            <div class="flex justify-between items-center gap-2">
+              <%= f.submit "Update",class:" w-1/2 text-center py-3 rounded bg-green-500 text-white hover:bg-green-700 focus:outline-none my-3 cursor-pointer" %>
+              <div class="w-1/2 block text-center  rounded bg-red-500 text-white hover:bg-red-700 focus:outline-none my-3"> <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"w-full py-3" %></div>
             </div>
           <% end %>
-
-          <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete,class:"w-full text-center py-3 rounded bg-red-500 text-white hover:bg-red-700 focus:outline-none my-3" %></div>
-
-          <%= link_to "Back", :back %>
 
         </div>
       </div>
