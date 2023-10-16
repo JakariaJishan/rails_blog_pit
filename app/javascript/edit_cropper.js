@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         let date = document.getElementById('user_date').value
         let phone_input = document.getElementById('phone-input')
         let iti = intlTelInput(phone_input)
-        let phone_number = iti.getNumber(intlTelInputUtils.numberFormat.E164)
+        let phone_number = iti.getNumber()
         fetch('/users', {
             method: 'PATCH',
             headers: {
