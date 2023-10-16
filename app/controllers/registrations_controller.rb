@@ -30,6 +30,7 @@ class RegistrationsController < ::Devise::RegistrationsController
       sign_in(@user, bypass: true)
       flash[:notice]="User updated successfully"
       render json: @user
+      
     else
       flash[:alert] ="Invalid Information"
       render json: {error: @user.error.full_messages}

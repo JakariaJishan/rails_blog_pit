@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     edit_registration_form?.addEventListener('submit',   (e) => {
         e.preventDefault()
 
-        let canvas = cropper.getCroppedCanvas().toDataURL()
+        let canvas = cropper?.getCroppedCanvas().toDataURL()
         let username = document.getElementById('user_username').value
         let email = document.getElementById('user_email').value
         let password = document.getElementById('user_current_password').value

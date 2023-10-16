@@ -65,10 +65,10 @@
 
             <div class="flex justify-between items-center gap-2">
               <%= f.submit "Update",class:" w-1/2 text-center py-3 rounded bg-green-500 text-white hover:bg-green-700 focus:outline-none my-3 cursor-pointer" %>
-              <div class="w-1/2 block text-center  rounded bg-red-500 text-white hover:bg-red-700 focus:outline-none my-3"> <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"w-full py-3" %></div>
+
             </div>
           <% end %>
-
+          <div class="w-1/2 block text-center  rounded bg-red-500 text-white hover:bg-red-700 focus:outline-none my-3"> <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"w-full py-3" %></div>
         </div>
       </div>
 
