@@ -6,6 +6,6 @@ class User < ApplicationRecord
 
   validates :date, presence:true
   has_one_attached :avatar
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 end
