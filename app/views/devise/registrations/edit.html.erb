@@ -50,7 +50,7 @@
               <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"edit_avatar", placeholder:"Upload your picture", class:"block border border-grey-light w-full p-3 rounded mb-4"%>
             </div>
             <div class="mb-3">
-              <img src='' id="edit-avatar-preview" class="max-w-full"/>
+              <img src='' id="edit-avatar-preview" data-user-avatar="<%= rails_blob_url(current_user.avatar) %>" class="max-w-full"/>
             </div>
                 <div class="field">
                   <%= f.label :phone_number %>

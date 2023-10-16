@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () =>{
     let edit_registration_form = document.getElementById('edit_registration_form')
     let cropper ;
 
+    editAvatarPreview.src = editAvatarPreview?.dataset.userAvatar
+
     avatarInput?.addEventListener('change', function (e) {
         let file = e.target.files[0];
         let reader = new FileReader();
