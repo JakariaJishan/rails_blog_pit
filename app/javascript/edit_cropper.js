@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         let email = document.getElementById('user_email').value
         let password = document.getElementById('user_password').value
         let password_confirmation = document.getElementById('user_password_confirmation').value
-        let current_password = document.getElementById('user_current_password').value
+        // let current_password = document.getElementById('user_current_password').value
         let date = document.getElementById('user_date').value
         let phone_input = document.getElementById('phone-input')
         let iti = window.intlTelInputGlobals.getInstance(phone_input);
@@ -42,12 +42,12 @@ document.addEventListener('DOMContentLoaded', () =>{
                 user:{
                     cropped_img : canvas,
                     username,
-                    password,
+                    // password,
                     email,
                     date,
                     phone_number,
-                    password_confirmation,
-                    current_password
+                    // password_confirmation,
+                    // current_password
                 },
             })
         })
