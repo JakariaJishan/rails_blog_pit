@@ -10,7 +10,7 @@ class RegistrationsController < ::Devise::RegistrationsController
     end
 
     if @user.save
-      # sign_in(@user)
+      sign_in(@user)
       flash[:notice] = "User created successfully"
       render json: @user
     else
@@ -28,6 +28,7 @@ class RegistrationsController < ::Devise::RegistrationsController
           decoded_image = Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
           @user.avatar.attach(io: StringIO.new(decoded_image), filename: 'avatar.png')
         end
+        bypass_sign_in(@user)
         flash[:notice]="User updated successfully"
         render json: @user
 

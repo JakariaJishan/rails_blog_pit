@@ -61,7 +61,7 @@
               <%= f.file_field :avatar, autofocus: true, autocomplete: "name", id:"edit_avatar", placeholder:"Upload your picture", class:"block border border-gray-300 w-full my-4 rounded"%>
             </div>
             <div class="mb-3 flex justify-center">
-              <img src='' id="edit-avatar-preview" width="40%" height="100%"  data-user-avatar="<%= rails_blob_url(current_user.avatar) %>" class=""/>
+              <img src='' id="edit-avatar-preview" width="100%" height="100%"  data-user-avatar="<%= rails_blob_url(current_user.avatar) %>" class=""/>
             </div>
 
             <div class="">
