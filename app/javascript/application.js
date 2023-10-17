@@ -8,7 +8,7 @@ import './edit_cropper'
 window.addEventListener('load', () =>{
     let toast = document.getElementById('toast')
     setInterval(()=>{
-        toast.classList.remove('opacity-100')
-        toast.classList.add('opacity-0')
+        toast.classList.remove('block')
+        toast.classList.add('hidden')
     },3000)
 })

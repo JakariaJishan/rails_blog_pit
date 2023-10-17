@@ -3,8 +3,9 @@
   <div class="container max-w-[46rem] mx-auto  flex flex-col items-center justify-center px-2">
     <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
       <h1 class="mb-8 text-3xl text-center">Edit Profile</h1>
-      <div class="text-center">
-        <div class="text-center">
+      <div class="">
+        <div class=" relative">
+          <div>
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {multipart:true, method: :put, id:"edit_registration_form" }) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -63,13 +64,13 @@
               <img src='' id="edit-avatar-preview" data-user-avatar="<%= rails_blob_url(current_user.avatar) %>" class="max-w-full "/>
             </div>
 
-            <div class="flex justify-between items-center gap-2">
-              <%= f.submit "Update",class:" w-1/2 text-center py-3 rounded bg-green-500 text-white hover:bg-green-700 focus:outline-none my-3 cursor-pointer" %>
+            <div class="">
+              <%= f.submit "Update",class:" w-[49%] py-3 rounded bg-green-500 text-white hover:bg-green-700 focus:outline-none my-3 cursor-pointer" %>
 
             </div>
           <% end %>
-          <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"w-1/2 text-center rounded bg-red-500 text-white hover:bg-red-700 focus:outline-none py-3 my-3" %>
-          <div class="w-1/2 text-center rounded bg-red-500 text-white hover:bg-red-700 focus:outline-none my-3"> </div>
+          </div>
+              <%= button_to "Delete my account", registration_path(resource_name), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, method: :delete, class:" text-center w-[49%] ml-2 rounded bg-red-500 text-white hover:bg-red-700 focus:outline-none py-3 my-3  block absolute bottom-0 right-0" %>
         </div>
       </div>
 

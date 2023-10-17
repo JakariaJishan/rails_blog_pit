@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         let phone_input = document.getElementById('phone-input')
         let iti = window.intlTelInputGlobals.getInstance(phone_input);
         let phone_number = iti.getNumber()
-
            fetch('/users', {
                 method: 'POST',
                 headers: {

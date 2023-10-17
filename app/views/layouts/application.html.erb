@@ -21,7 +21,7 @@
   <body class="bg-[#F8F6F4]  ">
 
   <!--  navigation-->
-  <div class=" flex justify-between items-center w-4/5 mx-auto mb-5 py-3 sticky top-0 bg-[#F8F6F4]">
+  <div class=" flex justify-between items-center w-4/5 mx-auto mb-5 py-3 sticky top-0 bg-[#F8F6F4] z-[100]">
     <div>
       <%= link_to root_path do %>
       <%= image_tag ('x.png') , class:'w-16 h-16' %>
@@ -71,7 +71,7 @@
 
   </div>
 
-  <div class="text-center flex justify-center block opacity-100 transition ease-in-out" id="toast">
+  <div class="text-center flex justify-center transition ease-in-out" id="toast">
     <% flash.each do |name, msg| %>
       <% if name=='notice' %>
         <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">

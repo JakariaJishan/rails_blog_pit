@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
         reader.readAsDataURL(file);
     });
-
     edit_registration_form?.addEventListener('submit',   (e) => {
         e.preventDefault()
 
