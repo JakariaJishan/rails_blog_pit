@@ -21,7 +21,7 @@ class RegistrationsController < ::Devise::RegistrationsController
 
   def update
     @user = User.find_by(email:params[:user][:email])
-    if @user.update(user_params)
+    if update_resource(@user, user_params)
       data_url = params[:user][:cropped_img]
       if data_url.present?
         decoded_image = Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
@@ -30,7 +30,7 @@ class RegistrationsController < ::Devise::RegistrationsController
       sign_in(@user, bypass: true)
       flash[:notice]="User updated successfully"
       render json: @user
-      
+
     else
       flash[:alert] ="Invalid Information"
       render json: {error: @user.error.full_messages}
@@ -38,10 +38,16 @@ class RegistrationsController < ::Devise::RegistrationsController
 
   end
 
+  protected
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation,:current_password,:avatar, :date, :phone_number)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation,:avatar, :date, :phone_number)
   end
 end
   
