@@ -26,8 +26,9 @@ document.addEventListener('DOMContentLoaded', () =>{
         let password_confirmation = document.getElementById('user_password_confirmation').value
         let date = document.getElementById('user_date').value
         let phone_input = document.getElementById('phone-input')
-        let iti = intlTelInput(phone_input)
+        let iti = window.intlTelInputGlobals.getInstance(phone_input);
         let phone_number = iti.getNumber()
+
            fetch('/users', {
                 method: 'POST',
                 headers: {

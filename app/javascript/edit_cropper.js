@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         let password = document.getElementById('user_current_password').value
         let date = document.getElementById('user_date').value
         let phone_input = document.getElementById('phone-input')
-        let iti = intlTelInput(phone_input)
+        let iti = window.intlTelInputGlobals.getInstance(phone_input);
         let phone_number = iti.getNumber()
         fetch('/users', {
             method: 'PATCH',
