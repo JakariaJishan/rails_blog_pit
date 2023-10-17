@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () =>{
                     date,
                     phone_number,
                     password_confirmation,
-                    // current_password
+                    current_password
                 },
             })
         })
