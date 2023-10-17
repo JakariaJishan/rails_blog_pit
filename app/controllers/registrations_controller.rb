@@ -22,32 +22,40 @@ class RegistrationsController < ::Devise::RegistrationsController
 
   def update
     @user = User.find(current_user.id)
-    if @user.update(user_params)
-      data_url = params[:user][:cropped_img]
-      if data_url.present?
-        decoded_image = Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
-        @user.avatar.attach(io: StringIO.new(decoded_image), filename: 'avatar.png')
+      # if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+      #   params[:user].delete(:password)
+      #   params[:user].delete(:password_confirmation)
+      # end
+      if @user.update(user_params)
+        data_url = params[:user][:cropped_img]
+        if data_url.present?
+          decoded_image = Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
+          @user.avatar.attach(io: StringIO.new(decoded_image), filename: 'avatar.png')
+        end
+        # if user.authenticate(params[:user][:current_password])
+        #   @user.password = params[:user][:password]
+        #   @user.password_confirmation = params[:user][:password]
+        # end
+        # sign_in(@user, bypass: true)
+        flash[:notice]="User updated successfully"
+        render json: @user
+
+      else
+        flash[:alert] ="Invalid Information"
+        render json: {error: @user.error.full_messages}
       end
-      # sign_in(@user, bypass: true)
-      flash[:notice]="User updated successfully"
-      render json: @user
-
-    else
-      flash[:alert] ="Invalid Information"
-      render json: {error: @user.error.full_messages}
-    end
 
   end
 
-  protected
-
-  def update_resource(resource, params)
-    if params[:password]
-      resource.password = params[:password]
-      resource.password_confirmation = params[:password_confirmation]
-    end
-    # resource.update_without_password(params)
-  end
+  # protected
+  #
+  # def update_resource(resource, params)
+  #   if params[:password]
+  #     resource.password = params[:password]
+  #     resource.password_confirmation = params[:password_confirmation]
+  #   end
+  #   # resource.update_without_password(params)
+  # end
 
   private
 
