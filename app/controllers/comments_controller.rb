@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
       redirect_to post_path(@post)
     else
       flash[:alert] ="Failed to create comment"
-      render :new, status: :unprocessable_entity
+      redirect_to post_path(@post), status: :unprocessable_entity
     end
   end
 

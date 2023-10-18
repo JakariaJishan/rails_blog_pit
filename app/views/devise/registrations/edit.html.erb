@@ -14,10 +14,12 @@
             <% end %>
 
             <div class="field">
+              <%= f.label :username %>
               <%= f.text_field :username,autofocus: true, autocomplete: "name", placeholder:"User Name",class:"block border border-gray-300 w-full p-3 rounded mb-4 "
               %>
             </div>
             <div class="field">
+              <%= f.label :email_field %>
               <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email",class:"block border border-gray-300 w-full p-3 rounded mb-4" %>
             </div>
 
@@ -31,6 +33,7 @@
             </div>
 
             <div class="field">
+              <%= f.label :password_confirmation %>
               <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"Confirm password",class:"block border border-gray-300 w-full p-3 rounded mb-4"
               %>
             </div>

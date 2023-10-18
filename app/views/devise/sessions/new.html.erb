@@ -3,19 +3,21 @@
   <div class="container max-w-xl mx-auto  flex flex-col items-center justify-center px-2">
     <div class="bg-white px-6 py-8 my-8 rounded shadow-md text-black w-full">
       <h1 class="mb-8 text-3xl text-center">Log In</h1>
-      <div class="text-center">
+      <div class="text-left">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="field">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email", class:"block border border-grey-light w-full p-3 rounded mb-4"
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email", class:"block border border-gray-300 w-full p-3 rounded mb-4"
             %>
           </div>
 
           <div class="field">
-            <%= f.password_field :password, autocomplete: "current-password", placeholder:"Password", class:"block border border-grey-light w-full p-3 rounded mb-4"%>
+            <%= f.label :password %>
+            <%= f.password_field :password, autocomplete: "current-password", placeholder:"Password", class:"block border border-gray-300 w-full p-3 rounded mb-4"%>
           </div>
 
           <% if devise_mapping.rememberable? %>
-            <div class="field">
+            <div class="field text-center">
               <%= f.check_box :remember_me %>
               <%= f.label :remember_me %>
             </div>
@@ -26,8 +28,8 @@
             %>
           </div>
         <% end %>
-          <p>Or</p>
-        <div><em class="underline"><%= render "devise/shared/links" %></em></div>
+          <p class="text-center">Or</p>
+        <div class="text-center"><em class="underline"><%= render "devise/shared/links" %></em></div>
       </div>
 
     </div>
