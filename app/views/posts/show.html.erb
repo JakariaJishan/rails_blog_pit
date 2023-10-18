@@ -84,6 +84,20 @@
           <% end %>
         </div>
         <% if user_signed_in? %>
+          <%= form_for comment.replies.new, url:post_comment_replies_path(@post, comment) do |form| %>
+            <div role="alert" class=" ">
+              <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                <h1 class="text-center text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Add Reply</h1>
+
+                <%= form.text_area :body, class: 'mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-50 flex items-center pl-3 text-sm border-gray-300 rounded border', placeholder: 'Enter Comment here...' %>
+
+                <div class="flex items-center justify-start w-full">
+                  <%= form.submit "Add Reply", class: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transition duration-150 ease-in-out hover:bg-green-700 bg-green-500 rounded text-white px-8 py-2 text-sm cursor-pointer' %>
+                  <%= link_to "Cancel", post_path(@post), class:"focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-red-400 ml-3 bg-red-600 transition duration-150 text-white ease-in-out hover:border-red-400 hover:bg-red-500 border rounded px-8 py-2 text-sm" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <%= link_to  new_post_comment_reply_path(@post, comment) , class:"px-2 py-px group" do %>
             <span>Reply </span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 inline-block group-hover:-translate-y-1 ">
@@ -97,17 +111,15 @@
     </div>
 
     <% end %>
-    <div class="text-center my-10">
+    <div class="text-center mt-10 mb-20">
 
       <%= form_for @comments.new, url: post_comments_path(@post), controller: 'comment', action:"create" do |form| %>
         <div role="alert" class=" ">
-          <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded ">
-            <h1 class="text-center text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Add New Comment</h1>
-            <%= form.text_area :body, class: 'mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-50 flex items-center pl-3 text-sm border-gray-300 rounded border', placeholder: 'Enter Comment here...' %>
+          <div class="flex justify-center items-center gap-3 w-3/4 mx-auto">
+            <%= form.text_area :body, class: 'mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-50 flex items-center pl-3 text-sm border-gray-300 rounded border', placeholder: 'Enter Comment here...' %>
             <%= form.hidden_field :parent_id, value: params[:parent_id] %>
-            <div class="flex items-center justify-start w-full">
-              <%= form.submit "Add Comment", class: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transition duration-150 ease-in-out hover:bg-green-700 bg-green-500 rounded text-white px-8 py-2 text-sm cursor-pointer' %>
-            </div>
+              <%= form.button nil do %>
+              <img width="50" height="50" src="https://img.icons8.com/ios-glyphs/30/filled-sent.png" alt="filled-sent" class="hover:-translate-y-1"/>          <% end %>
           </div>
         </div>
       <% end %>
