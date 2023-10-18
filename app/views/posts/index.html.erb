@@ -9,14 +9,14 @@
   <div class="flex items-center gap-3 my-3">
     <%= image_tag post.user.avatar , class:"w-12 h-12 rounded-full object-cover" %>
     <div>
-      <h3 class="capitalize"><%= post.user.username %></h3>
-      <p> <%= Date.parse(post.created_at.to_s) %></p>
+      <h3 class="capitalize font-semibold"><%= post.user.username %></h3>
+      <p class="text-gray-500 text-sm"> <%= Date.parse(post.created_at.to_s) %></p>
     </div>
   </div>
   <div>
     <h2 class="text-3xl text-[#001524] font-bold capitalize my-2 "><%= post.title%></h2>
   </div>
-    <div class="flex justify-between items-center ">
+    <div class="flex justify-between items-center text-gray-500">
       <div class="block flex items-center gap-2 my-3"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
       </svg>
