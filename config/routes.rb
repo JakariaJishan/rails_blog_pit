@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :comments do 
       resources :replies
     end
+    resources :likes , only: [:create, :destroy]
     # get "comments/:parent_id/new", to:'comments#new_reply'
     # post "comments/:parent_id", to:'comments#create_reply'
     # get "comments/:parent_id/replies/:id/edit", to:'comments#edit_reply'
