@@ -4,6 +4,7 @@ import "controllers"
 import './cropper'
 import './popup'
 import './edit_cropper'
+import './like_unlike'
 
 window.addEventListener('load', () =>{
     let toast = document.getElementById('toast')

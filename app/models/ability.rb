@@ -6,5 +6,6 @@ class Ability
     return unless user.present?
     can :manage, Post, user: user
     can :manage, Comment, user:user
+    can :manage, Like, user:user
   end
 end
