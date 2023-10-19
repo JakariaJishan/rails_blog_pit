@@ -6,25 +6,23 @@ class LikesController < ApplicationController
   def create
       @post = Post.find(like_params[:post_id])
       @like = @post.likes.new(user_id:current_user.id)
+      @user_like = @post.likes.find{ |like| like.user_id == current_user.id}
       if @like.save
-        render json: {like_count: @post.likes.count }, status:  :ok
+        render json: {liked_number: @post.likes.count, like_id: @user_like.id }, status:  :ok
       end
   end
 
   def destroy
     @post = Post.find(params[:post_id])
     @like = @post.likes.find(params[:id])
+    @user_like = @post.likes.find{ |like| like.user_id == current_user.id}
     if @like.destroy
-      render json: {like_count: @post.likes.count } , status: :ok
+      render json: {liked_number: @post.likes.count, like_id: @user_like.id } , status: :ok
     end
   end
 end
 
 private
-
-# def like_already_exists?
-#   Like.where(user_id: current_user.id, post_id: like_params[:post_id]).exists?
-# end
 
 def like_params
   params.require(:like).permit(:post_id)
