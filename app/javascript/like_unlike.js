@@ -7,7 +7,6 @@ let like_count = document.getElementsByClassName('like-count')
             let like_id = post_classes[i].dataset.likeId
             let initialState = post_classes[i].dataset.initialState
             if(initialState === 'true'){
-                console.log('inside delete')
                 fetch(`posts/${post_id}/likes/${like_id}`, {
                     method: 'DELETE',
                     headers: {
