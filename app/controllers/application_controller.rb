@@ -38,8 +38,13 @@ class ApplicationController < ActionController::Base
     end
 
     def read_time (text)
-        @total_words = text.split(' ').length()
-        @total_read_time = (@total_words/150.0).round(2)
+        @total_words = text.split(' ').length
+        @total_read_time = (@total_words/150.0).round
+        if @total_read_time < 1
+             "few sec read"
+        else
+             "#{@total_read_time} min read"
+        end
     end
 protected
 def configure_permitted_parameters
