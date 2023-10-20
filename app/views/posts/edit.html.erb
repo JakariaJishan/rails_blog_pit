@@ -8,7 +8,8 @@
 
       <%= form.text_area :content,  class: 'mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-50 flex items-center pl-3 text-sm border-gray-300 rounded border', placeholder: 'Enter post content here...' %>
 
-      <%= form.file_field :post_image %>
+      <%= form.file_field :post_image, class:"w-full", id:"post_image_input" %>
+      <%= image_tag @post.post_image, class:"h-96 my-5 w-full object-cover", id:"post_image_preview" %>
       <div class="flex items-center justify-start w-full my-5">
         <%= form.submit "Add Post", class: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transition duration-150 ease-in-out hover:bg-green-700 bg-green-500 rounded text-white px-8 py-2 text-sm cursor-pointer' %>
         <%= link_to "Cancel", post_path(@post), class:"focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-red-400 ml-3 bg-red-600 transition duration-150 text-white ease-in-out hover:border-red-400 hover:bg-red-500 border rounded px-8 py-2 text-sm" %>
@@ -16,3 +17,4 @@
     </div>
   </div>
 <% end %>
+<%= javascript_include_tag "post_show" %>
