@@ -1,6 +1,4 @@
 
-
-
 <%= form_for @post do |form| %>
   <div role="alert" class=" ">
     <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded ">
@@ -10,7 +8,8 @@
 
       <%= form.text_area :content, class: 'mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-50 flex items-center pl-3 text-sm border-gray-300 rounded border', placeholder: 'Enter post content here...' %>
 
-      <%= form.file_field :post_image %>
+      <%= form.file_field :post_image, id:"new-post" %>
+      <img src="" id="preview-post" class=" my-5  object-cover" />
 
       <div class="flex items-center justify-start w-full mt-5">
         <%= form.submit "Add Post", class: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transition duration-150 ease-in-out hover:bg-green-700 bg-green-500 rounded text-white px-8 py-2 text-sm cursor-pointer' %>
