@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
     before_action :configure_permitted_parameters, if: :devise_controller?
-    helper_method :time_ago
+    helper_method :time_ago, :read_time
     def time_ago (date)
         current_date = Time.zone.now
         target_date = date
@@ -35,6 +35,11 @@ class ApplicationController < ActionController::Base
         else
             "#{years} years ago"
         end
+    end
+
+    def read_time (text)
+        @total_words = text.split(' ').length()
+        @total_read_time = (@total_words/150.0).round(2)
     end
 protected
 def configure_permitted_parameters

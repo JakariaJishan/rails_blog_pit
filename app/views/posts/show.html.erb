@@ -8,17 +8,20 @@
           <h3 class="capitalize font-semibold"><%= @post.user.username %></h3>
           <p class="text-gray-500 text-sm"> <%=  time_ago(@post.created_at) %> </p>
         </div>
-        <h3 class="text-3xl text-[#001524] font-bold capitalize "><%= @post.title%></h3>
-        <p class="text-xl text-[#445D48] my-2"><%= @post.content %></p>
+        <div>
+          <h3 class="text-3xl text-[#001524] font-bold capitalize "><%= @post.title%></h3>
+          <p class="text-xl text-[#445D48] my-2"><%= @post.content %></p>
+        </div>
+
       </div>
     </div>
-    <div class="relative">
+    <div class="relative flex flex-col items-end gap-16">
       <% if can? :manage, @post %>
-    <button id="post-dot" class="p-4 "><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 -z-10">
+       <button id="post-dot" class="p-4 "><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 -z-10">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
       </svg>
       </button>
-    <div class="hidden absolute top-10 right-5 shadow-lg p-5 bg-white" id="post-popup">
+      <div class="hidden absolute top-10 right-5 shadow-lg p-5 bg-white" id="post-popup">
           <% if can? :edit, @post %>
             <%= link_to "Edit", edit_post_path(@post) , class:"my-2 text-gray-500 border border-gray-500 px-3 py-px hover:bg-gray-500 hover:text-white rounded-md block"%>
           <% end %>
@@ -27,12 +30,13 @@
             <%= button_to "Delete", post_path(@post), method: :delete, data:{confirm:'are you sure?'} , class:"my-2 text-red-500 border border-red-500 px-3 py-px hover:bg-red-500 hover:text-white rounded-md" %>
           <% end %>
       </div>
-      <% end %>
+        <p class="text-gray-500 mx-4"><%= read_time(@post.content)%> min read</p>
+    <% end %>
     </div>
   </div>
 </div>
 
-<div class="my-10 bg-white">
+<div class="my-10 bg-white shadow-lg">
     <% @comments.each do |comment| %>
     <div class=" border-b p-5 ">
       <div class="flex justify-between items-start p-3">
@@ -115,7 +119,7 @@
       </div>
     </div>
     <% end %>
-    <div class="text-center p-8">
+    <div class="text-center p-8 ">
       <%= form_for @comments.new, url: post_comments_path(@post), controller: 'comment', action:"create" do |form| %>
         <div role="alert" class=" ">
           <div class="">
