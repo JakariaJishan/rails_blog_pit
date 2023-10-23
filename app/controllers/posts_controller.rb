@@ -1,11 +1,13 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :downcase_title, only: [:create]
   load_and_authorize_resource
+
   def index
     if params[:search_input].blank?
       @posts = Post.includes(:user).order(created_at: :desc)
     else
-      @posts = Post.includes(:user).where(title: params[:search_input]).order(created_at: :desc)
+      @posts = Post.includes(:user).where(title: params[:search_input].downcase).order(created_at: :desc)
     end
   end
 
@@ -62,6 +64,10 @@ class PostsController < ApplicationController
 
 
   private
+
+  def downcase_title
+    post_params[:title].downcase!
+  end
 
   def post_params
     params.require(:post).permit(:title, :content, :post_image, :search_input)
