@@ -18,8 +18,8 @@ let like_count = document.getElementsByClassName('like-count')
                     .then(data => {
                         like_count[i].innerHTML = data.liked_number
                         post_classes[i].dataset.initialState = "false"
-                        post_classes[i].classList.remove('text-red-500')
-                        post_classes[i].classList.add('text-gray-500')
+                        post_classes[i].children[0].style.fill = 'none'
+                        post_classes[i].children[0].style.stroke = 'currentColor'
                     })
                     .catch(e => {
                         console.log(e)
@@ -37,8 +37,8 @@ let like_count = document.getElementsByClassName('like-count')
                         like_count[i].innerHTML = data.liked_number
                         post_classes[i].dataset.initialState = "true"
                         post_classes[i].dataset.likeId =data.like_id
-                        post_classes[i].classList.remove('text-gray-500')
-                        post_classes[i].classList.add('text-red-500')
+                        post_classes[i].children[0].style.fill = 'red'
+                        post_classes[i].children[0].style.stroke = 'red'
                     })
                     .catch(e => {
                         console.log(e)
