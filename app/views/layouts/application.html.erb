@@ -40,18 +40,10 @@
     <%end %>
 
     <div  class="flex justify-center items-center gap-5 relative" >
-<!--      <li class="list-none hover:underline"><a href="#">Services</a></li>-->
-<!--      <li class="list-none hover:underline"><a href="#">About</a></li>-->
-<!--      <li class="list-none hover:underline"><a href="#">Contact Us</a></li>-->
+      <li class="list-none hover:underline"><a href="#">Services</a></li>
+      <li class="list-none hover:underline"><a href="#">About</a></li>
+      <li class="list-none hover:underline"><a href="#">Contact Us</a></li>
       <% if user_signed_in? %>
-        <div class="my-5  text-right ">
-          <%= link_to new_post_path, class:"hover:bg-green-700 hover:text-white border border-green-500 text-green-500 px-5 py-3 rounded-md " do %>
-            Create Post
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" inline-block w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-          <% end %>
-        </div>
       <div id="open" >
           <%= image_tag current_user.avatar,class:"object-cover cursor-pointer rounded-full h-12 w-12  p-1 ring-2 ring-green-500" %>
       </div>
