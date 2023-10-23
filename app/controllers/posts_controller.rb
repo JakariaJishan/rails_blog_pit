@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :downcase_title, only: [:create]
+  before_action :downcase_title, only: [:create,:update]
   load_and_authorize_resource
 
   def index
