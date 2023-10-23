@@ -1,5 +1,5 @@
 
-<% @posts.each do |post| %>
+<% if @posts.each do |post| %>
 <div class="bg-[#fff] mb-5 rounded-lg border">
   <%= link_to post_path(post) do %>
 
@@ -96,4 +96,6 @@
   </div>
 </div>
 </div>
+<% end.empty? %>
+  <h3>No Content found!!!</h3>
 <% end %>

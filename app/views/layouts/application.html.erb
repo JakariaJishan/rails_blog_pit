@@ -28,6 +28,13 @@
         <% end %>
     </div>
 
+<!--    search funtionality-->
+
+    <%= form_with url: root_path, method: "get" do |f|%>
+      <%= f.text_field :search_input %>
+      <%= f.submit "Search" %>
+    <%end %>
+
     <div  class="flex justify-center items-center gap-5 relative" >
 <!--      <li class="list-none hover:underline"><a href="#">Services</a></li>-->
 <!--      <li class="list-none hover:underline"><a href="#">About</a></li>-->

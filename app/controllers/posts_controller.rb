@@ -2,7 +2,11 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   load_and_authorize_resource
   def index
-    @posts = Post.includes(:user).order(created_at: :desc)
+    if params[:search_input].blank?
+      @posts = Post.includes(:user).order(created_at: :desc)
+    else
+      @posts = Post.includes(:user).where(title: params[:search_input]).order(created_at: :desc)
+    end
   end
 
   def show
@@ -60,6 +64,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :post_image)
+    params.require(:post).permit(:title, :content, :post_image, :search_input)
   end
 end
