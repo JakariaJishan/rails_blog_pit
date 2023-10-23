@@ -7,7 +7,8 @@ class PostsController < ApplicationController
     if params[:search_input].blank?
       @posts = Post.includes(:user).order(created_at: :desc)
     else
-      @posts = Post.includes(:user).where(title: params[:search_input].downcase).order(created_at: :desc)
+      search_downcase = params[:search_input].downcase
+      @posts = Post.includes(:user).where(title: search_downcase).order(created_at: :desc)
     end
   end
 
