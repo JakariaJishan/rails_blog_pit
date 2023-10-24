@@ -12,7 +12,6 @@ search_input.addEventListener('input', (e)=>{
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             search_results.innerHTML = ''
             data.forEach(post =>{
                 let li = document.createElement('li')
@@ -41,3 +40,4 @@ search_input.addEventListener('input', (e)=>{
         search_results.innerHTML = ''
     }
 })
+
