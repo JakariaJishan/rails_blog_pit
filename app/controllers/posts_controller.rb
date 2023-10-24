@@ -67,8 +67,6 @@ class PostsController < ApplicationController
     end
   end
 
-
-
   private
 
   def downcase_title

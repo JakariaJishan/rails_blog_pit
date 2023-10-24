@@ -4,7 +4,6 @@ const search_results = document.getElementById('search-results')
 search_input.addEventListener('input', (e)=>{
     // e.preventDefault()
     let title = search_input.value
-    console.log(title.length)
     if(title.length > 0){
     fetch(`/?title=${title}`, {
         headers:{
@@ -21,6 +20,18 @@ search_input.addEventListener('input', (e)=>{
                 a.href = `/posts/${post.id}`
                 a.textContent = post.title
                 li.appendChild(a)
+                a.style.cssText =  `
+                    display: block;
+                    padding: 10px 30px;
+                    margin-top: 5px;
+                    font-size:20px;
+                `
+                a.addEventListener('mouseover', ()=>{
+                    a.style.backgroundColor ="lightGray"
+                })
+                a.addEventListener('mouseout', ()=>{
+                    a.style.backgroundColor =""
+                })
                 search_results.appendChild(li)
             })
 
