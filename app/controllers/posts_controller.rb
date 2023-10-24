@@ -4,12 +4,17 @@ class PostsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if params[:search_input].blank?
+    if params[:title].blank?
       @posts = Post.includes(:user).order(created_at: :desc)
     else
-      search_downcase = params[:search_input].downcase
-      @posts = Post.includes(:user).where(title: search_downcase).order(created_at: :desc)
+      search_downcase = params[:title].downcase
+      @posts = Post.includes(:user).where("title LIKE ?", "%#{search_downcase}%").order(created_at: :desc)
     end
+    respond_to do |format|
+      format.html
+      format.json { render json: @posts }
+    end
+
   end
 
   def show
@@ -71,6 +76,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :post_image, :search_input)
+    params.require(:post).permit(:title, :content, :post_image)
   end
 end

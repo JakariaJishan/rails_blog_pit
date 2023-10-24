@@ -5,11 +5,10 @@
   </div>
   <% end %>
 
-<% if @posts.each do |post| %>
-<div class="bg-[#fff] mb-5 rounded-lg border">
-  <%= link_to post_path(post) do %>
-
-  <%= image_tag post.post_image, class:'h-[400px] w-full object-cover rounded-t-lg' %>
+    <% if @posts.each do |post| %>
+      <div class="bg-[#fff] mb-5 rounded-lg border">
+        <%= link_to post_path(post) do %>
+          <%= image_tag post.post_image, class:'h-[400px] w-full object-cover rounded-t-lg' %>
 
 <div class="p-5">
   <div class="flex justify-between items-center gap-3 my-3">

@@ -5,6 +5,7 @@ import './cropper'
 import './popup'
 import './edit_cropper'
 import './like_unlike'
+import './search_posts'
 
 window.addEventListener('load', () =>{
     let toast = document.getElementById('toast')
