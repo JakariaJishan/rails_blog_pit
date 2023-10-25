@@ -54,13 +54,13 @@
       <li class="list-none hover:underline"><a href="#">Contact Us</a></li>
       <% if user_signed_in? %>
       <div id="open" >
-          <%= image_tag current_user.avatar,class:"object-cover cursor-pointer rounded-full h-12 w-12  p-1 ring-2 ring-green-500" %>
+          <%= image_tag current_user.avatar,class:"object-cover cursor-pointer rounded-full h-12 w-12  p-1 ring-2 ring-white" %>
       </div>
 
-      <div id="popup" class="hidden absolute top-16 right-0 bg-[#fff] flex  flex-col justify-center items-center w-[280px] p-3 text-center  animate-fade-in shadow-lg z-20 rounded-md" >
-        <%= image_tag current_user.avatar, class:"h-52 w-52 object-cover rounded-full" %>
-
-        <div class="text-black mt-5">
+      <div id="popup" class="hidden absolute top-16 right-0 bg-[#fff] flex  flex-col justify-center items-center w-[280px] text-center  animate-fade-in shadow-lg z-20 rounded-md" >
+        <div class="h-20 w-full bg-gray-200"></div>
+        <%= image_tag current_user.avatar, class:"h-28 w-28 mt-[-60px] ring-4 ring-white object-cover relative rounded-full" %>
+        <div class="text-black mt-5 mb-3 w-1/2">
           <ul>
             <li class="font-semibold text-xl"> <%= current_user.username %> </li>
             <li class="my-px"><%= current_user.email %> </li>
