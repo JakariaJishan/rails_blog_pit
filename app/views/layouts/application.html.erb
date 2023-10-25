@@ -37,10 +37,10 @@
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
               </div>
-              <%= text_field_tag :title, params[:title], id:"search-input", class:"block w-full text-gray-900 hover:shadow-lg rounded-full border-0 focus:ring-blue-500 focus:border-blue-500 focus:ring-2 px-10  bg-white border-2" %>
+              <%= text_field_tag :title, params[:title], id:"search-input", class:"block w-full text-gray-900 focus:shadow-lg rounded-full  px-10 py-3  bg-white border-2 focus:border-0 focus:ring-2 ", placeholder:"Search Posts..." %>
                 <%#= submit_tag 'Search' , class:"absolute right-0 top-0 bg-gray-400 cursor-pointer rounded-lg px-1 text-white"%>
               <% end %>
-              <div class="absolute top-12 left-0 bg-white w-full rounded-l shadow-lg">
+              <div class="absolute top-14 left-0 bg-white w-full rounded-l shadow-lg">
                 <ul id="search-results">
                 </ul>
               </div>
@@ -83,7 +83,7 @@
 
   </div>
 
-  <div class="text-center flex justify-center transition ease-in-out" id="toast">
+  <div class="text-center flex justify-center  transition ease-in-out" id="toast">
     <% flash.each do |name, msg| %>
       <% if name=='notice' %>
         <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">

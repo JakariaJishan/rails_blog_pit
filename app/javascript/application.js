@@ -10,7 +10,6 @@ import './search_posts'
 window.addEventListener('load', () =>{
     let toast = document.getElementById('toast')
     setInterval(()=>{
-        toast.classList.remove('block')
-        toast.classList.add('hidden')
+        toast.classList.add('opacity-0')
     },3000)
 })
