@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     before_action :configure_permitted_parameters, if: :devise_controller?
     helper_method :time_ago, :read_time
+
     def time_ago (date)
         current_date = Time.zone.now
         target_date = date
@@ -46,10 +47,11 @@ class ApplicationController < ActionController::Base
              "#{@total_read_time} min read"
         end
     end
-protected
-def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :avatar, :date])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :avatar, :date, :password, :password_confirmation, :current_password])
-end
+
+    protected
+    def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :avatar, :date])
+        devise_parameter_sanitizer.permit(:account_update, keys: [:username, :avatar, :date, :password, :password_confirmation, :current_password])
+    end
 
 end

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :downcase_title, only: [:create,:update]
   load_and_authorize_resource
-
+  helper_method :list_like_users
   def index
     if params[:title].blank?
       @posts = Post.includes(:user).order(created_at: :desc)
@@ -65,6 +65,13 @@ class PostsController < ApplicationController
       flash[:alert] = "Failed to delete post"
       redirect_to post_path(@post), status: :unprocessable_entity
     end
+  end
+
+  def list_like_users(likes)
+    likes.each {|like| like}
+
+    # @users.user.username
+    # @uses = @likes.each{ |user| user.username}
   end
 
   private

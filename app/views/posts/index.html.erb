@@ -42,8 +42,19 @@
         </svg>
 
       </div>
-      <div class="pt-2 ">
-        <p id="like" class="like-count inline-block" ><%= post.likes.count %></p> <span>loves</span>
+      <div class="pt-2 relative">
+        <p id="like" class="like-count inline-block cursor-pointer" ><%= post.likes.count %> <span>loves</span></p>
+        <div>
+          <ul id="" class="hidden like-popup p-3 absolute flex flex-col items-center">
+            <% post.likes.each do |like| %>
+              <div class="flex items-center gap-2 my-2">
+                <%= image_tag like.user.avatar , class:"w-12 h-12 rounded-full object-cover" %>
+                <li><%= like.user.username %></li>
+              </div>
+            <% end %>
+          </ul>
+
+        </div>
       </div>
     </div>
     <div class="flex justify-between items-center gap-8">

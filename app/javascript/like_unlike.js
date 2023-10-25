@@ -1,5 +1,7 @@
 let post_classes = document.getElementsByClassName('post-class')
 let like_count = document.getElementsByClassName('like-count')
+let like_btn = document.getElementById('like')
+let like_popup = document.getElementsByClassName('like-popup')
     for (let i = 0; i< post_classes.length; i++){
         post_classes[i].addEventListener('click', (e)=>{
             e.preventDefault()
@@ -46,9 +48,16 @@ let like_count = document.getElementsByClassName('like-count')
                     })
             }
 
-
-
         })
     }
 
+    for (let i = 0; i < like_count.length; i++){
+        like_count[i].addEventListener('click', (e)=>{
+            like_popup[i].classList.toggle('hidden')
+            e.stopPropagation()
+        })
+        window.addEventListener('click', ()=>{
+            like_popup[i].classList.add('hidden')
 
+        })
+    }
