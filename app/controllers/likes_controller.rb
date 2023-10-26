@@ -20,6 +20,24 @@ class LikesController < ApplicationController
       render json: {liked_number: @post.likes.count, like_id: @user_like.id } , status: :ok
     end
   end
+
+  def liked_users
+    @post = Post.find(params[:post_id])
+    @likes = @post.likes
+    response = @likes.map do |like|
+      user = like.user
+      avatar = url_for(user.avatar)
+      user_name = user.username
+      {
+        userName:user_name,
+        avatar: avatar,
+      }
+    end
+    # @users = @likes.map {|like| like.user}
+    # @avatars = @users.map{|user| user.avatar }
+    render json: {users: response}
+
+  end
 end
 
 private

@@ -8,7 +8,7 @@
     <% if @posts.each do |post| %>
       <div class="bg-[#fff] mb-5 rounded-lg border">
 
-          <div id="controls-carousel" class="relative w-full" data-carousel="slide">
+          <div id="controls-carousel" class="relative w-full" data-carousel="static">
             <!-- Carousel wrapper -->
             <div class="relative h-[400px] overflow-hidden rounded-lg md:h-96">
               <!-- Item 1 -->
@@ -77,15 +77,10 @@
 
       </div>
       <div class="pt-2 relative">
-        <p id="like" class="like-count inline-block cursor-pointer" ><%= post.likes.count %> <span>loves</span></p>
+        <p id="<%= post.id %>" class="like-count inline-block cursor-pointer " ><%= post.likes.count %> loves</p>
         <div>
-          <ul id="" class="hidden like-popup p-3 absolute flex flex-col items-center">
-            <% post.likes.each do |like| %>
-              <div class="flex items-center gap-2 my-2">
-                <%= image_tag like.user.avatar , class:"w-12 h-12 rounded-full object-cover" %>
-                <li><%= like.user.username %></li>
-              </div>
-            <% end %>
+          <ul id="" class="hidden like-popup p-3 absolute flex flex-col items-start bg-white shadow w-[200px]">
+
           </ul>
 
         </div>

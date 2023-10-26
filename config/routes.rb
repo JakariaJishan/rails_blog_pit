@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     # patch "comments/:parent_id/replies/:id", to:'comments#update_reply'
     # delete "comments/:parent_id/replies/:id", to:'comments#destroy_reply'
   end
+  get '/posts/liked_users/:post_id', to: "likes#liked_users"
+
 
 end
