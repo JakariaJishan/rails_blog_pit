@@ -8,10 +8,11 @@
     <% if @posts.each do |post| %>
       <div class="bg-[#fff] mb-5 rounded-lg border">
         <%= link_to post_path(post) do %>
-          <%= image_tag post.post_image, class:'h-[400px] w-full object-cover rounded-t-lg' %>
-
-<div class="p-5">
-  <div class="flex justify-between items-center gap-3 my-3">
+          <% post.post_images.each do |post_image| %>
+          <%= image_tag post_image, class:'' %>
+            <% end %>
+         <div class="p-5">
+      <div class="flex justify-between items-center gap-3 my-3">
     <div class="flex items-center gap-3">
       <%= image_tag post.user.avatar , class:"w-12 h-12 rounded-full object-cover" %>
       <div>
@@ -21,11 +22,11 @@
     </div>
     <i class="text-gray-500"><%= read_time(post.content)%></i>
   </div>
-  <div>
+      <div>
     <h2 class="text-2xl text-[#001524] font-bold capitalize my-2 "><%= post.title%></h2>
     <p class="text-md "><%= post.content.split(' ')[0,2].join(' ') %> ... <span class="text-blue-700">show more</span></p>
   </div>
-  <% end %>
+    <% end %>
 
   <div class=" flex justify-between items-center mt-5 mb-3" >
     <div class="flex  gap-2">
@@ -112,7 +113,7 @@
     </div>
   </div>
 </div>
-</div>
+      </div>
 <% end.empty? %>
   <h3>No Content found!!!</h3>
 <% end %>

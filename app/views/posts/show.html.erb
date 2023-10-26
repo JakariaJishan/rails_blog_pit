@@ -1,5 +1,7 @@
 <div class="bg-white rounded-lg shadow-lg">
-  <%= image_tag @post.post_image, class:"rounded-t-lg" %>
+  <% @post.post_images.each do |post_image| %>
+    <%= image_tag post_image, class:'rounded-t-lg' %>
+  <% end %>
   <div class="flex justify-between items-start">
     <div class="flex justify-center items-start gap-3  my-4 px-3">
       <%= image_tag @post.user.avatar, class:"h-10 w-10 rounded-full object-cover" %>
