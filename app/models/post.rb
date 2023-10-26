@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   validates :title, presence:true
   validates :content, presence:true
-  validates :post_images, presence: true
+  validates :post_images, presence: true,content_type: ['image/png', 'image/jpg', 'image/jpeg']
 
   belongs_to :user
   has_many :comments, dependent: :destroy
