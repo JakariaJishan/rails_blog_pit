@@ -29,9 +29,7 @@ class PostsController < ApplicationController
   def create
     @user = current_user
     @post = Post.new(post_params)
-    # @post.post_photos.attach(params[:post][:post_photos])
     @post.user = @user
-    # raise @post.inspect
     if @post.save
       flash[:notice] ="Post created successfully"
       redirect_to posts_path
