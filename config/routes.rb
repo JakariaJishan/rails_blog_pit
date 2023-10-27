@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+
   devise_for :users, controllers: {registrations: "registrations"}
   devise_scope :user do  
     get '/users/sign_out' => 'devise/sessions#destroy'

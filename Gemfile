@@ -77,3 +77,6 @@ gem "devise", "~> 4.9"
 gem 'cancancan'
 gem "tailwindcss-rails", "~> 2.0"
 gem 'active_storage_validations'
+
+gem "sidekiq", "~> 7.1"
+gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
