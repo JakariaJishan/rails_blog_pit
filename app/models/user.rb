@@ -13,6 +13,6 @@ class User < ApplicationRecord
 
   def after_confirmation
     super
-    WelcomeJob.perform_async
+    WelcomeJob.perform_async(self.email)
   end
 end
