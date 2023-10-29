@@ -13,3 +13,4 @@ window.addEventListener('load', () =>{
         toast.classList.add('opacity-0')
     },3000)
 })
+import "./channels"
