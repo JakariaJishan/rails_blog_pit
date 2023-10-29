@@ -51,7 +51,7 @@
     <div  class="flex justify-center items-center gap-5 relative" >
       <li class="list-none hover:underline"><a href="#">Services</a></li>
       <li class="list-none hover:underline"><a href="#">About</a></li>
-      <li class="list-none hover:underline"><a href="#">Contact Us</a></li>
+      <li class="list-none hover:underline"><%= link_to "Chat", messages_path %></li>
       <% if user_signed_in? %>
       <div id="open" >
           <%= image_tag current_user.avatar,class:"object-cover cursor-pointer rounded-full h-12 w-12  p-1 ring-2 ring-white" %>

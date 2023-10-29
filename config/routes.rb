@@ -23,6 +23,6 @@ Rails.application.routes.draw do
     # delete "comments/:parent_id/replies/:id", to:'comments#destroy_reply'
   end
   get '/posts/liked_users/:post_id', to: "likes#liked_users"
-
+  resources :messages , only:[:index, :new, :create]
 
 end

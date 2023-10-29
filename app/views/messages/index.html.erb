@@ -1,0 +1,15 @@
+<% @messages.each do |message| %>
+  <article class="message">
+    <div class="message-header">
+      <%= message.user.email %>
+    </div>
+    <div class="message-body">
+      <%= message.body %>
+    </div>
+  </article>
+<% end %>
+
+<%= form_for @messages.new do |f|%>
+  <%= f.text_field :body , id:"message-input"%>
+  <%= f.submit "Send Message" %>
+<% end %>
