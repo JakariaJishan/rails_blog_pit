@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   load_and_authorize_resource
   helper_method :list_like_users
   def index
+    ActionCable.server.broadcast("chat_channel", { message: "Hello, World!" })
     if params[:title].blank?
       @posts = Post.includes(:user).order(created_at: :desc)
     else

@@ -6,6 +6,7 @@ import './popup'
 import './edit_cropper'
 import './like_unlike'
 import './search_posts'
+import './channels/index'
 
 window.addEventListener('load', () =>{
     let toast = document.getElementById('toast')
