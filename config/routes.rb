@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'chats/create'
   mount Sidekiq::Web => '/sidekiq'
   mount ActionCable.server => '/cable'
   devise_for :users, controllers: {registrations: "registrations"}
@@ -23,6 +24,6 @@ Rails.application.routes.draw do
     # delete "comments/:parent_id/replies/:id", to:'comments#destroy_reply'
   end
   get '/posts/liked_users/:post_id', to: "likes#liked_users"
-
+  resources :chats, only:[:index,:create]
 
 end
