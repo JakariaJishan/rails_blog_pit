@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   def index
     if params[:title].blank?
       @posts = Post.includes(:user).order(created_at: :desc)
+
     else
       search_downcase = params[:title].downcase
       @posts = Post.includes(:user).where("title LIKE ?", "%#{search_downcase}%").order(created_at: :desc)

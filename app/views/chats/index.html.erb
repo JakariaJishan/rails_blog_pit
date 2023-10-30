@@ -1,0 +1,14 @@
+<h2>welcome to chat</h2>
+<div id="display-chat">
+<% @chats.each do |chat| %>
+    <div >
+      <div class="chat-head"><%= chat.user.email %></div>
+      <div class="chat-body"><%= chat.body %></div>
+    </div>
+<% end %>
+</div>
+
+<%= form_for Chat.new do |f| %>
+  <%= f.text_field :body, id:"chat-input"  %>
+  <%= f.submit "send" %>
+<% end %>
