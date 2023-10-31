@@ -11,7 +11,7 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    puts data
+    puts "from speak #{data}"
     sender = User.find(data['sender_id'])
     recipient = User.find(data['recipient_id'])
 

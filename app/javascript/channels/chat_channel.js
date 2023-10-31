@@ -22,18 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     speak(content) {
-      console.log(content)
       this.perform('speak', { content: content, sender_id: senderId, recipient_id: recipientId })
     }
   })
-
   const form = document.getElementById('new_message')
   form.addEventListener('submit', function(e) {
     const input = document.getElementById('message_content')
     const content = input.value
-    if (input.value === ''){
-      return
-    }
     chatChannel.speak(content)
     input.value = ''
     e.preventDefault()
