@@ -11,7 +11,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :chats
-
+  has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
+  has_many :received_messages, class_name: "Message", foreign_key: "recipient_id"
   def after_confirmation
     super
     WelcomeJob.perform_async(self.email)

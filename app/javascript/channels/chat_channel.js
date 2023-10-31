@@ -1,55 +1,37 @@
-import consumer from "./consumer"
+import { createConsumer } from "@rails/actioncable"
 
-consumer.subscriptions.create("ChatChannel", {
-  connected() {
-    // Called when the subscription is ready for use on the server
-    console.log('connected')
-  },
+const consumer = createConsumer()
 
-  disconnected() {
-    // Called when the subscription has been terminated by the server
-  },
+document.addEventListener('DOMContentLoaded', function() {
+  const senderId = document.getElementById('sender_id').value
+  const recipientId = document.getElementById('recipient_id').value
+  const chatChannel = consumer.subscriptions.create({channel: "ChatChannel", sender_id: senderId, recipient_id: recipientId}, {
+    connected() {
+      console.log('connected')
+      // Called when the subscription is ready for use on the server
+    },
 
-  received(data) {
-    // Called when there's incoming data on the websocket for this channel
-    console.log("received", data)
-    const displayChat = document.getElementById('display-chat')
-    displayChat.insertAdjacentHTML('beforeend',`<article class="chat">
-              <div class="chat-header">
-                <p>${data.user.email}</p>
-              </div>
-              <div class="chat-body">
-                <p>${data.body}</p>
-              </div>
-            </article>`)
-  },
+    disconnected() {
+      // Called when the subscription has been terminated by the server
+    },
 
-});
+    received(data) {
+      console.log(data)
+      const messages = document.getElementById('messages')
+      messages.insertAdjacentHTML('beforeend', data['message'])
+    },
 
-document.addEventListener('DOMContentLoaded', ()=>{
-  const chat_form = document.getElementById('new_chat')
-  chat_form?.addEventListener('click', (e) => {
-    e.preventDefault()
-    let chat_input = document.getElementById('chat-input').value
-    if (chat_input === ''){
-      return;
+    speak(content) {
+      this.perform('speak', { content: content, sender_id: senderId, recipient_id: recipientId })
     }
-    fetch('/chats', {
-      method:'POST',
-      headers: {
-        "Content-Type": "application/json",
-        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-      },
-      body: JSON.stringify({
-        chat:{
-          body:chat_input
-        }
-      })
-    }).then(res =>res.json())
-        .then(data => console.log(data))
-        .catch(e => console.log(e))
+  })
 
-    chat_form.reset()
-
+  const form = document.getElementById('new_message')
+  form.addEventListener('submit', function(e) {
+    const input = document.getElementById('message_content')
+    const content = input.value
+    chatChannel.speak(content)
+    input.value = ''
+    e.preventDefault()
   })
 })

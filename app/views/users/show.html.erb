@@ -1,0 +1,17 @@
+<%= hidden_field_tag :sender_id, current_user.id %>
+<%= hidden_field_tag :recipient_id, @user.id %>
+
+<div id="messages">
+  <%= render @messages %>
+</div>
+
+<%= form_with(model: [ Message.new ], remote: true, id: 'new_message') do |form| %>
+  <div class="field">
+    <%= form.text_area :content, placeholder: 'Type your message...', class: 'form-control', id: 'message_content' %>
+  </div>
+  <div class="actions">
+    <%= form.submit 'Send', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%#= javascript_pack_tag 'chat' %>
