@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
   form.addEventListener('submit', function(e) {
     const input = document.getElementById('message_content')
     const content = input.value
+    if (input.value === ''){
+      return
+    }
     chatChannel.speak(content)
     input.value = ''
     e.preventDefault()
