@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     speak(content) {
+      console.log(content)
       this.perform('speak', { content: content, sender_id: senderId, recipient_id: recipientId })
     }
   })
