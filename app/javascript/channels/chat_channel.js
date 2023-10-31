@@ -26,21 +26,14 @@ const chatChannel = consumer.subscriptions.create("ChatChannel", {
 
 });
 
-
 document.addEventListener('DOMContentLoaded', ()=>{
   const chat_form = document.getElementById('new_chat')
-  chat_form.addEventListener('click', (e) => {
+  chat_form?.addEventListener('click', (e) => {
     e.preventDefault()
     let chat_input = document.getElementById('chat-input').value
     if (chat_input === ''){
       return;
     }
-    const chat ={
-      body:chat_input
-    }
-
-    chatChannel.send({body:chat})
-
     fetch('/chats', {
       method:'POST',
       headers: {
