@@ -4,7 +4,8 @@ import consumer from "./consumer";
 document.addEventListener('DOMContentLoaded', function() {
   const senderId = document.getElementById('sender_id').value
   const recipientId = document.getElementById('recipient_id').value
-  const chatChannel = consumer.subscriptions.create({channel: "ChatChannel"}, {
+  const chat_id = [senderId, recipientId].sort().join("")
+  const chatChannel = consumer.subscriptions.create({channel: "ChatChannel", chat_id: chat_id}, {
     connected() {
       console.log('connected')
       // Called when the subscription is ready for use on the server
