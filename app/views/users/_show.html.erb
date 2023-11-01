@@ -1,23 +1,46 @@
 <%= hidden_field_tag :sender_id, current_user.id %>
 <%= hidden_field_tag :recipient_id, user.id %>
-
-<div id="messages">
-  <%= render messages %>
-</div>
-
-<div class="bottom-0 absolute w-full">
-    <%= form_with(model: [ Message.new ], remote: true, id: 'new_message') do |form| %>
-    <div class="flex justify-center items-center">
-      <div class="field w-full my-5 ">
-        <%= form.text_field :content, placeholder: 'Type your message...', class: 'block  p-1.5 w-full text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 ', id: 'message_content' %>
-      </div>
-      <div class="actions">
-        <%= form.button nil, class: 'inline-flex justify-center p-2 text-green-600 rounded-full cursor-pointer hover:bg-green-100 ' do %>
-          <svg class="w-8 h-8 rotate-90 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-            <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z"/>
-          </svg>
-        <% end %>
-      </div>
-    </div>
+<div class="relative ">
+  <div id="messages" class="h-[80vh] bg-white overflow-y-scroll px-4 pb-16 overflow-x-hidden">
+   <% messages.each do |message| %>
+      <% if message.sender == current_user %>
+        <div>
+          <div class="flex items-center gap-5 justify-end my-3">
+            <div class="bg-[#007D2A] text-white px-5 overflow-auto py-2 rounded-full  break-words" >
+              <p> <%=  message.content %></p>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div>
+          <div class="flex items-center gap-5 justify-start my-3">
+            <div>
+              <%= image_tag message.sender.avatar, class: "h-8 w-8 rounded-full " %>
+            </div>
+            <div class="bg-[#F0F0F0] px-5 py-2 overflow-auto rounded-full  break-words" >
+              <p> <%=  message.content %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
+
+  </div>
+
+  <div class="bottom-0 absolute w-full bg-white">
+    <%= form_with(model: [ Message.new ], remote: true, id: 'new_message') do |form| %>
+      <div class="flex justify-center items-center">
+        <div class="field w-full  ">
+          <%= form.text_field :content, placeholder: 'Type your message...', class: 'block  p-1.5 w-full text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 ', id: 'message_content' %>
+        </div>
+        <div class="actions">
+          <%= form.button nil, class: 'inline-flex justify-center p-2 text-green-600 rounded-full cursor-pointer hover:bg-green-100 ' do %>
+            <svg class="w-8 h-8 rotate-90 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+              <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z"/>
+            </svg>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
