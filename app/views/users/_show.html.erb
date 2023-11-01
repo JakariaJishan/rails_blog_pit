@@ -5,11 +5,19 @@
   <%= render messages %>
 </div>
 
-<%= form_with(model: [ Message.new ], remote: true, id: 'new_message') do |form| %>
-  <div class="field">
-    <%= form.text_area :content, placeholder: 'Type your message...', class: 'form-control', id: 'message_content' %>
-  </div>
-  <div class="actions">
-    <%= form.submit 'Send', class: 'btn btn-primary' %>
-  </div>
-<% end %>
+<div class="bottom-0 absolute w-full">
+    <%= form_with(model: [ Message.new ], remote: true, id: 'new_message') do |form| %>
+    <div class="flex justify-center items-center">
+      <div class="field w-full my-5 ">
+        <%= form.text_field :content, placeholder: 'Type your message...', class: 'block  p-1.5 w-full text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 ', id: 'message_content' %>
+      </div>
+      <div class="actions">
+        <%= form.button nil, class: 'inline-flex justify-center p-2 text-green-600 rounded-full cursor-pointer hover:bg-green-100 ' do %>
+          <svg class="w-8 h-8 rotate-90 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+            <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z"/>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+</div>
