@@ -16,9 +16,18 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     received(data) {
-      console.log(data)
+      console.log(data.message)
+      const isCurrentUserSender = data.message.message.sender_id === data.message.current_user.id;
       const messages = document.getElementById('messages')
-      messages.insertAdjacentHTML('beforeend', data.message['content'])
+      messages.insertAdjacentHTML('beforeend', `
+    <div>
+      <div class="flex items-center gap-5 justify-${isCurrentUserSender ? 'end' : 'start'} my-3">
+        <div class="${isCurrentUserSender ? 'bg-[#007D2A] text-white' : 'bg-[#F0F0F0]'} px-5 overflow-auto py-2 rounded-full break-words">
+          <p>${data.message.message.content}</p>
+        </div>
+      </div>
+    </div>
+  `)
     },
 
     speak(content) {
