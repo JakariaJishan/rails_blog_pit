@@ -52,6 +52,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
+  # config.action_cable.url = "ws:localhost:3000/cable"
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load

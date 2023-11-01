@@ -1,11 +1,10 @@
-import { createConsumer } from "@rails/actioncable"
-
-const consumer = createConsumer()
+// import { createConsumer } from "@rails/actioncable"
+import consumer from "./consumer";
 
 document.addEventListener('DOMContentLoaded', function() {
   const senderId = document.getElementById('sender_id').value
   const recipientId = document.getElementById('recipient_id').value
-  const chatChannel = consumer.subscriptions.create({channel: "ChatChannel", sender_id: senderId, recipient_id: recipientId}, {
+  const chatChannel = consumer.subscriptions.create({channel: "ChatChannel"}, {
     connected() {
       console.log('connected')
       // Called when the subscription is ready for use on the server
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     received(data) {
       console.log(data)
       const messages = document.getElementById('messages')
-      messages.insertAdjacentHTML('beforeend', data['message'])
+      messages.insertAdjacentHTML('beforeend', data.message['content'])
     },
 
     speak(content) {

@@ -1,9 +1,6 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
-    sender = User.find(params[:sender_id])
-    recipient = User.find(params[:recipient_id])
-
-    stream_for [sender, recipient]
+    stream_from "chat_channel"
   end
 
   def unsubscribed
@@ -11,18 +8,13 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    puts "from speak #{data}"
     sender = User.find(data['sender_id'])
     recipient = User.find(data['recipient_id'])
 
     message = Message.create(content: data['content'], sender: sender, recipient: recipient)
 
-    ChatChannel.broadcast_to([sender, recipient], message: render_message(message))
+    ActionCable.server.broadcast( "chat_channel", {message:message})
+
   end
 
-  private
-
-  def render_message(message)
-    ApplicationController.render(partial: 'messages/message', locals: { message: message })
-  end
 end
