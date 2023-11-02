@@ -13,13 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     received(data) {
       console.log(data)
-      const active_user = document.getElementsByClassName('active_user')
+      const active_user = document.getElementById(data.user)
       if (data.onLine === 'on'){
-        console.log('update')
-      active_user.classList.add('bottom-0 x left-7 absolute  w-3.5 h-3.5 bg-green-500 border-2 border-white  rounded-full')
+        active_user?.classList.remove('hidden')
+        active_user?.classList.add('bg-green-500')
       }else{
-        console.log('down')
-        active_user.classList.add('bottom-0 y left-7 absolute  w-3.5 h-3.5  rounded-full')
+        active_user?.classList.add('hidden')
       }
       // Called when there's incoming data on the websocket for this channel
     }
