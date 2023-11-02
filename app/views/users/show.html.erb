@@ -4,7 +4,10 @@ Messages
     <div class="w-1/3 flex  h-[80vh] bg-white flex-col p-3 overflow-y-scroll">
       <% @users.each do |user| %>
         <%= link_to "/users/#{user.id}" ,class: "#{user.id=== @user.id ? 'bg-green-200' : 'bg-[#fff]'} transition delay-100 p-2 flex gap-2 hover:bg-green-100 rounded " do %>
-          <%= image_tag user.avatar, class: "rounded-full h-10 w-10 object-cover" %>
+          <div class="relative">
+            <%= image_tag user.avatar, class:"w-10 h-10 rounded-full" %>
+            <span class="bottom-0 left-7 absolute  w-3.5 h-3.5  <%= user.online ? 'bg-green-500 border-2 border-white' : '' %>  rounded-full"></span>
+          </div>
             <div class="flex flex-col">
               <p class="font-bold"> <%= user.username %></p>
             </div>
