@@ -11,6 +11,7 @@ class RegistrationsController < ::Devise::RegistrationsController
 
     if @user.save
       sign_in(@user)
+      @user.online = true
       flash[:notice] = "User created successfully"
       render json: @user
     else
