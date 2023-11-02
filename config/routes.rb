@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'chats/create'
   mount Sidekiq::Web => '/sidekiq'
   mount ActionCable.server => '/cable'
-  devise_for :users, controllers: {registrations: "registrations", sessions: "sessions"}
+  devise_for :users, controllers: {registrations: "registrations"}
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
  end

@@ -1,17 +1,17 @@
 class UserPresenceChannel < ApplicationCable::Channel
+
   def subscribed
-    # stream_from "some_channel"
-    stream_from "user_presence"
-    # ActionCable.server.broadcast('user_presence', {user:current_user.id, online: 'on'})
-    current_user.online = true
+    stream_from 'user_presence'
+    current_user.update(online:true)
     current_user.save!
-    ActionCable.server.broadcast('user_presence', {user: current_user.id, online:"on"})
+    ActionCable.server.broadcast('user_presence',{user:current_user.id, onLine:"on"})
   end
 
   def unsubscribed
-    current_user.online = false
+    stream_from 'user_presence'
+    current_user.update(online:false)
     current_user.save!
-
-    ActionCable.server.broadcast('user_presence', {user: current_user.id, online:"off"})
+    ActionCable.server.broadcast('user_presence',{user:current_user.id, onLine:"off"})
   end
+
 end

@@ -1,6 +1,10 @@
 class RegistrationsController < ::Devise::RegistrationsController
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+
+  def new
+    super
+  end
   def create
     @user = User.new(user_params)
     data_url = params[:user][:cropped_img]
@@ -8,10 +12,8 @@ class RegistrationsController < ::Devise::RegistrationsController
       decoded_image = Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
       @user.avatar.attach(io: StringIO.new(decoded_image), filename: 'avatar.png')
     end
-
     if @user.save
       sign_in(@user)
-      @user.online = true
       flash[:notice] = "User created successfully"
       render json: @user
     else
