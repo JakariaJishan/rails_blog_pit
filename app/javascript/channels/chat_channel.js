@@ -4,6 +4,7 @@ import consumer from "./consumer";
 document.addEventListener('DOMContentLoaded', function() {
   const senderId = document.getElementById('sender_id').value
   const recipientId = document.getElementById('recipient_id').value
+  const recipientAvatar = document.getElementById('recipient_avatar').value
   const chat_id = [senderId, recipientId].sort().join("")
   const chatChannel = consumer.subscriptions.create({channel: "ChatChannel", chat_id: chat_id}, {
     connected() {
@@ -16,18 +17,32 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     received(data) {
-      console.log(data.message)
-      const isCurrentUserSender = data.message.message.sender_id === data.message.current_user.id;
+      const isCurrentUserSender = data.message.message.sender_id === Number(senderId);
       const messages = document.getElementById('messages')
-      messages.insertAdjacentHTML('beforeend', `
-      <div>
-        <div class="flex items-center gap-5 justify-${isCurrentUserSender ? 'end' : 'start'} my-3">
-          <div class="${isCurrentUserSender ? 'bg-[#007D2A] text-white' : 'bg-[#F0F0F0]'} px-5 overflow-auto py-2 rounded-full break-words">
-            <p>${data.message.message.content}</p>
+      messages.insertAdjacentHTML('beforeend', this.html(data.message.message.content, isCurrentUserSender) )
+    },
+
+    html(content, isCurrentUserSender){
+      return `
+        ${isCurrentUserSender? `
+          <div>
+          <div class="flex items-center gap-5 justify-end my-3">
+            <div class="bg-[#007D2A] text-white px-5 overflow-auto py-2 rounded-full  break-words" >
+              <p> ${content}</p>
+            </div>
           </div>
         </div>
-      </div>
-  `)
+        ` :`
+          <div class="flex items-center gap-5 justify-start my-3">
+            <div>
+              <img src=${recipientAvatar} class="h-8 w-8 rounded-full " />
+            </div>
+            <div class="bg-[#F0F0F0] px-5 py-2 overflow-auto rounded-full  break-words" >
+              <p> ${content}</p>
+            </div>
+          </div>
+        `}
+      `
     },
 
     speak(content) {

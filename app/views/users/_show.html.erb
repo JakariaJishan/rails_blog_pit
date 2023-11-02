@@ -1,5 +1,6 @@
 <%= hidden_field_tag :sender_id, current_user.id %>
 <%= hidden_field_tag :recipient_id, user.id %>
+<%= hidden_field_tag :recipient_avatar, url_for(user.avatar) %>
 <div class="relative ">
   <div id="messages" class="h-[80vh] bg-white overflow-y-scroll px-4 pb-16 overflow-x-hidden">
    <% messages.each do |message| %>

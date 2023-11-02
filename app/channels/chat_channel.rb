@@ -26,10 +26,6 @@ class ChatChannel < ApplicationCable::Channel
     message = Message.create(content: data['content'], sender: sender, recipient: recipient)
     data = {
       message: message,
-      sender:sender,
-      recipient:recipient,
-      current_user: current_user
-      # sender_avatar: message.sender.avatar.url
     }
     ActionCable.server.broadcast( "chat_channel_#{chat_id}", {message:data})
 
