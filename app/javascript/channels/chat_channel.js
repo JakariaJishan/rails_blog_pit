@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const senderId = document.getElementById('sender_id').value
   const recipientId = document.getElementById('recipient_id').value
   const recipientAvatar = document.getElementById('recipient_avatar').value
-  const chat_id = [senderId, recipientId].sort().join("")
+  const chat_id = [senderId, recipientId].sort((a,b)=>a-b).join("")
   const chatChannel = consumer.subscriptions.create({channel: "ChatChannel", chat_id: chat_id}, {
     connected() {
       console.log('connected')
