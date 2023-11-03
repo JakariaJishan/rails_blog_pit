@@ -3,7 +3,7 @@
 <%= hidden_field_tag :recipient_avatar, url_for(user.avatar) %>
 <div class="relative ">
 
-  <div id="messages" class="h-[80vh] bg-white  overflow-y-scroll px-4 pb-16 overflow-x-hidden">
+  <div id="messages" class="h-[80vh] bg-white  overflow-y-scroll px-4 pb-24 overflow-x-hidden">
     <div id="chat_profile" class="flex  gap-2 sticky top-0 bg-white w-full border-b p-3">
       <div class="relative">
         <%= image_tag user.avatar, class: "h-12 w-12 rounded-full object-cover" %>

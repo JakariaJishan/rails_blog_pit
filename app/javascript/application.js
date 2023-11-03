@@ -14,3 +14,6 @@ window.addEventListener('load', () =>{
         toast.classList.add('opacity-0')
     },3000)
 })
+
+const messages = document.getElementById('messages')
+messages.scrollTop = messages.scrollHeight

@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     received(data) {
       const isCurrentUserSender = data.message.message.sender_id === Number(senderId);
       const messages = document.getElementById('messages')
+      messages.scrollTop = messages.scrollHeight
       messages.insertAdjacentHTML('beforeend', this.html(data.message.message.content, isCurrentUserSender) )
     },
 
