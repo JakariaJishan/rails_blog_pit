@@ -2,9 +2,18 @@
 <%= hidden_field_tag :recipient_id, user.id %>
 <%= hidden_field_tag :recipient_avatar, url_for(user.avatar) %>
 <div class="relative ">
-  <div id="messages" class="h-[80vh] bg-white overflow-y-scroll px-4 pb-16 overflow-x-hidden">
+
+  <div id="messages" class="h-[80vh] bg-white  overflow-y-scroll px-4 pb-16 overflow-x-hidden">
+    <div id="chat_profile" class="flex  gap-2 sticky top-0 bg-white w-full border-b p-3">
+      <div class="relative">
+        <%= image_tag user.avatar, class: "h-12 w-12 rounded-full object-cover" %>
+        <span id="green_dot_<%= user.id %>" class=" bottom-0 left-7 absolute  w-3.5 h-3.5  <%= user.online ? 'bg-green-500 border-2 border-white' : '' %>  rounded-full"></span>
+      </div>
+      <h3 class="capitalize font-bold text-xl"><%= user.username %></h3>
+    </div>
    <% messages.each do |message| %>
       <% if message.sender == current_user %>
+
         <div>
           <div class="flex items-center gap-5 justify-end my-3">
             <div class="bg-[#007D2A] text-white px-5 overflow-auto py-2 rounded-full  break-words" >
@@ -16,7 +25,7 @@
         <div>
           <div class="flex items-center gap-5 justify-start my-3">
             <div>
-              <%= image_tag message.sender.avatar, class: "h-8 w-8 rounded-full " %>
+              <%= image_tag message.sender.avatar, class: "h-8 w-8 rounded-full object-cover" %>
             </div>
             <div class="bg-[#F0F0F0] px-5 py-2 overflow-auto rounded-full  break-words" >
               <p> <%=  message.content %></p>
