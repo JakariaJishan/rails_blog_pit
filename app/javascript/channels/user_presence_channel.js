@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     received(data) {
-      console.log(data)
       const active_user = document.getElementById(data.user)
       const green_dot = document.getElementById(`green_dot_${data.user}`)
       if (data.onLine === 'on'){

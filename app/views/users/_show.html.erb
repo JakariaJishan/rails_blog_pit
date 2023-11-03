@@ -15,19 +15,19 @@
       <% if message.sender == current_user %>
 
         <div>
-          <div class="flex items-center gap-5 justify-end my-3">
-            <div class="bg-[#007D2A] text-white px-5 overflow-auto py-2 rounded-full  break-words" >
+          <div class="flex items-start gap-5 justify-end my-3">
+            <div class="bg-[#007D2A] max-w-[500px] text-white px-5 overflow-auto py-2 rounded-[20px]  break-words" >
               <p> <%=  message.content %></p>
             </div>
           </div>
         </div>
       <% else %>
         <div>
-          <div class="flex items-center gap-5 justify-start my-3">
+          <div class="flex items-start gap-5 justify-start my-3">
             <div>
               <%= image_tag message.sender.avatar, class: "h-8 w-8 rounded-full object-cover" %>
             </div>
-            <div class="bg-[#F0F0F0] px-5 py-2 overflow-auto rounded-full  break-words" >
+            <div class="bg-[#F0F0F0] max-w-[500px]  rounded-[20px]  px-5 py-2 overflow-auto rounded-full  break-words" >
               <p> <%=  message.content %></p>
             </div>
           </div>
