@@ -29,7 +29,13 @@ class PostsController < ApplicationController
 
   def create
     @user = current_user
-    @post = Post.new(post_params)
+    unless post_params[:title].present? || post_params[:content].present? || post_params[:post_images][1].present?
+      flash[:alert] = "At least one input needed."
+      render :new, status: :unprocessable_entity
+      return
+    end
+    
+    @post = Post.new(post_params) 
     @post.user = @user
     if @post.save
       flash[:notice] ="Post created successfully"
@@ -37,8 +43,7 @@ class PostsController < ApplicationController
     else
       flash[:alert] = "Failed to create post"
       render :new, status: :unprocessable_entity
-    end
-
+    end   
   end
 
   def edit
