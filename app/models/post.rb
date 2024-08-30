@@ -7,4 +7,6 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   # has_one_attached :post_image
   has_many_attached :post_images
+  has_many :saved_posts, dependent: :destroy
+
 end

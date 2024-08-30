@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   root "posts#index"
 
   resources :posts do
+    resource :saved_post, only: [:index, :create, :destroy]
+
     resources :comments do 
       resources :replies
     end
@@ -33,4 +35,6 @@ Rails.application.routes.draw do
 
   post '/questions/:question_id/answers/:answer_id/like', to: 'likes#like_answer', as: 'like_answer'
   delete '/questions/:question_id/answers/:answer_id/like', to: 'likes#unlike_answer', as: 'unlike_answer'
+
+  get '/saved_posts', to: 'saved_posts#index'
 end
