@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get '/users/:id', to:'users#show'
   get '/users', to:'users#index'
 
-  resources :messages, only:[:create]
+  resources :messages, only:[:create, :destroy]
   resources :questions do
     resources :answers, only: [:create, :destroy]
   end

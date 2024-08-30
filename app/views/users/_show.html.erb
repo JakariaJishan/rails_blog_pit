@@ -19,6 +19,7 @@
             <div class="bg-[#007D2A] max-w-[500px] text-white px-5 overflow-auto py-2 rounded-[20px]  break-words" >
               <p> <%=  message.content %></p>
             </div>
+<!--            <button onclick="deleteMessage(#{message.id})" id="delete-btn" class="text-red-500">Delete</button>-->
           </div>
         </div>
       <% else %>
@@ -54,3 +55,23 @@
     <% end %>
   </div>
 </div>
+
+<script>
+
+    function deleteMessage(messageId) {
+        fetch(`/messages/${messageId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById(`message_${messageId}`).remove();
+            } else {
+                alert('Failed to delete message');
+            }
+        }).catch(() => {
+            alert('An error occurred');
+        });
+    }
+</script>

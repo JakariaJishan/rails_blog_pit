@@ -17,33 +17,42 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     received(data) {
-      const isCurrentUserSender = data.message.message.sender_id === Number(senderId);
-      const messages = document.getElementById('messages')
-      messages.scrollTop = messages.scrollHeight
-      messages.insertAdjacentHTML('beforeend', this.html(data.message.message.content, isCurrentUserSender) )
-    },
+      console.log(data)
+      if (data.action === 'delete') {
+        const messageElement = document.getElementById(`message_${data.message_id}`);
+        if (messageElement) {
+          messageElement.remove();
+        }
+      } else {
+        const isCurrentUserSender = data.message.message.sender_id === Number(senderId);
+        const messages = document.getElementById('messages');
+        messages.scrollTop = messages.scrollHeight;
+        messages.insertAdjacentHTML('beforeend', this.html(data.message.message.content, isCurrentUserSender, data.message.message.id));
+      }},
 
-    html(content, isCurrentUserSender){
+    html(content, isCurrentUserSender, messageId){
       return `
-        ${isCurrentUserSender? `
-          <div>
-          <div class="flex items-start gap-5 justify-end my-3">
-            <div class="bg-[#007D2A] max-w-[500px] rounded-[20px] text-white px-5 overflow-auto py-2   break-words" >
-              <p> ${content}</p>
+        ${isCurrentUserSender ? `
+          <div id="message_${messageId}">
+            <div class="flex items-start gap-5 justify-end my-3">
+              <div class="bg-[#007D2A] max-w-[500px] rounded-[20px] text-white px-5 overflow-auto py-2 break-words">
+                <p>${content}</p>
+              </div>
             </div>
           </div>
-        </div>
         ` :`
-          <div class="flex items-start gap-5 justify-start my-3">
-            <div>
-              <img src=${recipientAvatar} class="h-8 w-8 rounded-full " />
-            </div>
-            <div class="bg-[#F0F0F0] max-w-[500px] rounded-[20px] px-5 py-2 overflow-auto   break-words" >
-              <p> ${content}</p>
+          <div id="message_${messageId}">
+            <div class="flex items-start gap-5 justify-start my-3">
+              <div>
+                <img src=${recipientAvatar} class="h-8 w-8 rounded-full" />
+              </div>
+              <div class="bg-[#F0F0F0] max-w-[500px] rounded-[20px] px-5 py-2 overflow-auto break-words">
+                <p>${content}</p>
+              </div>
             </div>
           </div>
         `}
-      `
+      `;
     },
 
     speak(content) {

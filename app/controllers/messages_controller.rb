@@ -3,6 +3,17 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
   end
 
+  def destroy
+    @message = Message.find(params[:id])
+    if @message.sender_id == current_user.id
+      @message.destroy
+      ActionCable.server.broadcast "chat_channel_#{params[:chat_id]}",
+                                   { message_id: @message.id, action: 'delete' }
+      head :ok
+    else
+      head :forbidden
+    end
+  end
   private
 
   def message_params
