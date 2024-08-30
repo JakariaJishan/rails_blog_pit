@@ -8,26 +8,29 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: "registrations"}
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
- end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  end
 
-  # Defines the root path route ("/")
   root "posts#index"
+
   resources :posts do
     resources :comments do 
       resources :replies
     end
     resources :likes , only: [:create, :destroy]
-    # get "comments/:parent_id/new", to:'comments#new_reply'
-    # post "comments/:parent_id", to:'comments#create_reply'
-    # get "comments/:parent_id/replies/:id/edit", to:'comments#edit_reply'
-    # patch "comments/:parent_id/replies/:id", to:'comments#update_reply'
-    # delete "comments/:parent_id/replies/:id", to:'comments#destroy_reply'
   end
+
   get '/posts/liked_users/:post_id', to: "likes#liked_users"
   get '/users/:id', to:'users#show'
   get '/users', to:'users#index'
+
   resources :messages, only:[:create]
+  resources :questions do
+    resources :answers, only: [:create, :destroy]
+  end
 
+  post '/questions/:question_id/like', to: 'likes#like_question', as: 'like_question'
+  delete '/questions/:question_id/like', to: 'likes#unlike_question', as: 'unlike_question'
 
+  post '/questions/:question_id/answers/:answer_id/like', to: 'likes#like_answer', as: 'like_answer'
+  delete '/questions/:question_id/answers/:answer_id/like', to: 'likes#unlike_answer', as: 'unlike_answer'
 end

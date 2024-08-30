@@ -13,6 +13,10 @@ class User < ApplicationRecord
   has_many :chats
   has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
   has_many :received_messages, class_name: "Message", foreign_key: "recipient_id"
+
+  has_many :questions
+  has_many :answers
+
   def after_confirmation
     super
     WelcomeJob.perform_async(self.email)

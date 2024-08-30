@@ -5,7 +5,7 @@ class LikesController < ApplicationController
 
   def create
       @post = Post.find(like_params[:post_id])
-      @like = @post.likes.new(user_id:current_user.id)
+      @like = @post.likes.new(user_id:current_user.id, likes_type: 'post')
       @user_like = @post.likes.find{ |like| like.user_id == current_user.id}
       if @like.save
         render json: {liked_number: @post.likes.count, like_id: @user_like.id }, status:  :ok
@@ -38,10 +38,45 @@ class LikesController < ApplicationController
     render json: {users: response}
 
   end
+
+  def like_question
+    @question = Question.find(params[:question_id])
+    @like = @question.likes.new(user_id:current_user.id, likes_type: 'question')
+    @user_like = @question.likes.find{ |like| like.user_id == current_user.id}
+    if @like.save!
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def like_answer
+    @answer = Answer.find(params[:answer_id])
+    @like = @answer.likes.new(user_id:current_user.id, likes_type: 'answer')
+    @user_like = @answer.likes.find{ |like| like.user_id == current_user.id}
+    if @like.save
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def unlike_question
+    @question = Question.find(params[:question_id])
+    @like = @question.likes.find_by(user_id: current_user.id)
+    if @like.destroy
+      redirect_back(fallback_location: root_path)
+
+    end
+  end
+
+  def unlike_answer
+    @answer = Answer.find(params[:answer_id])
+    @like = @answer.likes.find_by(user_id: current_user.id)
+    if @like.destroy
+      redirect_back(fallback_location: root_path)
+    end
+  end
 end
 
 private
 
 def like_params
-  params.require(:like).permit(:post_id)
+  params.require(:like).permit(:post_id, :answer_id, :question_id)
 end
