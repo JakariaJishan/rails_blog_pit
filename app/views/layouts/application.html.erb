@@ -70,10 +70,19 @@
       <div id="popup" class="hidden absolute top-16 right-0 bg-[#fff] flex  flex-col justify-center items-center w-[280px] text-center  animate-fade-in shadow-lg z-20 rounded-md" >
         <div class="h-20 w-full bg-gray-200"></div>
         <%= image_tag current_user.avatar, class:"h-28 w-28 mt-[-60px] ring-4 ring-white object-cover relative rounded-full" %>
-        <div class="text-black mt-5 mb-3 w-1/2">
+        <div class="text-black mt-5 mb-3 w-4/5">
           <ul>
             <li class="font-semibold text-xl"> <%= current_user.username %> </li>
             <li class="my-px"><%= current_user.email %> </li>
+            <% if current_user.badges.any? %>
+              <ul class="p-4 text-xs">
+                <% current_user.badges.each do |badge| %>
+                  <li>*<%= badge.name %>: <%= badge.description %></li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p>No badges earned yet.</p>
+            <% end %>
           </ul>
 
           <hr class="my-3"/>

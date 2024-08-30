@@ -18,9 +18,52 @@ class User < ApplicationRecord
   has_many :answers
   has_many :saved_posts, dependent: :destroy
 
+  has_many :user_badges, dependent: :destroy
+  has_many :badges, through: :user_badges
 
   def after_confirmation
     super
     WelcomeJob.perform_async(self.email)
+  end
+
+  def check_for_badges
+    Badge.all.each do |badge|
+      case badge.name
+      when "First Post"
+        give_badge(badge) if posts.count >= 1
+      when "Contributor"
+        give_badge(badge) if posts.count >= 10
+      when "Active Contributor"
+        give_badge(badge) if posts.count >= 50
+      when "Helpful"
+        give_badge(badge) if likes_received.count >= 10
+      when "Super Helpful"
+        give_badge(badge) if likes_received.count >= 50
+      when "First Answer"
+        give_badge(badge) if answers.count >= 1
+      when "Top Answerer"
+        give_badge(badge) if answers.count >= 10
+      when "Question Master"
+        give_badge(badge) if questions.count >= 5
+      end
+    end
+  end
+
+  def give_badge(badge)
+    unless badges.include?(badge)
+      badges << badge
+    end
+  end
+
+  def likes_received
+    posts.joins(:likes).distinct
+  end
+
+  def answers
+    Answer.where(user: self)
+  end
+
+  def questions
+    Question.where(user: self)
   end
 end

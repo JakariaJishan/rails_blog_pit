@@ -9,4 +9,11 @@ class Post < ApplicationRecord
   has_many_attached :post_images
   has_many :saved_posts, dependent: :destroy
 
+  after_create :check_user_badges
+
+  private
+
+  def check_user_badges
+    user.check_for_badges
+  end
 end
