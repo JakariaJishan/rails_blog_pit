@@ -25,6 +25,13 @@ Rails.application.routes.draw do
   get '/users/:id', to:'users#show'
   get '/users', to:'users#index'
   get '/user/profile/:id', to:'users#profile'
+  get '/users/:user_id/friends', to:'users#friends'
+
+  post '/users/:user_id/send_friend_request', to: 'friendships#create'
+  post '/users/:user_id/accept_friend_request', to: 'friendships#accept'
+  post '/users/:user_id/decline_friend_request', to: 'friendships#decline'
+  post '/users/:user_id/unfriend', to: 'friendships#unfriend'
+
   resources :messages, only:[:create, :destroy]
   resources :questions do
     resources :answers, only: [:create, :destroy]

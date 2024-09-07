@@ -21,9 +21,46 @@ class User < ApplicationRecord
   has_many :user_badges, dependent: :destroy
   has_many :badges, through: :user_badges
 
+  # Outgoing friend requests
+  has_many :sent_friendships, foreign_key: :sender_id, class_name: 'Friendship'
+  has_many :sent_friends, through: :sent_friendships, source: :receiver
+
+  # Incoming friend requests
+  has_many :received_friendships, foreign_key: :receiver_id, class_name: 'Friendship'
+  has_many :received_friends, through: :received_friendships, source: :sender
+
+  # Scope for accepted friendships
+  def friends
+    sent_friends.merge(Friendship.where(status: 'accepted')) + received_friends.merge(Friendship.where(status: 'accepted'))
+  end
+
+  # Get pending sent friend requests
+  def pending_sent_requests
+    sent_friendships.where(status: 'pending')
+  end
+
+  # Get pending received friend requests
+  def pending_received_requests
+    received_friendships.where(status: 'pending')
+  end
+
   def after_confirmation
     super
     WelcomeJob.perform_async(self.email)
+  end
+
+  # Fetch all users except friends and those with pending requests
+  def non_friends
+    # Get the IDs of users who are friends or have pending requests
+    friends_ids = sent_friends.merge(Friendship.where(status: 'accepted')).pluck(:id) +
+      received_friends.merge(Friendship.where(status: 'accepted')).pluck(:id)
+
+    pending_request_ids = sent_friendships.where(status: 'pending').pluck(:receiver_id) +
+      received_friendships.where(status: 'pending').pluck(:sender_id)
+
+    all_related_ids = friends_ids + pending_request_ids
+
+    User.where.not(id: all_related_ids).where.not(id: self.id)  # Exclude self
   end
 
   def check_for_badges

@@ -4,19 +4,37 @@
       <%= image_tag @user.avatar, class: "w-[300px] h-[300px]  mb-10 object-cover object-center rounded-full" %>
     <% end %>
     <div class="text-center lg:w-2/3 w-full">
-      <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"><%= @user.username %></h1>
-      <p class="mb-8 leading-relaxed"><%= @user.email %></p>
+      <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"><%=@user.username %></h1>
+      <p class="mb-8 leading-relaxed"><%=@user.email %></p>
       <% if current_user == @user %>
         <div class="flex justify-center">
           <%= link_to "Edit Profile", edit_user_registration_path, class: "inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
         </div>
       <% else %>
-        <div class="flex justify-center">
-          <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Add
-            Friend
-          </button>
-          <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Follow</button>
-        </div>
+          <% friendship = Friendship.find_by(sender: current_user, receiver: @user) || Friendship.find_by(sender: @user, receiver: current_user) %>
+
+          <% if friendship.nil? %>
+            <!-- Button to send a friend request -->
+            <%= button_to 'Add Friend', "/users/#{@user.id}/send_friend_request", method: :post, class:"inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
+
+          <% elsif friendship.status == 'pending' && friendship.receiver == current_user %>
+            <!-- Accept or decline a pending friend request -->
+           <div class="flex gap-4  justify-center items-center">
+             <%= button_to 'Accept', "/users/#{@user.id}/accept_friend_request", method: :post, class:"inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
+             <%= button_to 'Decline', "/users/#{@user.id}/decline_friend_request", method: :post, class:"inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg" %>
+           </div>
+
+          <% elsif friendship.status == 'pending' && friendship.sender == current_user %>
+            <!-- Show if the friend request is pending -->
+            <p class="inline-flex text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded text-lg">Friend request pending...</p>
+
+          <% elsif friendship.status == 'accepted' %>
+            <!-- Show if they are already friends -->
+          <div class="flex gap-4 justify-center items-center">
+            <p class="text-green-500">Friends.</p>
+            <%= button_to 'Unfriend', "/users/#{@user.id}/unfriend", method: :post, class:"inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg" %>
+          </div>
+    <% end %>
       <% end %>
 
     </div>
@@ -24,5 +42,5 @@
 </section>
 
 <div class="w-[800px] mx-auto">
-  <%= render 'posts/posts', posts: @posts %>
+  <%= render 'posts/posts', posts: @user.posts %>
 </div>

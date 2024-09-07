@@ -1,0 +1,155 @@
+<div class="max-w-[800px] mx-auto bg-white p-8 border border-gray-200 rounded-lg">
+
+<h1 class="text-3xl my-8">Friends</h1>
+
+<div class="tab flex items-center gap-4 text-white">
+  <button class="tablinks bg-blue-500  px-4 py-2 rounded " onclick="openTab(event, 'Data1')">Friend Requests</button>
+  <button class="tablinks bg-blue-500  px-4 py-2 rounded " onclick="openTab(event, 'Data2')">Your Friends</button>
+  <button class="tablinks bg-blue-500  px-4 py-2 rounded " onclick="openTab(event, 'Data3')">Sent Requests</button>
+  <button class="tablinks bg-blue-500  px-4 py-2 rounded " onclick="openTab(event, 'Data4')">People you may know
+  </button>
+</div>
+
+<div id="Data1" class="tabcontent">
+  <% if @pending_received_requests.any? %>
+    <h2 class="my-4">Friend Requests(<%= @pending_received_requests.count %>)</h2>
+    <div>
+      <% @pending_received_requests.each do |friendship| %>
+        <div class="flex items-center justify-between gap-3 my-4 border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center gap-3">
+            <%= link_to "/user/profile/#{friendship.sender.id}" do %>
+              <%= image_tag friendship.sender.avatar, class: "w-12 h-12 rounded-full object-cover" %>
+            <% end %>
+            <div>
+              <%= link_to "/user/profile/#{friendship.sender.id}" do %>
+                <h3 class="capitalize font-semibold hover:underline"><%= friendship.sender.username %></h3>
+              <% end %>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <%= button_to 'Confirm', "/users/#{friendship.sender.id}/accept_friend_request", method: :post, class: "inline-flex text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-lg" %>
+            <%= button_to 'Delete', "/users/#{friendship.sender.id}/decline_friend_request", method: :post, class: "inline-flex text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded text-lg" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <h2 class="my-4">Friend Requests(0)</h2>
+    <p>No friend requests.</p>
+  <% end %>
+</div>
+
+<div id="Data2" class="tabcontent">
+  <% if @accepted_friends.any? %>
+    <h2 class="my-4">Friends (<%= @accepted_friends.count %>)</h2>
+    <div>
+      <% @accepted_friends.each do |friendship| %>
+        <div class="flex items-center justify-between gap-3 my-4 border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center gap-3">
+            <%= link_to "/user/profile/#{friendship.id}" do %>
+              <%= image_tag friendship.avatar, class: "w-12 h-12 rounded-full object-cover" %>
+            <% end %>
+            <div>
+              <%= link_to "/user/profile/#{friendship.id}" do %>
+                <h3 class="capitalize font-semibold hover:underline"><%= friendship.username %></h3>
+              <% end %>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+             <%= button_to 'Unfriend', "/users/#{friendship.id}/unfriend", method: :post, class: "inline-flex text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded text-lg" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <h2 class="my-4">Friends(0)</h2>
+    <p>No friends.</p>
+  <% end %>
+</div>
+
+<div id="Data3" class="tabcontent">
+  <% if @pending_sent_requests.any? %>
+    <h2 class="my-4">Sent Requests(<%= @pending_sent_requests.count %>)</h2>
+    <div>
+      <% @pending_sent_requests.each do |friendship| %>
+        <div class="flex items-center justify-between gap-3 my-4 border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center gap-3">
+            <%= link_to "/user/profile/#{friendship.receiver.id}" do %>
+              <%= image_tag friendship.receiver.avatar, class: "w-12 h-12 rounded-full object-cover" %>
+            <% end %>
+            <div>
+              <%= link_to "/user/profile/#{friendship.receiver.id}" do %>
+                <h3 class="capitalize font-semibold hover:underline"><%= friendship.receiver.username %></h3>
+              <% end %>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <p class="inline-flex text-black bg-gray-100 border-0 py-2 px-4 focus:outline-none rounded text-lg">Pending.</p>
+            <%= button_to 'Delete', "/users/#{friendship.receiver.id}/decline_friend_request", method: :post, class: "inline-flex text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded text-lg" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <h2 class="my-4">Sent Requests(0)</h2>
+    <p>No sent requests.</p>
+  <% end %>
+</div>
+
+<div id="Data4" class="tabcontent">
+  <% if @not_friends.any? %>
+    <h2 class="my-4">People</h2>
+    <div>
+      <% @not_friends.each do |ppl| %>
+        <div class="flex items-center justify-between gap-3 my-4 border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center gap-3">
+            <%= link_to "/user/profile/#{ppl.id}" do %>
+              <%= image_tag ppl.avatar, class: "w-12 h-12 rounded-full object-cover" %>
+            <% end %>
+            <div>
+              <%= link_to "/user/profile/#{ppl.id}" do %>
+                <h3 class="capitalize font-semibold hover:underline"><%= ppl.username %></h3>
+              <% end %>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+             <%= button_to 'Add Friend', "/users/#{ppl.id}/send_friend_request", method: :post, class: "inline-flex text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-lg" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <h2 class="my-4">Sent Requests(0)</h2>
+    <p>No sent requests.</p>
+  <% end %>
+</div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        // Get all elements with class="tabcontent" and hide them
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+
+            tablinks[i].classList.remove('bg-blue-700');
+            tablinks[i].classList.add('bg-blue-500');
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+        evt.currentTarget.classList.add('bg-blue-700');
+        evt.currentTarget.classList.remove('bg-blue-500');
+    }
+
+    // Default open the first tab
+    document.querySelector('.tablinks').click();
+</script>

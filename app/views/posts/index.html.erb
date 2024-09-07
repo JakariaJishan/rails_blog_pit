@@ -1,9 +1,16 @@
-<div class="w-[800px] mx-auto">
+<div class="flex items-start ">
   <% if user_signed_in? %>
-    <div class="my-5 border border-gray-200 rounded-lg flex items-center gap-3 bg-white p-5">
-      <%= image_tag current_user.avatar, class: "h-14 w-14 object-cover rounded-full border border-gray-400 " %>
-      <%= link_to "What's on your mind?.. #{current_user.username} ", new_post_path, class: "bg-gray-100 rounded-full w-full block hover:bg-gray-200 text-gray-500 px-5 py-3" %>
-    </div>
+  <div class="my-5 border border-gray-200 rounded-lg bg-white p-5 w-[200px]">
+    <%= link_to "Friends", "/users/#{current_user.id}/friends" , class: "hover:text-blue-500"%>
+  </div>
   <% end %>
-  <%= render "posts", posts: @posts %>
+  <div class="w-[800px] mx-auto">
+    <% if user_signed_in? %>
+      <div class="my-5 border border-gray-200 rounded-lg flex items-center gap-3 bg-white p-5">
+        <%= image_tag current_user.avatar, class: "h-14 w-14 object-cover rounded-full border border-gray-400 " %>
+        <%= link_to "What's on your mind?.. #{current_user.username} ", new_post_path, class: "bg-gray-100 rounded-full w-full block hover:bg-gray-200 text-gray-500 px-5 py-3" %>
+      </div>
+    <% end %>
+    <%= render "posts", posts: @posts %>
+  </div>
 </div>
