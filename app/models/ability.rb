@@ -9,5 +9,7 @@ class Ability
     can :manage, Like, user:user
     can :manage, Question, user_id: user.id
     can :manage, Answer, user_id: user.id
+  can :read, Question
+      can :read, Answer
   end
 end
