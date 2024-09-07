@@ -5,21 +5,23 @@
 
   <div id="messages" class="h-[80vh] bg-white  overflow-y-scroll px-4 pb-24 overflow-x-hidden">
     <div id="chat_profile" class="flex  gap-2 sticky top-0 bg-white w-full border-b p-3">
-      <div class="relative">
-        <%= image_tag user.avatar, class: "h-12 w-12 rounded-full object-cover" %>
-        <span id="green_dot_<%= user.id %>" class=" bottom-0 left-7 absolute  w-3.5 h-3.5  <%= user.online ? 'bg-green-500 border-2 border-white' : '' %>  rounded-full"></span>
-      </div>
-      <h3 class="capitalize font-bold text-xl"><%= user.username %></h3>
+      <%= link_to "/user/profile/#{user.id}", class: "flex gap-4" do %>
+        <div class="relative">
+          <%= image_tag user.avatar, class: "h-12 w-12 rounded-full object-cover" %>
+          <span id="green_dot_<%= user.id %>" class=" bottom-0 left-7 absolute  w-3.5 h-3.5  <%= user.online ? 'bg-green-500 border-2 border-white' : '' %>  rounded-full"></span>
+        </div>
+        <h3 class="capitalize font-bold text-xl"><%= user.username %></h3>
+      <% end %>
     </div>
-   <% messages.each do |message| %>
+    <% messages.each do |message| %>
       <% if message.sender == current_user %>
 
         <div>
           <div class="flex items-start gap-5 justify-end my-3">
-            <div class="bg-[#007D2A] max-w-[500px] text-white px-5 overflow-auto py-2 rounded-[20px]  break-words" >
-              <p> <%=  message.content %></p>
+            <div class="bg-[#007D2A] max-w-[500px] text-white px-5 overflow-auto py-2 rounded-[20px]  break-words">
+              <p> <%= message.content %></p>
             </div>
-<!--            <button onclick="deleteMessage(#{message.id})" id="delete-btn" class="text-red-500">Delete</button>-->
+            <!--            <button onclick="deleteMessage(#{message.id})" id="delete-btn" class="text-red-500">Delete</button>-->
           </div>
         </div>
       <% else %>
@@ -28,8 +30,8 @@
             <div>
               <%= image_tag message.sender.avatar, class: "h-8 w-8 rounded-full object-cover" %>
             </div>
-            <div class="bg-[#F0F0F0] max-w-[500px]  rounded-[20px]  px-5 py-2 overflow-auto   break-words" >
-              <p> <%=  message.content %></p>
+            <div class="bg-[#F0F0F0] max-w-[500px]  rounded-[20px]  px-5 py-2 overflow-auto   break-words">
+              <p> <%= message.content %></p>
             </div>
           </div>
         </div>
@@ -39,7 +41,7 @@
   </div>
 
   <div class="bottom-0 absolute w-full bg-white">
-    <%= form_with(model: [ Message.new ], remote: true, id: 'new_message') do |form| %>
+    <%= form_with(model: [Message.new], remote: true, id: 'new_message') do |form| %>
       <div class="flex justify-center items-center">
         <div class="field w-full  ">
           <%= form.text_field :content, placeholder: 'Type your message...', class: 'block  p-1.5 w-full text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 ', id: 'message_content' %>

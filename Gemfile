@@ -81,3 +81,4 @@ gem 'ngrok-tunnel'
 
 gem "sidekiq", "~> 7.1"
 gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+gem 'pry', '~> 0.14.2'

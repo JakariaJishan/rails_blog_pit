@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get '/posts/liked_users/:post_id', to: "likes#liked_users"
   get '/users/:id', to:'users#show'
   get '/users', to:'users#index'
-
+  get '/user/profile/:id', to:'users#profile'
   resources :messages, only:[:create, :destroy]
   resources :questions do
     resources :answers, only: [:create, :destroy]
