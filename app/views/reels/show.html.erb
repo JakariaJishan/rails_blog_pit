@@ -1,0 +1,7 @@
+<h1><%= @reel.title %></h1>
+<p>Uploaded by: <%= link_to @reel.user.username, user_path(@reel.user) %></p>
+
+<%= video_tag @reel.video, controls: true, width: 640, height: 480 %>
+
+<p><%= @reel.description %></p>
+<%= link_to "Back to Reels Feed", reels_path %>

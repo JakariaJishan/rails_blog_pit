@@ -1,0 +1,18 @@
+<%= form_with(model: @reel, local: true) do |form| %>
+  <div role="alert" class="max-w-[800px] mx-auto">
+    <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded ">
+      <h1 class="text-center text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Upload New Video</h1>
+
+      <%= form.text_field :title, class: 'mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border', placeholder: 'Title here...' %>
+
+      <%= form.text_area :description, class: 'mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-50 flex items-center pl-3 text-sm border-gray-300 rounded border', placeholder: 'Enter description here...' %>
+
+      <%= form.file_field :video%>
+
+      <div class="flex items-center justify-start w-full mt-5">
+        <%= form.submit "Upload Video", class: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transition duration-150 ease-in-out hover:bg-green-700 bg-green-500 rounded text-white px-8 py-2 text-sm cursor-pointer' %>
+        <%= link_to "Cancel", reels_path, class:"focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-red-400 ml-3 bg-red-600 transition duration-150 text-white ease-in-out hover:border-red-400 hover:bg-red-500 border rounded px-8 py-2 text-sm" %>
+      </div>
+    </div>
+  </div>
+<% end %>

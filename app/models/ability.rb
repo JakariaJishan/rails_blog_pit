@@ -10,5 +10,6 @@ class Ability
     can :manage, Answer, user_id: user.id
     can :read, Question
     can :read, Answer
+    can :manage, Reel, user_id: user.id
   end
 end

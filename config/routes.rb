@@ -44,4 +44,7 @@ Rails.application.routes.draw do
   delete '/questions/:question_id/answers/:answer_id/like', to: 'likes#unlike_answer', as: 'unlike_answer'
 
   get '/saved_posts', to: 'saved_posts#index'
+
+  resources :reels, only: [:index, :show, :new, :create, :destroy]
+
 end

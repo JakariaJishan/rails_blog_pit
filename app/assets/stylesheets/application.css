@@ -20,3 +20,46 @@
 .iti{
     float: left;
 }
+
+.reel h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#reels-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.reel {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    scroll-margin-top: 20px; /* Ensure smooth scroll with some margin */
+}
+
+.reel video {
+    max-width: 100%;
+    height: auto;
+}
+/*#reels-container {*/
+/*    display: flex;*/
+/*    overflow-x: auto;*/
+/*    scroll-snap-type: x mandatory;*/
+/*    width: 100vw;*/
+/*    height: 100vh;*/
+/*    scroll-behavior: smooth;*/
+/*}*/
+
+/*.reel {*/
+/*    flex: 0 0 100vw; !* Each reel takes full viewport width *!*/
+/*    scroll-snap-align: center; !* Reel snaps to center *!*/
+/*    padding: 20px;*/
+/*}*/
+
+/*video {*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    max-height: 90vh; !* Limit video height *!*/
+/*}*/

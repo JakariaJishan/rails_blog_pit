@@ -1,0 +1,56 @@
+
+<div id="reels-container" class="max-w-[800px] mx-auto">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold">Videos Feed</h1>
+    <% if user_signed_in? %>
+      <%= link_to "Upload video", new_reel_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <% end %>
+  </div>
+
+  <% @reels.each_with_index do |reel, index| %>
+    <div class="reel" id="reel-<%= index %>">
+      <h2><%= reel.title %></h2>
+      <% if can? :manage, reel %>
+      <%= button_to "delete", reel_path(reel), method: :delete, remote: true,data: { confirm: "Are you sure you want to delete this video?" }, class: "float-right text-red-500"%>
+      <% end %>
+      <p>Uploaded by: <%= link_to reel.user.username, "/user/profile/#{reel.user.id}", class: "text-blue-600" %></p>
+      <p class="mb-2"><%= reel.description %></p>
+      <%= video_tag url_for(reel.video), controls: true,muted: true, width: "100%", height: 240, id: "video-#{index}" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const reelsContainer = document.getElementById("reels-container");
+        const videos = reelsContainer.querySelectorAll("video");
+
+        videos.forEach((video, index) => {
+            // Listen for the 'play' event on each video
+            video.addEventListener("play", () => {
+                // Pause all other videos except the one currently playing
+                videos.forEach((v, i) => {
+                    if (i !== index && !v.paused) {
+                        v.pause();
+                    }
+                });
+            });
+
+            // Listen for when the video ends
+            video.addEventListener("ended", () => {
+                // Move to the next reel if there's one
+                const nextReel = document.getElementById(`reel-${index + 1}`);
+                if (nextReel) {
+                    // Scroll smoothly to the next reel
+                    nextReel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+                    // Automatically play the next reel
+                    const nextVideo = nextReel.querySelector("video");
+                    if (nextVideo) {
+                        nextVideo.play();
+                    }
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,44 @@
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap -m-4">
+      <div class="p-4 xl:w-1/4 md:w-1/2 w-full">
+        <div id="reels-container" style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; width: 200px; height: 400px;">
+          <% @reels.each_with_index do |reel, index| %>
+            <!-- Each reel should take the full width of the viewport -->
+            <div class="reel" id="reel-<%= index %>" style="flex: 0 0 100px; scroll-snap-align: center;">
+              <h2><%= reel.title %></h2>
+<!--              <p>Uploaded by: <%#= link_to reel.user.username, user_path(reel.user) %></p>-->
+              <%= video_tag url_for(reel.video), controls: true, width: "100%", height: "100%", id: "video-#{index}" %>
+              <p><%= reel.description %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const reelsContainer = document.getElementById("reels-container");
+        const videos = reelsContainer.querySelectorAll("video");
+
+        videos.forEach((video, index) => {
+            // Listen for when the video ends
+            video.addEventListener("ended", () => {
+                // Move to the next reel if there's one
+                const nextReel = document.getElementById(`reel-${index + 1}`);
+                if (nextReel) {
+                    // Scroll smoothly to the next reel
+                    nextReel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+                    // Automatically play the next reel
+                    const nextVideo = nextReel.querySelector("video");
+                    if (nextVideo) {
+                        nextVideo.play();
+                    }
+                }
+            });
+        });
+    });
+</script>

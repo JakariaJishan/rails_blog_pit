@@ -29,6 +29,8 @@ class User < ApplicationRecord
   has_many :received_friendships, foreign_key: :receiver_id, class_name: 'Friendship'
   has_many :received_friends, through: :received_friendships, source: :sender
 
+  has_many :reels, dependent: :destroy
+
   # Scope for accepted friendships
   def friends
     sent_friends.merge(Friendship.where(status: 'accepted')) + received_friends.merge(Friendship.where(status: 'accepted'))
