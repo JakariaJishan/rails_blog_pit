@@ -6,6 +6,8 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.new(sender: current_user, receiver: @user, status: 'pending')
 
     if @friendship.save
+      Notification.create(user: @friendship.receiver, message: "#{current_user.username} sent you a friend request")
+
       flash[:notice] = "Friend request sent!"
     else
       flash[:alert] = "Unable to send friend request."
@@ -19,6 +21,7 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.find_by(sender: @user, receiver: current_user, status: 'pending')
 
     if @friendship.update(status: 'accepted')
+      Notification.create(user: @friendship.sender, message: "#{current_user.username} accepted your friend request")
       flash[:notice] = "Friend request accepted!"
     else
       flash[:alert] = "Unable to accept friend request."

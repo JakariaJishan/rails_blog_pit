@@ -1,6 +1,6 @@
 <div class="flex items-start justify-between">
   <% if user_signed_in? %>
-    <div class="my-5 border border-gray-200 rounded-lg bg-white p-5 w-[20%]">
+    <div class="my-5 border border-gray-200 rounded-lg bg-white p-5 w-[20%] sticky top-[100px] left-0">
       <%= link_to "Friends", "/users/#{current_user.id}/friends", class: "hover:text-blue-500 block mb-2" %>
       <%= link_to "Videos", "/reels", class: "hover:text-blue-500 block mb-2" %>
     </div>
@@ -14,7 +14,7 @@
     <% end %>
     <%= render "posts", posts: @posts %>
   </div>
-  <div class="w-[20%]">
+  <div class="w-[20%]  sticky top-[100px] right-0">
     <% if user_signed_in? %>
       <div class="my-5 border border-gray-200 rounded-lg bg-white p-5">
       <h2>Contacts</h2>

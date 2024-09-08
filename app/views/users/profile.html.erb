@@ -6,6 +6,8 @@
     <div class="text-center lg:w-2/3 w-full">
       <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"><%=@user.username %></h1>
       <p class="mb-8 leading-relaxed"><%=@user.email %></p>
+      <p class="mb-8 leading-relaxed"><%=@user.phone_number %></p>
+      <p class="mb-8 leading-relaxed">Date of Birth: <%=@user.date %></p>
       <% if current_user == @user %>
         <div class="flex justify-center">
           <%= link_to "Edit Profile", edit_user_registration_path, class: "inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>

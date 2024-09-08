@@ -23,7 +23,8 @@
 <body class="bg-[#F8F6F4]  ">
 
 <!--  navigation-->
-<div class=" flex justify-between items-center w-4/5 mx-auto mb-5 py-3 sticky top-0 bg-[#F8F6F4] z-[100]">
+<div class="bg-[#F8F6F4]  sticky top-0 z-[100]">
+<div class=" flex justify-between items-center w-4/5 mx-auto mb-5 py-3  ">
   <div>
     <%= link_to root_path do %>
       <%= image_tag ('x.png'), class: 'w-16 h-16' %>
@@ -62,6 +63,29 @@
 
       <% end %>
     </div>
+
+    <div>
+      <button type="button" class="notification-btn relative">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 24 24" class="h-8 w-8">
+          <path d="M 12 2 C 11.172 2 10.5 2.672 10.5 3.5 L 10.5 4.1953125 C 7.9131836 4.862095 6 7.2048001 6 10 L 6 16 L 4 18 L 4 19 L 10.269531 19 A 2 2 0 0 0 10 20 A 2 2 0 0 0 12 22 A 2 2 0 0 0 14 20 A 2 2 0 0 0 13.728516 19 L 20 19 L 20 18 L 18 16 L 18 10 C 18 7.2048001 16.086816 4.862095 13.5 4.1953125 L 13.5 3.5 C 13.5 2.672 12.828 2 12 2 z M 12 6 C 14.206 6 16 7.794 16 10 L 16 16 L 16 16.828125 L 16.171875 17 L 7.828125 17 L 8 16.828125 L 8 16 L 8 10 C 8 7.794 9.794 6 12 6 z"></path>
+        </svg>
+        <div id="notification-count" class="hidden h-3.5 w-3.5 rounded-full absolute bg-green-500 border-2 border-white top-0 right-0"></div>
+      </button>
+
+      <div id="notification-popup" class="hidden absolute top-16 right-0 bg-[#fff] flex flex-col justify-center items-center w-[380px] text-left animate-fade-in shadow-lg z-20 rounded-md">
+        <div class="notification-popup-header flex justify-between items-center w-full p-2 bg-gray-200">
+          <h3>Notifications</h3>
+          <button class="read-all">Read All</button>
+          <button class="clear-all">Clear All</button>
+        </div>
+        <div class="notification-popup-body text-black mt-2 mb-3 w-full">
+          <ul id="notifications" class="w-full px-3 max-h-[600px] overflow-y-scroll">
+            <!-- Notifications will be inserted here -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <% if user_signed_in? %>
       <div id="open">
         <%= image_tag current_user.avatar, class: "object-cover cursor-pointer rounded-full h-12 w-12  p-1 ring-2 ring-white" %>
@@ -102,7 +126,7 @@
   </div>
 
 </div>
-
+</div>
 <div class="text-center flex justify-center  transition ease-in-out" id="toast">
   <% flash.each do |name, msg| %>
     <% if name == 'notice' %>

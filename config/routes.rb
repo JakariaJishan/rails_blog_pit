@@ -47,4 +47,14 @@ Rails.application.routes.draw do
 
   resources :reels, only: [:index, :show, :new, :create, :destroy]
 
+  resources :notifications, only: [:index] do
+    collection do
+      delete :notification_clear
+      patch :notification_read_all
+    end
+    member do
+      patch :mark_as_read
+    end
+  end
+
 end

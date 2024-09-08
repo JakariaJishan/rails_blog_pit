@@ -41,6 +41,10 @@ class PostsController < ApplicationController
     @post = Post.new(post_params) 
     @post.user = @user
     if @post.save
+      @user.friends.each do |friend|
+        Notification.create(user: friend, message: "#{current_user.username} Upload a new Post.")
+      end
+
       flash[:notice] ="Post created successfully"
       redirect_to posts_path
     else
