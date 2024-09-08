@@ -1,15 +1,18 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :index]
   before_action :downcase_title, only: [:create,:update]
   load_and_authorize_resource
   helper_method :list_like_users
   def index
+    friend_ids = current_user.friends.pluck(:id)
+    friend_ids << current_user.id
+
     if params[:title].blank?
-      @posts = Post.includes(:user).order(created_at: :desc)
+      @posts = Post.includes(:user).where(user_id: friend_ids).order(created_at: :desc)
 
     else
       search_downcase = params[:title].downcase
-      @posts = Post.includes(:user).where("title LIKE ?", "%#{search_downcase}%").order(created_at: :desc)
+      @posts = Post.includes(:user).where(user_id: friend_ids).where("title LIKE ?", "%#{search_downcase}%").order(created_at: :desc)
     end
     respond_to do |format|
       format.html
