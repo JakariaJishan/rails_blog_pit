@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const recipientId = document.getElementById('recipient_id')?.value
   const recipientAvatar = document.getElementById('recipient_avatar')?.value
   const chat_id = [senderId, recipientId].sort((a,b)=>a-b).join("")
-  const chatChannel = consumer.subscriptions.create({channel: "ChatChannel", chat_id: chat_id}, {
+  consumer.subscriptions.create({channel: "ChatChannel", chat_id: chat_id}, {
     connected() {
       console.log('connected')
       // Called when the subscription is ready for use on the server
@@ -19,15 +19,16 @@ document.addEventListener('DOMContentLoaded', function() {
     received(data) {
       console.log(data)
       if (data.action === 'delete') {
-        const messageElement = document.getElementById(`message_${data.message_id}`);
+        const messageElement = document.getElementById(`message_${data.message.id}`);
         if (messageElement) {
           messageElement.remove();
         }
       } else {
-        const isCurrentUserSender = data.message.message.sender_id === Number(senderId);
+        const isCurrentUserSender = data.message.sender_id === Number(senderId);
         const messages = document.getElementById('messages');
         messages.scrollTop = messages.scrollHeight;
-        messages.insertAdjacentHTML('beforeend', this.html(data.message.message.content, isCurrentUserSender, data.message.message.id));
+        messages.insertAdjacentHTML('beforeend', this.html(data.message.content, isCurrentUserSender, data.message.id));
+        document.getElementById('message_content').value = '';
       }},
 
     html(content, isCurrentUserSender, messageId){
@@ -55,18 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
     },
 
-    speak(content) {
-      this.perform('speak', { content: content, sender_id: senderId, recipient_id: recipientId })
-    }
   })
-  const form = document.getElementById('new_message')
-  form?.addEventListener('submit', function(e) {
-    const input = document.getElementById('message_content')
-    const content = input.value
-    chatChannel.speak(content)
-    input.value = ''
-    e.preventDefault()
-  })
+
 
 })
 
