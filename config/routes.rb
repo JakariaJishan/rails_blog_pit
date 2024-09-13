@@ -57,4 +57,6 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :stories, only: [:index, :new, :create, :show, :destroy]
+
 end

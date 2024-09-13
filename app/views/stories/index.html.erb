@@ -1,0 +1,13 @@
+<h1>Stories</h1>
+
+<%= link_to "Add Story", new_story_path %>
+
+<div class="stories">
+  <% @stories.each do |story| %>
+    <div class="story">
+      <%= image_tag story.image %>
+      <p>Posted by: <%= story.user.email %></p>
+      <p>Expires at: <%= story.expires_at %></p>
+    </div>
+  <% end %>
+</div>

@@ -11,5 +11,6 @@ class Ability
     can :read, Question
     can :read, Answer
     can :manage, Reel, user_id: user.id
+    can :manage, Story, user_id: user.id
   end
 end

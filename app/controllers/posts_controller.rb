@@ -14,6 +14,9 @@ class PostsController < ApplicationController
       search_downcase = params[:title].downcase
       @posts = Post.includes(:user).where(user_id: friend_ids).where("title LIKE ?", "%#{search_downcase}%").order(created_at: :desc)
     end
+
+    @stories = Story.where(user_id: friend_ids).order(created_at: :desc)
+
     respond_to do |format|
       format.html
       format.json { render json: @posts }

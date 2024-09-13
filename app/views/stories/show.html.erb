@@ -1,0 +1,6 @@
+<% if can? :delete, @story %>
+  <%= button_to 'Delete Story', story_path(@story), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-500' %>
+<% end %>
+<div class="flex justify-center items-center h-screen">
+  <%= image_tag @story.image, class: "w-[60vw] h-[80vh] object-cover" %>
+</div>

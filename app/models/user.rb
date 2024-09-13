@@ -33,6 +33,8 @@ class User < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
+  has_many :stories, dependent: :destroy
+  
   # Scope for accepted friendships
   def friends
     sent_friends.merge(Friendship.where(status: 'accepted')) + received_friends.merge(Friendship.where(status: 'accepted'))

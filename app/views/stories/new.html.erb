@@ -1,0 +1,15 @@
+
+<%= form_with model: @story, local: true do |f| %>
+  <div role="alert" class="max-w-[800px] mx-auto">
+    <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded ">
+      <h1 class="text-center text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Create New Story</h1>
+      <%= f.label :image, class: 'block mb-2' %>
+      <%= f.file_field :image%>
+
+      <div class="flex items-center justify-start w-full mt-5">
+        <%= f.submit "Add Story", class: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transition duration-150 ease-in-out hover:bg-green-700 bg-green-500 rounded text-white px-8 py-2 text-sm cursor-pointer' %>
+        <%= link_to "Cancel", root_path, class:"focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-red-400 ml-3 bg-red-600 transition duration-150 text-white ease-in-out hover:border-red-400 hover:bg-red-500 border rounded px-8 py-2 text-sm" %>
+      </div>
+    </div>
+  </div>
+<% end %>
