@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     before_action :configure_permitted_parameters, if: :devise_controller?
     helper_method :time_ago, :read_time
+    before_action :ensure_not_banned
 
     def time_ago (date)
         current_date = Time.zone.now
@@ -45,6 +46,13 @@ class ApplicationController < ActionController::Base
              "few sec read"
         else
              "#{@total_read_time} min read"
+        end
+    end
+
+    def ensure_not_banned
+        if current_user&.banned?
+            sign_out current_user
+            redirect_to new_user_session_path, alert: 'Your account has been banned.'
         end
     end
 

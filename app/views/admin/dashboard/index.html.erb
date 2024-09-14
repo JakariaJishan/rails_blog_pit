@@ -1,0 +1,60 @@
+
+<section class="text-gray-600 body-font flex gap-20 ">
+
+  <div class="mt-10 text-violet-500 font-semibold flex-1">
+    <%= link_to 'Dashboard', '/admin', class: "bg-violet-100 rounded-lg p-3 mb-4 block" %>
+    <%= link_to 'Manage Users', '/admin/users', class: "p-3 rounded-lg  mb-4 block" %>
+  </div>
+
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-20">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Admin Dashboard</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Platform Statistics</p>
+    </div>
+    <div class="flex flex-wrap -m-4 text-center">
+      <!-- Total Users -->
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg flex flex-col justify-center items-center">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEGklEQVR4nO2YSWxWVRTHfwzSBYMuUBbMdQBBYqRpExKIKSw0ChVFQqwbXIBoHFAhksCi1IjBBUGtikOAOCyckBaiBaMxsStZMFmjSS0GQ9IYXcgo0vqRY/6X3Nzc97336temJO+f3OTLOeeec+757j3DgwIFChQoUKDAgGI68DTwqtZTwDSuIowFdgJ9QClYvcC7khnSuBY4KqftIO1Ak1a7d7gjkh2y+FSO/gbURvh14pnMRwxR1MrBi8BtZeTmAP9ItmYQ/eN6YBmwCrgXGJMg97Kc251B53uS3ZrAHwMsls1l8qHfGAW8BlwKHuwZ4LmI/H7xV2bQ/Yhk90V464GzgU3z4RX5lBufSMm/wCFgD/Cjp9wesI+vRH8og+5GyR4M6Js9/Z2yeUg+GO3jvIe4WxvtLjd49GHAOi9Kfl14R/SXMujfKtm3PVq10nMp8o83eO/qrjwH2a1Nryfwv40YvF+0npTUarzfJbs0uFIl6Y7hDfGtRmVGR8o1eUH8HR5tBPCD6FYzRic84gOSOaY9Dm+JbrrLXcfv8hzkoDY9lsBvEX9bQL9dycB4J4C1wDyttaIZ77TSsI/t4lmCieFx8S0QmeEe3ffA8MjV6BF/eWSv1YbuSHvi1i/A3Mi+Fd7VHBfwhuvRx5JMWUzyIvuFKrLRFqq9cA4lpcMq4FFdMZPrAr4EVouXtKdbug8D9bJZp70u9U8kJx5QlY5F9Y8Bqso1wJ8JNv9WQukX7B5/CJzSobr1PnJHJQcmycYJ2TTbH6S0PQXK4UbgSaAVOK7H26PfreJZ8Rs03AxsUrr7SX+x1Ym9mvxuCOTnqqWIDVThMpnPItlrgnTvla1Tsn1AvtyUd0T93OtvSmUen93l8UCz1164geoZ4E5glpb9fjYYsHq1d7y6iIsZA5A6Mt/npV0z0gasAeYro9TLGVf5Xc/lfr+vQKShWkkkpqNDQaiXzQXyoc0LlhXUJUnKH/Qi9Q0wI8WZRZ4DpzU/5EWD9rrDLEyRn+n1eb2xdHwrcF4CbwY9UBKaJf8XcAf9R413mOYM8iO9Tvt8GHB3yv2RliSGOkXE3tE9/H8slq5LCbN+iBFetf/ad8qdzopRFrTmGGuzwo2/lrGyYApwQXtq/fZ5Z4460ad/ZDKVw1Tp7JONLNgl3+0MVz7P2OPNAjeLWBapNNpSZpIQiyR/Em/Qt1yfBa77tUGn0mj0ut8smO0lnCtR6FSv/3ywnghab5fdclXZjLhFui24DlVqa0K/muRzSR3Ff8XpZEpF9fN1V46vJXnxsHT/HIwT5Xz71a/01ynyLXo4/nox+Ci3UQrOadRdXaFluty/vcGzZ7a3RPxqkc/9/oZ8jVJkaYDWHtkYFAzTdduhj2aVWKZrqXQXKFCgQIECDCYuA7wIrc/ICXA1AAAAAElFTkSuQmCC" alt="sdf">
+          <h2 class="title-font font-medium text-3xl text-gray-900"><%= @total_users %></h2>
+          <p class="leading-relaxed">Total Users</p>
+        </div>
+      </div>
+
+      <!-- Total Posts -->
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg flex flex-col justify-center items-center">
+          <img width="50" height="50" src="https://img.icons8.com/ios/50/e-learning.png" alt="e-learning"/>
+          <h2 class="title-font font-medium text-3xl text-gray-900"><%= @total_posts %></h2>
+          <p class="leading-relaxed">Total Posts</p>
+        </div>
+      </div>
+
+      <!-- Total Comments -->
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg flex flex-col justify-center items-center">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABZklEQVR4nO2ZsS5EQRSGP9sQT8AqVFqh8Q52eQl6pZUoxIbXUIpeJAii9AxKolHJLkJEjtzk30SuuburWWfkfMk058zc/Cf/3JnkDARB8FtWgEvgGTBnoyttzUFF7DkQa0OOdj8nignvwCZQxx91oCWNhdZGatKVksVE77Sk9SKV7Co5jX+mpLWTSvb2Xi5Yld4o5I+wcMQZFo44w8IRZ1g44gwLR5xh4YgzLBxxhoUjzrBwxBkWjjjD/r0jHSU8tkrLzEjr04+Muty5tEy3+rVMm9+a2K1MmtjLVRPbQ7TzTyvW1oDrET4r7A6quiHLev9Makwk1q2OQHxH2iqdGJY7fXC2FB8DbpQrCnLPrcTOl+LrihfFuKcGvCSO6AW9N74Bi2TAkop4KMUeFd8gEzfOJXgfmAS25UIR2yEDxoEDCf4ADnWjmrbaGplwljgGP4EjYI6MOAZegXvgRDdr+fgNggDffAGLGjyJ7b32awAAAABJRU5ErkJggg==">
+          <h2 class="title-font font-medium text-3xl text-gray-900"><%= @total_comments %></h2>
+          <p class="leading-relaxed">Total Comments</p>
+        </div>
+      </div>
+
+      <!-- Total Videos -->
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg flex flex-col justify-center items-center">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACgElEQVR4nO2ZO2gUQQCGPyWiEhEbIWqRqMQgVj4KC8UVcyooPooEBNFGvEKwUDEWBjSJ8RLERvEZGxULC40WCWghggiWiqXa+IKApSBiUAb+g2GYvb3VDdk954fhGPab2fl3bmdn/4WgoKCgoJxpM3AdGAeeTnMZ11iitCYuAL9zWobrNbFXDX4BN4AycHiaSxm4CUxqbHvqMfJYcIX8aUhjG60HfiO45Dm2GDgDLEro4wiwPYFZD5wEmmow84FeoEP1ksb2mjr0VrDvxhrQMfMbp3YxHxPO80JcZw3mkJi7qkeqmzGmNrIEOAb0AM9jbrgZwEExF8VMePpeJ6ZHRg23w2EWAEfFjIq5n4WREc/KMei02eBhPnv6fufhtjrMaQ9zLwsja4ArWsdNuQy0OW3mAOctxpQuT9/dDmPazHaYpTpHlbkKrM7CSJ4UBSP/oLaEpbUQM/JQfXwF9mtVK5yRVs+q8wxYScGMrFL7b8Ap4LvqP7VKNVMwIxPWA/W2NTufgANFNFLVTuCDZchsTudRQCNGc7VP+yGmjwYxcrZR/lrNKfuOws3+Py+/rY3yQDR60AhbFHtmCr9pnCpFwYij5XrtXUa8Zioy2kdtbVOiaV6T47QQuASszXpGBmPCB1sdYr4knOdlTPhgq5xl+LACOKfk8VVMHDQLOC5mpMYWpSSmIqO+OKhFWxfDPMkyDrrleS70O202ehhfQPfew21xmF4Pc+dvjLiRabs2etUr2aerZqtJIV7FKr4EsdNhTniW6BZrRir6N5gxpI5MHwk2gXHeNJwmxN4teDLHnxV2pXWexzKUdhrNjXUNGMvBp7cxRaeb0poICgoKCmIq9QeVW9QA33aBmgAAAABJRU5ErkJggg==">
+          <h2 class="title-font font-medium text-3xl text-gray-900"><%= @total_videos %></h2>
+          <p class="leading-relaxed">Total Videos</p>
+        </div>
+      </div>
+      <!-- Total Videos -->
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg flex flex-col justify-center items-center">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD3klEQVR4nO2ZeYhNURzHP49B9nWEsWQpQ0imLNmyK0v+sWXfRUS2IjWUyPafUJZCNJQtKcQfsqTGLpRQ9i37zhid+t46ve717p337h2v3qdOc+csv9859/zu7/zO70GGDBmSpRMwAYiRxuQA74BiYA1pzGEtwilLSUPGxS3CKQtII+oBbzTxq/p7F/ijMpE0YY8mfxyYredNwFw9/wa6kwYcBF4AjYBJmvxOtS0BvgP9SQNiQDk9j9RCCkhzhmohR5MYb3bzGLAF6EMp0U8LORVwXF3gtIfnOwnUJ2K6Sfm5AGOygZsa9xq4DewA8i1veB9oRoTkSfHlAGOOWm+/K9ATuAeUBWoDF9R2C6hMRLSWUvNW/TBa/d8C64H9qp8DlNdzFeBGnDcMnaZS+NBH3yy9edN/kf43O+pGS+CLDtjuUZ3yxTpXEjFWfZ8DL4F2Cfrnq/+VKKLr6lL2wUffs+przKi9PNe/qAQ81pghhEwFKfqRoF8LmclnLd4v8yX/PCETk6I/CbZ/nvqZOC0IVYH3GtuakPkpRY7XceOE+owIKHuGtZA1hMxnKTJu08vWv8n8qgWUbWTOkvwnOmtC460U1fJoH2SZ37EShh/XJWMAIfJCSowrdmOt2lfJpS7zKbe3LmxbFX8VK5QJjSdS0tCj3QkOBweUG9NZYy5sRyTjaZhnylMpyfGYjJNpSTaifSQ5iQ7SpHckx+P8cN5kUKrFecIdkmVuoYbmCnHypCdlO5ILTAEW6luYKXdrX7xMfLUR2A0cAvbFyaqlEKZI0cIKl4DzjOXSC1UKUrkQk3XcrKg2X4tYrrbVlqmNVzppmEfQWNXDzdaV5/ua4MwqMc802QYubbvUNjlFum5LXkdC4KWEuwWBF9XWw2dc5XWoOmyXPBPyRHogvkrgsbItt90KKJNA1zTJcy5kKeWjhBvbtikvm/75jwkaE+nlUl8DqOlS31a6zAUt5XyV8Ipx9Y1Vb/x/UPp4pIbKKQFY5MMMA/NLE3aSdg6dVH8pxfquSG4XufOeLroDE5P5FLuEDj1Uv5fUslNyjRufamU6kwpdsiTI7Eo8RvBAH1faoLRRIFlPJ7pzX7EPz8BUlBDznZQW/fUijWWMCTo4R2/GSZmaD3A6sBhYCWzQWyvQHeSUouBCq9xRRjEV5bvmYS5wnf0uYpVHzvZ/Kef8LsR8YA+U0rxk7YjZgXWKsxZqh0bpHtJXJc8qucrvJluaAwc0jyLFcYGpIwEm+VwalAW2WSkp83tNici2supRk2XdHD/pe03Kaxkh14ieDpY1mMM3aZrIxKImBgxXIj1DBkqBv7lLVEojS+m4AAAAAElFTkSuQmCC">          <h2 class="title-font font-medium text-3xl text-gray-900"><%= @average_posts_per_user.round %></h2>
+          <p class="leading-relaxed">Average Posts per User</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

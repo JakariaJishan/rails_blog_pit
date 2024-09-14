@@ -59,4 +59,17 @@ Rails.application.routes.draw do
 
   resources :stories, only: [:index, :new, :create, :show, :destroy]
 
+
+  namespace :admin do
+    get 'dashboard/index'
+    root to: 'dashboard#index'
+    resources :users do
+      member do
+        patch :ban
+        patch :unban
+      end
+    end
+  end
+
+
 end

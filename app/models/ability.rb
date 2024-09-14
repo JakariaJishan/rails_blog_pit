@@ -2,6 +2,10 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    if user.isAdmin?
+      can :manage, :all
+    end
+
     return unless user.present?
     can :manage, Post, user: user
     can :manage, Comment, user:user

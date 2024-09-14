@@ -34,7 +34,9 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   has_many :stories, dependent: :destroy
-  
+
+  scope :active, -> { where(banned: false) }
+
   # Scope for accepted friendships
   def friends
     sent_friends.merge(Friendship.where(status: 'accepted')) + received_friends.merge(Friendship.where(status: 'accepted'))
@@ -108,5 +110,13 @@ class User < ApplicationRecord
 
   def questions
     Question.where(user: self)
+  end
+
+  def ban!
+    update(banned: true)
+  end
+
+  def unban!
+    update(banned: false)
   end
 end
