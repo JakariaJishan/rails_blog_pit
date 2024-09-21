@@ -49,8 +49,16 @@ Rails.application.configure do
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.default_url_options = { host: "localhost:3000", protocol: "http" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    user_name: 'jakariajishan006@gmail.com',
+    password: 'zdpksxnnroyjuvpk',
+    authentication: "plain",
+    enable_starttls_auto: true
+  }
   config.action_mailer.perform_deliveries = true
   # config.action_cable.url = "ws:localhost:3000/cable"
 

@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   post '/users/:user_id/accept_friend_request', to: 'friendships#accept'
   post '/users/:user_id/decline_friend_request', to: 'friendships#decline'
   post '/users/:user_id/unfriend', to: 'friendships#unfriend'
+  get '/users/password/add', to: 'users#new_password'
+  patch '/users/password/change', to: 'users#change_password'
 
   resources :messages, only:[:create, :destroy]
   resources :questions do
