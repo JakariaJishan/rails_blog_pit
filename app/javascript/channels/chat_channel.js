@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     received(data) {
-      console.log(data)
       if (data.action === 'delete') {
+        console.log(data)
         const messageElement = document.getElementById(`message_${data.message.id}`);
         if (messageElement) {
           messageElement.remove();
@@ -35,10 +35,15 @@ document.addEventListener('DOMContentLoaded', function() {
       return `
         ${isCurrentUserSender ? `
           <div id="message_${messageId}">
-            <div class="flex items-start gap-5 justify-end my-3">
+            <div class="flex items-center gap-2 justify-end my-3 group/item">
               <div class="bg-[#007D2A] max-w-[500px] rounded-[20px] text-white px-5 overflow-auto py-2 break-words">
                 <p>${content}</p>
               </div>
+              <button onclick="deleteMessage(${messageId})" class="invisible group-hover/item:visible">
+               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="50" viewBox="0 0 24 24" fill="red">
+                <path d="M 10 2 L 9 3 L 3 3 L 3 5 L 21 5 L 21 3 L 15 3 L 14 2 L 10 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z"></path>
+              </svg>
+            </button>
             </div>
           </div>
         ` :`
@@ -57,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
   })
-
 
 })
 

@@ -15,17 +15,20 @@
     </div>
     <% messages.each do |message| %>
       <% if message.sender == current_user %>
-
-        <div>
-          <div class="flex items-start gap-5 justify-end my-3">
+        <div id="message_<%= message.id %>">
+          <div class="flex items-center gap-2 justify-end my-3 group/item">
             <div class="bg-[#007D2A] max-w-[500px] text-white px-5 overflow-auto py-2 rounded-[20px]  break-words">
               <p> <%= message.content %></p>
             </div>
-            <!--            <button onclick="deleteMessage(#{message.id})" id="delete-btn" class="text-red-500">Delete</button>-->
+            <button onclick="deleteMessage(<%= message.id %>)" class="invisible group-hover/item:visible">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="50" viewBox="0 0 24 24" fill="red">
+                <path d="M 10 2 L 9 3 L 3 3 L 3 5 L 21 5 L 21 3 L 15 3 L 14 2 L 10 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z"></path>
+              </svg>
+            </button>
           </div>
         </div>
       <% else %>
-        <div>
+        <div id="message_<%= message.id %>">
           <div class="flex items-start gap-5 justify-start my-3">
             <div>
               <%= image_tag message.sender.avatar, class: "h-8 w-8 rounded-full object-cover" %>
@@ -61,21 +64,50 @@
 </div>
 
 <script>
+  function deleteMessage(messageId) {
+      fetch(`/messages/${messageId}`, {
+          method: 'DELETE',
+          headers: {
+              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          }
+      }).then(response => {
+          if (response.ok) {
+              const flashMessagesDiv = document.getElementById('toast');
+              flashMessagesDiv.classList.remove('hidden');
+              flashMessagesDiv.classList.add('block');
+              // Clear any existing flash messages
+              flashMessagesDiv.innerHTML = '';
 
-    function deleteMessage(messageId) {
-        fetch(`/messages/${messageId}`, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        }).then(response => {
-            if (response.ok) {
-                document.getElementById(`message_${messageId}`).remove();
-            } else {
-                alert('Failed to delete message');
-            }
-        }).catch(() => {
-            alert('An error occurred');
-        });
-    }
+              // Add a new flash message for success
+              flashMessagesDiv.innerHTML = `
+              <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+          </svg>
+          <span class="sr-only">Check icon</span>
+        </div>
+        <div class="ml-3 text-center text-sm font-normal">Message deleted successfully!</div>
+        <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+          <span class="sr-only">Close</span>
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+          </svg>
+        </button>
+      </div>
+              `;
+
+              // Optionally, remove the flash message after a few seconds
+              setTimeout(() => {
+                  flashMessagesDiv.innerHTML = '';
+                  flashMessagesDiv.classList.remove('block');
+                  flashMessagesDiv.classList.add('hidden');
+              }, 5000); // Remove after 5 seconds
+
+          } else {
+              alert('An error occurred');
+          }
+      })
+  }
+
 </script>

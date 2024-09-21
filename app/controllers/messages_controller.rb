@@ -15,11 +15,12 @@ class MessagesController < ApplicationController
 
   def destroy
     @message = Message.find(params[:id])
+    chat_id = [@message.sender.id, @message.recipient.id].sort.join('')
+
     if @message.sender_id == current_user.id
       @message.destroy
-      ActionCable.server.broadcast "chat_channel_#{params[:chat_id]}",
-                                   { message_id: @message.id, action: 'delete' }
-      head :ok
+      ActionCable.server.broadcast "chat_channel_#{chat_id}", { message: @message, action: 'delete' }
+      head :no_content
     else
       head :forbidden
     end
@@ -30,7 +31,4 @@ class MessagesController < ApplicationController
     params.require(:message).permit(:content, :sender_id, :recipient_id)
   end
 
-  def render_message(message)
-    ApplicationController.render(partial: 'messages/message', locals: { message: message })
-  end
 end

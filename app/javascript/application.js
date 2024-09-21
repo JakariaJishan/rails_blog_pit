@@ -12,8 +12,8 @@ import './notifications'
 window.addEventListener('load', () =>{
     let toast = document.getElementById('toast')
     setInterval(()=>{
-        toast.classList.add('opacity-0')
-    },3000)
+        toast.classList.add('hidden')
+    },5000)
 })
 
 const messages = document.getElementById('messages')

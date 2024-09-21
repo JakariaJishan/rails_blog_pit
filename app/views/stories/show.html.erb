@@ -1,6 +1,15 @@
+<div class="flex justify-between items-center max-w-[60vw] mx-auto ">
+  <%= link_to  root_path do %>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+      </path>
+    </svg>
+    <span>back</span>
+  <% end %>
 <% if can? :delete, @story %>
-  <%= button_to 'Delete Story', story_path(@story), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-500' %>
+  <%= button_to 'Delete Story', story_path(@story), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-white bg-red-600 px-3 py-2 rounded' %>
 <% end %>
+</div>
 <div class="flex justify-center items-center h-screen">
   <%= image_tag @story.image, class: "w-[60vw] h-[80vh] object-cover" %>
 </div>

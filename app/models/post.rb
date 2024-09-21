@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
 
-  validates :post_images, content_type: ['image/png', 'image/jpg', 'image/jpeg']
+  # validates :post_images, content_type: ['image/png', 'image/jpg', 'image/jpeg']
 
   belongs_to :user
   has_many :comments, dependent: :destroy

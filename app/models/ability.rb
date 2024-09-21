@@ -2,6 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    can :read , Post
     if user.isAdmin?
       can :manage, :all
     end
