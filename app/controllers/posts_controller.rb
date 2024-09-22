@@ -8,11 +8,11 @@ class PostsController < ApplicationController
     friend_ids << current_user.id
 
     if params[:title].blank?
-      @posts = Post.includes(:user).where(user_id: friend_ids).order(created_at: :desc)
+      @posts = Post.includes(:user).where(user_id: friend_ids).where(banned: false).order(created_at: :desc)
 
     else
       search_downcase = params[:title].downcase
-      @posts = Post.includes(:user).where(user_id: friend_ids).where("title LIKE ?", "%#{search_downcase}%").order(created_at: :desc)
+      @posts = Post.includes(:user).where(user_id: friend_ids).where(banned: false).where("title LIKE ?", "%#{search_downcase}%").order(created_at: :desc)
     end
 
     @stories = Story.where(user_id: friend_ids).where('expires_at > ?', Time.now).order(created_at: :desc)

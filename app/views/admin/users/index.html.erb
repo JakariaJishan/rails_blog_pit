@@ -2,6 +2,8 @@
   <div class="mt-10 text-violet-500 font-semibold flex-1">
     <%= link_to 'Dashboard', '/admin', class: "p-3 rounded-lg  mb-4 block" %>
     <%= link_to 'Manage Users', '/admin/users', class: "p-3 bg-violet-100 rounded-lg  mb-4 block" %>
+    <%= link_to 'Manage Posts', '/admin/posts', class: "p-3 rounded-lg  mb-4 block" %>
+
   </div>
 
   <div class="container px-5 py-24 mx-auto">
@@ -20,6 +22,7 @@
           <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Comments</th>
           <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Registered</th>
           <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Last Login</th>
+          <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Confirmed Account</th>
           <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Banned</th>
           <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Actions</th>
         </tr>
@@ -33,6 +36,7 @@
             <td class="px-4 py-3"><%= user.comments.count %></td>
             <td class="px-4 py-3"><%= user.created_at.strftime('%Y-%m-%d %H:%M') %></td>
             <td class="px-4 py-3"><%= user.last_seen_at.present? ? user.last_seen_at.strftime('%Y-%m-%d %H:%M') : "Never" %></td>
+            <td class="px-4 py-3"><%= user.confirmed? ? user.confirmed_at.strftime('%Y-%m-%d %H:%M') : 'Not confirmed yet' %></td>
             <td class="px-4 py-3"><%= user.banned ? 'Yes' : 'No' %></td>
             <td class="px-4 py-3">
               <%= button_to 'Ban', ban_admin_user_path(user), method: :patch, class: "text-white bg-red-500 hover:bg-red-700 px-3 py-1 rounded w-full", disabled: user.banned if !user.banned %>

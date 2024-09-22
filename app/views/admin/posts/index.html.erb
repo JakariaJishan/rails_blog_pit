@@ -1,0 +1,50 @@
+<section class="text-gray-600 body-font  flex gap-20 ">
+  <div class="mt-10 text-violet-500 font-semibold flex-1">
+    <%= link_to 'Dashboard', '/admin', class: "p-3 rounded-lg  mb-4 block" %>
+    <%= link_to 'Manage Users', '/admin/users', class: "p-3 rounded-lg  mb-4 block" %>
+    <%= link_to 'Manage Posts', '/admin/posts', class: "p-3 bg-violet-100 rounded-lg  mb-4 block" %>
+  </div>
+
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-10">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Posts</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Ban or Unban Posts</p>
+
+    </div>
+    <div class="w-full w-full mx-auto overflow-auto">
+      <table class="table-auto w-full text-left whitespace-no-wrap">
+        <thead>
+        <tr>
+          <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">Image</th>
+          <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">Title</th>
+          <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">Content</th>
+          <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Published Time</th>
+          <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Banned</th>
+          <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @posts.each do |post| %>
+          <tr>
+            <td class="px-4 py-3">
+              <% if post.post_images.attached? %>
+                <%= image_tag post.post_images[0], class: 'h-20 w-20'%>
+              <% else %>
+                No Image
+              <% end %>
+            </td>
+            <td class="px-4 py-3"><%= post.title %></td>
+            <td class="px-4 py-3"><%= post.content %></td>
+            <td class="px-4 py-3"><%= post.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+            <td class="px-4 py-3"><%= post.banned ? 'Yes' : 'No' %></td>
+            <td class="px-4 py-3">
+              <%= button_to 'Ban', ban_post_admin_post_path(post), method: :patch, class: "text-white bg-red-500 hover:bg-red-700 px-3 py-1 rounded w-full", disabled: post.banned if !post.banned %>
+              <%= button_to 'Unban', unban_post_admin_post_path(post), method: :patch, class: "text-white bg-green-500 hover:bg-green-700 px-3 py-1 rounded w-full", disabled: !post.banned if post.banned %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

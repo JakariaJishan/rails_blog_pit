@@ -11,9 +11,15 @@ class Post < ApplicationRecord
 
   after_create :check_user_badges
 
-  private
-
   def check_user_badges
     user.check_for_badges
+  end
+
+  def ban!
+    update(banned: true)
+  end
+
+  def unban!
+    update(banned: false)
   end
 end

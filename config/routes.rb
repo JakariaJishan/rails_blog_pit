@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'chats/create'
   mount Sidekiq::Web => '/sidekiq'
   mount ActionCable.server => '/cable'
-  devise_for :users, controllers: {registrations: "registrations"}
+  devise_for :users, controllers: { registrations: "registrations" }
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
@@ -15,17 +15,17 @@ Rails.application.routes.draw do
   resources :posts do
     resource :saved_post, only: [:index, :create, :destroy]
 
-    resources :comments do 
+    resources :comments do
       resources :replies
     end
-    resources :likes , only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
   end
 
   get '/posts/liked_users/:post_id', to: "likes#liked_users"
-  get '/users/:id', to:'users#show'
-  get '/users', to:'users#index'
-  get '/user/profile/:id', to:'users#profile'
-  get '/users/:user_id/friends', to:'users#friends'
+  get '/users/:id', to: 'users#show'
+  get '/users', to: 'users#index'
+  get '/user/profile/:id', to: 'users#profile'
+  get '/users/:user_id/friends', to: 'users#friends'
 
   post '/users/:user_id/send_friend_request', to: 'friendships#create'
   post '/users/:user_id/accept_friend_request', to: 'friendships#accept'
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   get '/users/password/add', to: 'users#new_password'
   patch '/users/password/change', to: 'users#change_password'
 
-  resources :messages, only:[:create, :destroy]
+  resources :messages, only: [:create, :destroy]
   resources :questions do
     resources :answers, only: [:create, :destroy]
   end
@@ -61,7 +61,6 @@ Rails.application.routes.draw do
 
   resources :stories, only: [:index, :new, :create, :show, :destroy]
 
-
   namespace :admin do
     get 'dashboard/index'
     root to: 'dashboard#index'
@@ -71,7 +70,12 @@ Rails.application.routes.draw do
         patch :unban
       end
     end
+    resources :posts do
+      member do
+        patch :ban_post
+        patch :unban_post
+      end
+    end
   end
-
 
 end
