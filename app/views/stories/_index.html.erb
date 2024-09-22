@@ -23,9 +23,8 @@ display: flex;
   <% stories.each do |story| %>
     <%= link_to story_path(story), class: "story relative", style: "flex: 0 0 33.33%;" do %>
       <%= image_tag story.image, class: 'w-full h-[350px] rounded-xl border object-cover' %>
-      <p class="text-white absolute top-2 right-2">Expires
-        in <%= (((story.expires_at - Time.now) % (60 * 60 * 24)) / (60 * 60)).to_i %>h </p>
-
+      <p class="text-white absolute top-2 right-2 bg-black/30 px-2">
+        <%= time_ago_in_words(story.created_at) %> ago
       <div class="absolute bottom-2 left-2">
         <div>
           <%= image_tag story.user.avatar, class: 'h-12 w-12 rounded-full border-2 p-[2px] border-green-500 inline-block object-cover' %>

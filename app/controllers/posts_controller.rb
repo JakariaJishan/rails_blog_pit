@@ -15,7 +15,7 @@ class PostsController < ApplicationController
       @posts = Post.includes(:user).where(user_id: friend_ids).where("title LIKE ?", "%#{search_downcase}%").order(created_at: :desc)
     end
 
-    @stories = Story.where(user_id: friend_ids).order(created_at: :desc)
+    @stories = Story.where(user_id: friend_ids).where('expires_at > ?', Time.now).order(created_at: :desc)
 
     respond_to do |format|
       format.html

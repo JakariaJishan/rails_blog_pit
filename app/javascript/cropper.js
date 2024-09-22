@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () =>{
+document.addEventListener('DOMContentLoaded', () => {
 
     let avatarPreview = document.getElementById('avatar-preview');
     let avatarInput = document.getElementById('avatar')
@@ -10,13 +10,12 @@ document.addEventListener('DOMContentLoaded', () =>{
         let reader = new FileReader();
         reader.onload = function () {
             avatarPreview.src = reader.result;
-            cropper = new Cropper(avatarPreview, {
-            });
+            cropper = new Cropper(avatarPreview, {});
         }
         reader.readAsDataURL(file);
     });
 
-    registration_form?.addEventListener('submit',   (e) => {
+    registration_form?.addEventListener('submit', (e) => {
         e.preventDefault()
 
         let canvas = cropper.getCroppedCanvas().toDataURL()
@@ -28,29 +27,30 @@ document.addEventListener('DOMContentLoaded', () =>{
         let phone_input = document.getElementById('phone-input')
         let iti = window.intlTelInputGlobals.getInstance(phone_input);
         let phone_number = iti.getNumber()
-           fetch('/users', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        fetch('/users', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+                user: {
+                    cropped_img: canvas,
+                    username,
+                    password,
+                    email,
+                    password_confirmation,
+                    date,
+                    phone_number
                 },
-                body: JSON.stringify({
-                    user:{
-                        cropped_img : canvas,
-                        username,
-                        password,
-                        email,
-                        password_confirmation,
-                        date,
-                        phone_number
-                    },
-                })
             })
-               .then(res => res.json())
-               .then(data => {
-                   window.location.href = '/'
-               })
-               .catch(e => console.log(e))
+        })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message)
+                window.location.href = '/users/sign_in'
+            })
+            .catch(e => console.log(e))
 
     })
 
