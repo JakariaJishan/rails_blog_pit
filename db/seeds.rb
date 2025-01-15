@@ -1,21 +1,129 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require 'faker'
 
-# user = User.create(name:"jack")
-# user2= User.create(name:"joe")
-#
-# post1 = Post.create(title:"post1", content:"this is post1", user_id: user.id)
-# post2 = Post.create(title:"post2", content:"this is post2", user_id: user.id)
-#
-# Comment.create(body:"this comment is for post 1", user_id:user.id, post:post1)
-# Comment.create(body:"this comment is for post 2", user_id:user2.id, post:post2)
+# Users
+puts 'Seeding users...'
+10.times do
+  User.create!(
+    email: Faker::Internet.unique.email,
+    password: 111111,
+    username: Faker::Internet.unique.username,
+    date: Faker::Date.birthday(min_age: 18, max_age: 65),
+    phone_number: Faker::PhoneNumber.cell_phone,
+    online: [true, false].sample,
+    last_seen_at: Faker::Time.backward(days: 7),
+    banned: false,
+    isAdmin: false
+  )
+end
 
-Badge.create(name: "Contributor", description: "Awarded for creating 10 posts")
-Badge.create(name: "First Post", description: "Awarded for creating your first post")
-Badge.create(name: "Active Contributor", description: "Awarded for creating 50 posts")
-Badge.create(name: "Helpful", description: "Awarded for getting 10 likes on an answer")
+u = User.create!(
+    email: 'admin@gmail.com',
+    password: 111111,
+    username: "admin",
+    date: Faker::Date.birthday(min_age: 18, max_age: 65),
+    phone_number: Faker::PhoneNumber.cell_phone,
+    online: [true, false].sample,
+    last_seen_at: Faker::Time.backward(days: 7),
+    banned: false,
+    isAdmin: true
+  )
+
+u.skip_confirmation!
+u.save!
+
+# Badges
+puts 'Seeding badges...'
+5.times do
+  Badge.create!(
+    name: Faker::Superhero.unique.name,
+    description: Faker::Lorem.sentence
+  )
+end
+
+# Posts
+puts 'Seeding posts...'
+users = User.all
+10.times do
+  Post.create!(
+    title: Faker::Book.title,
+    content: Faker::Lorem.paragraph,
+    user: users.sample,
+    banned: [true, false].sample
+  )
+end
+
+# Questions
+puts 'Seeding questions...'
+10.times do
+  Question.create!(
+    title: Faker::Lorem.question,
+    content: Faker::Lorem.paragraph,
+    user: users.sample
+  )
+end
+
+# Answers
+puts 'Seeding answers...'
+questions = Question.all
+20.times do
+  Answer.create!(
+    content: Faker::Lorem.paragraph,
+    user: users.sample,
+    question: questions.sample
+  )
+end
+
+# Comments
+puts 'Seeding comments...'
+posts = Post.all
+20.times do
+  Comment.create!(
+    body: Faker::Lorem.sentence,
+    user: users.sample,
+    post: posts.sample,
+    parent_id: nil # Adjust for nested comments if needed
+  )
+end
+
+# Likes
+puts 'Seeding likes...'
+20.times do
+  Like.create!(
+    user: users.sample,
+    post: posts.sample,
+    likes_type: %w[upvote downvote].sample
+  )
+end
+
+# Notifications
+puts 'Seeding notifications...'
+20.times do
+  Notification.create!(
+    user: users.sample,
+    message: Faker::Lorem.sentence,
+    read: [true, false].sample
+  )
+end
+
+# Reels
+puts 'Seeding reels...'
+10.times do
+  Reel.create!(
+    title: Faker::Movie.title,
+    description: Faker::Lorem.sentence,
+    user: users.sample
+  )
+end
+
+
+# User Badges
+puts 'Seeding user badges...'
+badges = Badge.all
+20.times do
+  UserBadge.create!(
+    user: users.sample,
+    badge: badges.sample
+  )
+end
+
+puts 'Seeding completed!'

@@ -9,6 +9,11 @@ class RegistrationsController < ::Devise::RegistrationsController
   def create
     @user = User.new(user_params)
     data_url = params[:user][:cropped_img]
+    unless data_url.nil?
+      flash[:alert] = "Invalid Information"
+      render json: @user.errors.full_messages
+    end
+    
     if data_url.present?
       decoded_image = Base64.decode64(data_url['data:image/png;base64,'.length..-1])
       @user.avatar.attach(io: StringIO.new(decoded_image), filename: 'avatar.png')
