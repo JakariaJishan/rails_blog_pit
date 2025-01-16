@@ -1,25 +1,13 @@
 require 'faker'
+require 'open-uri'
 
 # Users
 puts 'Seeding users...'
-10.times do
-  User.create!(
-    email: Faker::Internet.unique.email,
-    password: 111111,
-    username: Faker::Internet.unique.username,
-    date: Faker::Date.birthday(min_age: 18, max_age: 65),
-    phone_number: Faker::PhoneNumber.cell_phone,
-    online: [true, false].sample,
-    last_seen_at: Faker::Time.backward(days: 7),
-    banned: false,
-    isAdmin: false
-  )
-end
 
-u = User.create!(
-    email: 'admin@gmail.com',
-    password: 111111,
-    username: "admin",
+user = User.new(
+    email: "admin@example.com",
+    password: "111111",  # Using a strong default password
+    username: Faker::Internet.username(specifier: 5..8),
     date: Faker::Date.birthday(min_age: 18, max_age: 65),
     phone_number: Faker::PhoneNumber.cell_phone,
     online: [true, false].sample,
@@ -28,9 +16,40 @@ u = User.create!(
     isAdmin: true
   )
 
-u.skip_confirmation!
-u.save!
+  # Attaching a random avatar
+  user.avatar.attach(
+    io: URI.open("https://picsum.photos/300/300?random=#{rand(1..1000)}"),
+    filename: "avatar#{1}.jpg",
+    content_type: 'image/jpeg'
+  )
 
+  user.skip_confirmation!  # Skipping email confirmation (if Devise is used)
+  user.save
+
+
+20.times do |i|
+  user = User.new(
+    email: "user#{i + 1}@example.com",
+    password: "111111",  # Using a strong default password
+    username: Faker::Internet.username(specifier: 5..8),
+    date: Faker::Date.birthday(min_age: 18, max_age: 65),
+    phone_number: Faker::PhoneNumber.cell_phone,
+    online: [true, false].sample,
+    last_seen_at: Faker::Time.backward(days: 7),
+    banned: false,
+    isAdmin: false
+  )
+
+  # Attaching a random avatar
+  user.avatar.attach(
+    io: URI.open("https://picsum.photos/300/300?random=#{rand(1..1000)}"),
+    filename: "avatar#{i}.jpg",
+    content_type: 'image/jpeg'
+  )
+
+  user.skip_confirmation!  # Skipping email confirmation (if Devise is used)
+  user.save
+end
 # Badges
 puts 'Seeding badges...'
 5.times do
@@ -43,14 +62,23 @@ end
 # Posts
 puts 'Seeding posts...'
 users = User.all
-10.times do
-  Post.create!(
-    title: Faker::Book.title,
-    content: Faker::Lorem.paragraph,
-    user: users.sample,
-    banned: [true, false].sample
-  )
+
+30.times do |i|
+  p = Post.new(
+      title: Faker::Book.title,
+      content: Faker::Lorem.paragraph,
+      user: users.sample,
+      banned: false
+    )
+
+p.post_images.attach(
+  io: URI.open("https://picsum.photos/300/300?random=#{rand(1..100)}"),
+  filename: "image#{i + 1}.jpg",
+  content_type: 'image/jpeg'
+)
+p.save
 end
+
 
 # Questions
 puts 'Seeding questions...'
@@ -105,15 +133,21 @@ puts 'Seeding notifications...'
   )
 end
 
-# Reels
-puts 'Seeding reels...'
-10.times do
-  Reel.create!(
-    title: Faker::Movie.title,
-    description: Faker::Lorem.sentence,
-    user: users.sample
+
+#stories
+puts 'Seeding stories...'
+20.times do
+ s = Story.new(
+ user: users.sample
+ )
+
+  s.image.attach(
+    io: URI.open("https://picsum.photos/300/300?random=#{rand(1..1000)}"),
+    filename: "story#{rand(1..1000)}.jpg",
+    content_type: 'image/jpeg'
   )
-end
+  s.save
+ end
 
 
 # User Badges

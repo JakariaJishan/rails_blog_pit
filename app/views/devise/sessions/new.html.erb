@@ -15,7 +15,13 @@
             <%= f.label :password %>
             <%= f.password_field :password, autocomplete: "current-password", placeholder:"Password", class:"block border border-gray-300 w-full p-3 rounded mb-4"%>
           </div>
-
+          <div class="text-xs ">
+            admin: admin@example.com </br>
+            password: 111111
+          </br>
+            user: user1@example.com (user1@example, user2@example, user3@example, user4@example, user5@example ...) </br>
+            password: 111111
+          </div>
           <div class="actions">
             <%= f.submit "Log in" , class:"w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-700 focus:outline-none my-3"
             %>
