@@ -63,8 +63,13 @@ Rails.application.configure do
   config.action_cable.allowed_request_origins = [ENV['DOMAIN']]
 
   # Use Redis as the cache store in production (if Redis is configured)
-  if ENV["REDIS_URL"].present?
-    config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"], expires_in: 90.minutes }
+  Sidekiq.configure_server do |config|
+    config.redis = { url: ENV['REDIS_URL'] }
   end
+  
+  Sidekiq.configure_client do |config|
+    config.redis = { url: ENV['REDIS_URL'] }
+  end
+  
 end
 
