@@ -90,4 +90,22 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Use Redis as the cache store in production (if Redis is configured)
+  if ENV["REDIS_URL"].present?
+    config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"], expires_in: 90.minutes }
+  end
+
+  # Use mailer in production
+  config.action_mailer.default_url_options = { host: "localhost:3000", protocol: "http" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    user_name: 'jakariajishan006@gmail.com',
+    password: 'zdpksxnnroyjuvpk',
+    authentication: "plain",
+    enable_starttls_auto: true
+  }
+  config.action_mailer.perform_deliveries = true
 end
