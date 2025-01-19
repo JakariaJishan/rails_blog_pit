@@ -16,7 +16,7 @@ Rails.application.configure do
   # Enable caching for better performance.
   config.action_controller.perform_caching = true
   config.action_controller.enable_fragment_cache_logging = false
-  config.cache_store = :memory_store # Consider using Redis or Memcached in production.
+  # config.cache_store = :memory_store # Consider using Redis or Memcached in production.
 
   # Serve static files from the public folder (only if using a CDN, otherwise set to false).
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
@@ -70,6 +70,7 @@ Rails.application.configure do
   Sidekiq.configure_client do |config|
     config.redis = { url: ENV['REDIS_URL'] }
   end
-  
+  config.cache_store = :redis_cache_store, { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0") }
+
 end
 
