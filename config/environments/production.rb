@@ -1,5 +1,13 @@
 require "active_support/core_ext/integer/time"
 
+Sidekiq.configure_server do |config|
+  config.redis = { url: ENV['REDIS_URL'] }
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: ENV['REDIS_URL'] }
+end
+
 Rails.application.configure do
   # Ensure classes are cached for performance.
   config.cache_classes = true
@@ -63,13 +71,6 @@ Rails.application.configure do
   config.action_cable.allowed_request_origins = [ENV['DOMAIN']]
 
   # Use Redis as the cache store in production (if Redis is configured)
-  Sidekiq.configure_server do |config|
-    config.redis = { url: ENV['REDIS_URL'] }
-  end
-  
-  Sidekiq.configure_client do |config|
-    config.redis = { url: ENV['REDIS_URL'] }
-  end
   config.cache_store = :redis_cache_store, { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0") }
 
 end
