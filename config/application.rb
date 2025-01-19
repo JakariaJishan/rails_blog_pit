@@ -12,13 +12,6 @@ module RailsBlog
     config.load_defaults 7.0
     config.active_job.queue_adapter = :sidekiq
     config.action_cable.mount_path = '/websocket'
-    Sidekiq.configure_server do |config|
-      config.redis = { url: ENV['REDIS_URL'] }
-    end
-    
-    Sidekiq.configure_client do |config|
-      config.redis = { url: ENV['REDIS_URL'] }
-    end
     
     # Configuration for the application, engines, and railties goes here.
     #
