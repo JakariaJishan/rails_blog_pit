@@ -22,7 +22,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Enable Active Storage for file uploads (use an external service in production).
-  config.active_storage.service = :amazon # Change to S3, GCS, etc.
+  config.active_storage.service = :local # Change to S3, GCS etc.
 
   # Ensure mailer errors are raised (to debug email failures).
   config.action_mailer.raise_delivery_errors = true
